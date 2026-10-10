@@ -37,7 +37,7 @@
 
   function bindTeamMenu() {
     document.querySelectorAll(".nav-group").forEach(function (g) {
-      var top = g.querySelector(":scope > a");
+      var top = g.querySelector("a");
       if (!top) return;
       top.addEventListener("click", function (e) {
         if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
