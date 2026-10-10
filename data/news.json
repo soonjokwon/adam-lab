@@ -1,0 +1,395 @@
+{
+ "lab": "ADAM Lab@PNU",
+ "source": "https://sites.google.com/view/adam-pnu",
+ "extracted": "2026-10-08",
+ "note": "Home Latest News + Board · News (all 42 items, 2020-09 → 2026-08). Korean titles are short headlines; for 2020–2024 items title_en is the Board's own English sentence. link2 = second link on the Board item.",
+ "items": [
+  {
+   "date": "2026-08-21",
+   "title_ko": "박현석, 한국CDE학회 2026 하계학술대회 우수포스터상",
+   "title_en": "H. Park received the Excellent Poster Award at the CDE 2026 summer conference.",
+   "tag": "Award",
+   "link": "https://me.pusan.ac.kr/new/sub05/sub02.php?db=hakbunews&seq=1075&page_mode=view",
+   "image": "",
+   "link2": ""
+  },
+  {
+   "date": "2026-08-20",
+   "title_ko": "박현석·문광민, 한국CDE학회 2026 하계학술대회 포스터 발표",
+   "title_en": "Lab members presented posters at the CDE 2026 summer conference.",
+   "tag": "Event",
+   "link": "",
+   "image": "",
+   "link2": ""
+  },
+  {
+   "date": "2026-08-01",
+   "title_ko": "Ragul Gandhi 박사, 박사후연구원으로 합류",
+   "title_en": "Dr. Ragul Gandhi joined ADAM Lab as a postdoctoral researcher.",
+   "tag": "Member",
+   "link": "",
+   "image": "",
+   "link2": ""
+  },
+  {
+   "date": "2026-07-15",
+   "title_ko": "IJPEM 논문 게재 승인 (JCR 상위 23.6%)",
+   "title_en": "A paper was accepted in the International Journal of Precision Engineering and Manufacturing.",
+   "tag": "Paper",
+   "link": "https://doi.org/10.1007/s12541-026-01592-8",
+   "image": "",
+   "link2": ""
+  },
+  {
+   "date": "2026-07-15",
+   "title_ko": "Advanced Engineering Informatics 논문 게재 승인 (JCR 상위 2%)",
+   "title_en": "A paper was accepted in Advanced Engineering Informatics.",
+   "tag": "Paper",
+   "link": "https://doi.org/10.1016/j.aei.2026.105085",
+   "image": "",
+   "link2": ""
+  },
+  {
+   "date": "2026-05-29",
+   "title_ko": "박현석, 대한기계학회 생산 및 설계공학부문 춘계학술대회 구두 발표",
+   "title_en": "H. Park gave an oral presentation at the KSME Production and Design Engineering spring conference.",
+   "tag": "Event",
+   "link": "",
+   "image": "",
+   "link2": ""
+  },
+  {
+   "date": "2026-05-07",
+   "title_ko": "김보성 학사과정, 학부연구생으로 합류",
+   "title_en": "김보성 joined ADAM Lab as an undergraduate researcher.",
+   "tag": "Member",
+   "link": "",
+   "image": "",
+   "link2": ""
+  },
+  {
+   "date": "2026-05-01",
+   "title_ko": "삼성중공업 산학 과제 착수 — 전장 최적배치 원가 산출",
+   "title_en": "Industry project with Samsung Heavy Industries on cost estimation for optimal electrical layout (2026.05–2026.10).",
+   "tag": "Project",
+   "link": "",
+   "image": "",
+   "link2": ""
+  },
+  {
+   "date": "2026-04-01",
+   "title_ko": "박우준 학사과정, 학부연구생으로 합류",
+   "title_en": "박우준 joined ADAM Lab as an undergraduate researcher.",
+   "tag": "Member",
+   "link": "",
+   "image": "",
+   "link2": ""
+  },
+  {
+   "date": "2026-03-18",
+   "title_ko": "예브게니 유가이 학사과정, 학부연구생으로 합류",
+   "title_en": "예브게니 유가이 joined ADAM Lab as an undergraduate researcher.",
+   "tag": "Member",
+   "link": "",
+   "image": "",
+   "link2": ""
+  },
+  {
+   "date": "2026-03-18",
+   "title_ko": "심현수 학사과정, 학부연구생으로 합류",
+   "title_en": "심현수 joined ADAM Lab as an undergraduate researcher.",
+   "tag": "Member",
+   "link": "",
+   "image": "",
+   "link2": ""
+  },
+  {
+   "date": "2026-03-13",
+   "title_ko": "한국연구재단 신진연구(유형B) 선정 — 적층제조 자율 재설계",
+   "title_en": "Selected for an NRF Early-Career Grant (Type B) on autonomous redesign for additive manufacturing (2026.03–2030.02).",
+   "tag": "Project",
+   "link": "https://sites.google.com/view/adam-pnu/research",
+   "image": "",
+   "link2": ""
+  },
+  {
+   "date": "2026-03-10",
+   "title_ko": "문광민 학사과정, 학부연구생으로 합류",
+   "title_en": "문광민 joined ADAM Lab as an undergraduate researcher.",
+   "tag": "Member",
+   "link": "",
+   "image": "",
+   "link2": ""
+  },
+  {
+   "date": "2026-03-04",
+   "title_ko": "김동빈 학사과정, 학부연구생으로 합류",
+   "title_en": "김동빈 joined ADAM Lab as an undergraduate researcher.",
+   "tag": "Member",
+   "link": "",
+   "image": "",
+   "link2": ""
+  },
+  {
+   "date": "2026-03-03",
+   "title_ko": "부산대학교 ADAM Lab(자율 설계 연구실) 개소",
+   "title_en": "ADAM Lab opened at Pusan National University.",
+   "tag": "Event",
+   "link": "https://sites.google.com/view/adam-pnu",
+   "image": "",
+   "link2": ""
+  },
+  {
+   "date": "2026-02-10",
+   "title_ko": "권순조 교수·김군찬, 한국CDE학회 2026 동계학술대회 가헌학술상",
+   "title_en": "Prof. Kwon and Kunchan received the Gahun Academic Award at the CDE 2026 winter conference.",
+   "tag": "Award",
+   "link": "https://www.etnews.com/20260213000212",
+   "image": "",
+   "link2": "https://www.kumoh.ac.kr/ko/sub01_05_02.do?mode=view&articleNo=553190"
+  },
+  {
+   "date": "2026-02-10",
+   "title_ko": "전예성·박현석, CDE DX Awards 2025 금상",
+   "title_en": "Yeseong and H. Park won gold at the CDE DX Awards 2025.",
+   "tag": "Award",
+   "link": "https://www.kumoh.ac.kr/ko/sub01_05_02.do?mode=view&articleNo=553137",
+   "image": "",
+   "link2": ""
+  },
+  {
+   "date": "2025-12-12",
+   "title_ko": "이초빈, 적층제조 융합설계 워크숍 혁신설계 우수상",
+   "title_en": "Innovative Design Award at the KSME additive-manufacturing convergence design workshop.",
+   "tag": "Award",
+   "link": "",
+   "image": "",
+   "link2": ""
+  },
+  {
+   "date": "2025-11-28",
+   "title_ko": "이초빈, 적층제조 융합설계 경진대회 협의회장상",
+   "title_en": "Council chair award at the COSS Folding Chair additive-manufacturing design contest.",
+   "tag": "Award",
+   "link": "https://www.kumoh.ac.kr/ko/sub01_05_02.do?mode=view&articleNo=555695",
+   "image": "",
+   "link2": ""
+  },
+  {
+   "date": "2025-11-21",
+   "title_ko": "전예성·이초빈, 제10회 3D프린팅 BIZCON 우수상",
+   "title_en": "Excellence award in the driving category at the 10th 3D Printing BIZCON.",
+   "tag": "Award",
+   "link": "https://www.kumoh.ac.kr/ko/sub01_05_02.do?mode=view&articleNo=550495",
+   "image": "",
+   "link2": ""
+  },
+  {
+   "date": "2025-11-11",
+   "title_ko": "전예성, 2025 DfAM 경진대회 산업부문 대상",
+   "title_en": "Grand prize in the industry category at the 2025 Design for Additive Manufacturing contest.",
+   "tag": "Award",
+   "link": "https://www.kumoh.ac.kr/ko/sub01_05_02.do?mode=view&articleNo=545499",
+   "image": "",
+   "link2": ""
+  },
+  {
+   "date": "2025-09-30",
+   "title_ko": "KIMM Cyber Lab 활용 경진대회 최우수상",
+   "title_en": "Top prize at the 4th KIMM Cyber Lab virtual-engineering software contest.",
+   "tag": "Award",
+   "link": "https://www.kumoh.ac.kr/ko/sub01_05_02.do?mode=view&articleNo=541105",
+   "image": "",
+   "link2": ""
+  },
+  {
+   "date": "2025-08-22",
+   "title_ko": "김군찬·이초빈, 한국CDE학회 2025 하계학술대회 우수포스터상",
+   "title_en": "Excellent Poster Award at the CDE 2025 summer conference.",
+   "tag": "Award",
+   "link": "https://www.kumoh.ac.kr/ko/sub01_05_02.do?mode=view&articleNo=536622",
+   "image": "",
+   "link2": ""
+  },
+  {
+   "date": "2025-08-12",
+   "title_ko": "연구실 금오산 등반",
+   "title_en": "Lab members hiked Geumo Mountain.",
+   "tag": "Event",
+   "link": "",
+   "image": "",
+   "link2": ""
+  },
+  {
+   "date": "2025-02-21",
+   "title_ko": "한서희, 한국CDE학회 2025 동계학술대회 우수포스터상",
+   "title_en": "Seohee received the Excellent Poster Award at the CDE 2025 winter conference.",
+   "tag": "Award",
+   "link": "",
+   "image": "",
+   "link2": ""
+  },
+  {
+   "date": "2024-11-08",
+   "title_ko": "전예성, 사용자 중심 융합설계연구회 2024 첨단 융합설계 워크숍 우수 융합설계상",
+   "title_en": "Yeseong won the Excellent Convergence Design Award at the 2024 Advanced Convergence Design Workshop of the User-Centered Convergence Design Research Group, hosted by the Production and Design Engineering Division of the KSME.",
+   "tag": "Award",
+   "link": "",
+   "image": "",
+   "link2": ""
+  },
+  {
+   "date": "2024-11-07",
+   "title_ko": "권순조 교수, KSME Annual Meeting 2024 우수논문상",
+   "title_en": "Prof. Kwon won the Excellent Paper Award at the KSME Annual Meeting 2024.",
+   "tag": "Award",
+   "link": "",
+   "image": "",
+   "link2": ""
+  },
+  {
+   "date": "2024-10-19",
+   "title_ko": "LIG Nex1-LCMS-DADI Lab 공동팀, 제9회 3D프린팅 BIZCON 구동 부문 최우수상",
+   "title_en": "LIG Nex1-LCMS-DADI Lab. joint team won the Best Award at the 9th 3D printing BIZCON contest (Driving category).",
+   "tag": "Award",
+   "link": "",
+   "image": "",
+   "link2": ""
+  },
+  {
+   "date": "2024-08-22",
+   "title_ko": "한서희, 한국CDE학회 2024 하계학술대회 우수포스터상",
+   "title_en": "Seohee won the Excellent Poster Award at the 2024 Summer Conference of Society for CDE.",
+   "tag": "Award",
+   "link": "https://www.kumoh.ac.kr/ko/sub01_05_02.do?mode=view&articleNo=498533",
+   "image": "",
+   "link2": ""
+  },
+  {
+   "date": "2024-05-31",
+   "title_ko": "권순조 교수, ICMDT 2023 우수논문상",
+   "title_en": "Prof. Kwon won the Excellent Paper Award at ICMDT 2023.",
+   "tag": "Award",
+   "link": "",
+   "image": "",
+   "link2": ""
+  },
+  {
+   "date": "2024-04-12",
+   "title_ko": "김군찬, 한국기계가공학회 2024 춘계학술대회 특별상",
+   "title_en": "Kunchan won the Special Award at the KSMPE 2024 Spring Conference.",
+   "tag": "Award",
+   "link": "https://www.kumoh.ac.kr/ko/sub01_05_02.do?mode=view&articleNo=485122",
+   "image": "",
+   "link2": ""
+  },
+  {
+   "date": "2024-04-02",
+   "title_ko": "DADI Lab 멤버들, 해 진 뒤 벚꽃 구경",
+   "title_en": "DADI Lab. members went out to see cherry blossoms after sunset.",
+   "tag": "Event",
+   "link": "",
+   "image": "",
+   "link2": ""
+  },
+  {
+   "date": "2024-01-31",
+   "title_ko": "고민석 우수논문상·전예성 우수포스터상, 한국CDE학회 2024 동계학술대회",
+   "title_en": "Minseok won the Excellent Paper Award and Yeseong won the Excellent Poster Award at the 2024 Winter Conference of Society for CDE.",
+   "tag": "Award",
+   "link": "https://www.kumoh.ac.kr/ko/sub01_05_02.do?mode=view&articleNo=474338",
+   "image": "",
+   "link2": ""
+  },
+  {
+   "date": "2023-12-22",
+   "title_ko": "고민석, AeroNDT 2023 우수논문상",
+   "title_en": "Minseok won the Best Paper Award at AeroNDT 2023.",
+   "tag": "Award",
+   "link": "https://www.kumoh.ac.kr/ko/sub01_05_02.do?mode=view&articleNo=471564",
+   "image": "",
+   "link2": ""
+  },
+  {
+   "date": "2023-10-26",
+   "title_ko": "김재연, LS e-Mobility Solutions 제1회 BDU 3D 경진대회 1위",
+   "title_en": "Jaeyeon won the 1st place at the 1st BDU 3D Contest hosted by LS e-Mobility Solutions.",
+   "tag": "Award",
+   "link": "https://www.kumoh.ac.kr/ko/sub01_05_02.do?mode=view&articleNo=468762",
+   "image": "",
+   "link2": ""
+  },
+  {
+   "date": "2023-08-25",
+   "title_ko": "고민석·김재연·윤영준, 한국CDE학회 2023 하계학술대회 우수논문상",
+   "title_en": "Minseok, Jaeyeon, and Yeongjun won the Excellent Paper Award for each presentation at the 2023 Summer Conference of Society for CDE.",
+   "tag": "Award",
+   "link": "https://www.kumoh.ac.kr/ko/sub01_05_02.do?mode=view&articleNo=463131",
+   "image": "",
+   "link2": ""
+  },
+  {
+   "date": "2023-08-18",
+   "title_ko": "고민석·김군찬·이상명·윤영준, 2023 Autodesk Fusion 360 Design for 3D Printing Contest 대상",
+   "title_en": "Minseok, Kunchan, Sangmyeong, and Yeongjun won the Grand prize (1st place) at the 2023 Autodesk Fusion 360 Design for 3D Printing Contest.",
+   "tag": "Award",
+   "link": "https://www.kumoh.ac.kr/ko/sub01_05_02.do?mode=view&articleNo=460704&article.offset=0&articleLimit=9",
+   "image": "",
+   "link2": ""
+  },
+  {
+   "date": "2023-02-10",
+   "title_ko": "김재연·윤영준, 한국CDE학회 2023 동계학술대회 우수포스터상",
+   "title_en": "Jaeyeon and Yeongjun won the Excellent Poster Award for each poster at the 2023 Winter Conference of Society for CDE.",
+   "tag": "Award",
+   "link": "https://cde.or.kr/Board/board.asp?b_code=2844&Action=content&GotoPage=1&B_CATE=BBS1",
+   "image": "",
+   "link2": ""
+  },
+  {
+   "date": "2022-08-25",
+   "title_ko": "김현식·노태환, 한국CDE학회 2022 하계학술대회 우수포스터상",
+   "title_en": "Hyunsik and Taehwan won the Excellent Poster Award at the 2022 Summer Conference of Society for CDE.",
+   "tag": "Award",
+   "link": "http://cde.or.kr/Board/board.asp?b_code=2821&Action=content&GotoPage=1&B_CATE=BBS1",
+   "image": "",
+   "link2": ""
+  },
+  {
+   "date": "2021-12-22",
+   "title_ko": "김현식·이주은, 경기도 2021 보조기기 아이디어 공모전 금상",
+   "title_en": "Hyunsik and Jueun won the Grand prize (1st place) at the 2021 Assistive Device Idea Contest hosted by Gyeonggi province.",
+   "tag": "Award",
+   "link": "https://www.kumoh.ac.kr/ko/sub01_05_02.do?mode=view&articleNo=339885",
+   "image": "",
+   "link2": ""
+  },
+  {
+   "date": "2021-11-20",
+   "title_ko": "노태환·김재연, 제6회 3D프린팅 BIZCON 국방 부문 우수상",
+   "title_en": "Taehwan and Jaeyeon won the Excellence Award at the 6th 3D printing BIZCON contest (Defense category).",
+   "tag": "Award",
+   "link": "",
+   "image": "",
+   "link2": ""
+  },
+  {
+   "date": "2020-09-01",
+   "title_ko": "DADI Lab@KIT 개소",
+   "title_en": "DADI Lab@KIT opened!",
+   "tag": "Event",
+   "link": "",
+   "image": "",
+   "link2": ""
+  }
+ ],
+ "columns": [
+  "date",
+  "title_ko",
+  "title_en",
+  "tag",
+  "link",
+  "image",
+  "link2"
+ ]
+}

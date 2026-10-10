@@ -1,0 +1,164 @@
+/* Awards page (Sites /awards) — year timeline of award cards. */
+
+.aw-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 10px 22px;
+  margin-bottom: 4px;
+}
+.aw-total { display: flex; align-items: baseline; gap: 8px; }
+.aw-total .num {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(34px, 5vw, 48px);
+  line-height: 0.9;
+  color: var(--navy);
+  font-variant-numeric: tabular-nums;
+}
+.aw-total .lb { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.1em; color: var(--ink-dim); text-transform: uppercase; }
+.aw-split { display: flex; gap: 16px; flex-wrap: wrap; }
+.aw-split div { display: grid; gap: 1px; }
+.aw-split b { font-family: var(--font-display); font-size: 20px; line-height: 1; font-weight: 700; color: var(--ink); }
+.aw-split span { font-size: 11.5px; color: var(--ink-dim); }
+.aw-split i { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 5px; vertical-align: 1px; }
+
+.aw-dot-paper { background: var(--navy); }
+.aw-dot-presentation { background: #fff; box-shadow: inset 0 0 0 2px var(--blue); }
+.aw-dot-competition { background: var(--accent); }
+
+.aw-timeline { position: relative; margin-top: 8px; }
+.aw-year {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr;
+  padding-left: 26px;
+}
+.aw-year::before {
+  content: "";
+  position: absolute;
+  left: 7px; top: 0; bottom: 0;
+  width: 1px;
+  background: var(--line);
+}
+.aw-ylabel {
+  position: relative;
+  margin: 18px 0 8px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 1;
+  color: var(--navy);
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+.aw-ylabel::before {
+  content: "";
+  position: absolute;
+  left: -25px; top: 50%;
+  width: 15px; height: 15px;
+  transform: translateY(-50%);
+  background: #fff;
+  border: 1.5px solid var(--navy);
+}
+.aw-year:first-child .aw-ylabel { margin-top: 6px; }
+
+.aw-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 10px; }
+
+.aw-card {
+  position: relative;
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid var(--line);
+  padding: 12px 14px 12px;
+  display: grid;
+  gap: 4px;
+  align-content: start;
+  transition: border-color 0.15s var(--ease), box-shadow 0.15s var(--ease), transform 0.15s var(--ease);
+}
+.aw-card:hover { border-color: var(--navy); box-shadow: 0 8px 18px rgba(16, 43, 134, 0.07); transform: translateY(-1px); }
+.aw-card::before {
+  content: "";
+  position: absolute;
+  left: -24px; top: 17px;
+  width: 9px; height: 9px;
+  border-radius: 50%;
+}
+.aw-card[data-cat="paper"]::before { background: var(--navy); }
+.aw-card[data-cat="presentation"]::before { background: #fff; box-shadow: inset 0 0 0 2px var(--blue); }
+.aw-card[data-cat="competition"]::before { background: var(--accent); }
+.aw-card[data-cat="competition"] { border-top: 2px solid var(--accent); }
+.aw-card[data-cat="paper"] { border-top: 2px solid var(--navy); }
+.aw-card[data-cat="presentation"] { border-top: 2px solid var(--blue); }
+
+.aw-top { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+.aw-date { font-family: var(--font-mono); font-size: 11px; color: var(--navy); letter-spacing: 0.04em; font-weight: 500; }
+.aw-cat { font-family: var(--font-mono); font-size: 9.5px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-dim); }
+.aw-name {
+  margin: 2px 0 0;
+  display: flex;
+  align-items: flex-start;
+  gap: 7px;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--ink);
+}
+.aw-name svg { flex: 0 0 auto; width: 16px; height: 16px; margin-top: 2px; color: var(--accent); }
+.aw-title { font-size: 13px; color: var(--ink); line-height: 1.5; }
+.aw-rec { font-size: 12.5px; color: var(--ink-dim); }
+.aw-event { font-size: 12.5px; color: var(--ink); }
+.aw-event .org { color: var(--ink-dim); }
+.aw-foot { display: flex; gap: 6px; margin-top: 4px; }
+.aw-foot:empty { display: none; }
+
+@container ax (min-width: 820px) {
+  .aw-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .aw-year { padding-left: 120px; }
+  .aw-year::before { left: 101px; }
+  .aw-ylabel {
+    position: absolute;
+    left: 0; top: 0;
+    width: 86px;
+    margin: 0;
+    padding-top: 10px;
+    flex-direction: column;
+    align-items: flex-end;
+    font-size: 30px;
+    gap: 4px;
+  }
+  .aw-ylabel::before { left: auto; right: -23px; top: 26px; }
+  .aw-year:first-child .aw-ylabel { margin-top: 0; }
+  .aw-year { padding-top: 6px; padding-bottom: 14px; min-height: 90px; }
+  .aw-card::before { display: none; }
+}
+@container ax (max-width: 460px) {
+  .aw-split { gap: 12px; }
+  .ax-search { max-width: none; flex-basis: 100%; }
+}
+
+@media (max-height: 520px) {
+  .aw-head { gap: 4px 14px; align-items: baseline; }
+  .aw-total .num { font-size: 26px; }
+  .aw-split { display: none; }
+  .aw-timeline { margin-top: 2px; }
+}
+
+/* phone embed (html.ax-pe — ~355×340): no totals head, no timeline rail. */
+html.ax-pe .aw-head { display: none; }
+html.ax-pe .aw-timeline { margin-top: 0; }
+html.ax-pe .aw-year { padding-left: 0; }
+html.ax-pe .aw-year::before,
+html.ax-pe .aw-ylabel::before,
+html.ax-pe .aw-card::before { display: none; }
+html.ax-pe .aw-ylabel { margin: 10px 0 6px; font-size: 16px; }
+html.ax-pe .aw-year:first-child .aw-ylabel { margin-top: 4px; }
+html.ax-pe .aw-grid { gap: 6px; }
+html.ax-pe .aw-card { padding: 8px 10px; gap: 2px; }
+html.ax-pe .aw-card:hover { transform: none; }
+html.ax-pe .aw-date { font-size: 10.5px; }
+html.ax-pe .aw-cat { font-size: 9px; }
+html.ax-pe .aw-name { font-size: 14px; gap: 5px; }
+html.ax-pe .aw-name svg { width: 14px; height: 14px; }
+html.ax-pe .aw-title { font-size: 12.5px; line-height: 1.45; }
+html.ax-pe .aw-rec, html.ax-pe .aw-event { font-size: 11.5px; }

@@ -1,0 +1,175 @@
+{
+ "source": "https://sites.google.com/view/adam-pnu",
+ "extracted": "2026-10-08",
+ "note": "Board page · Photos (single photos and carousel slides). group: PNU | KIT.",
+ "columns": [
+  "date",
+  "caption",
+  "image",
+  "group",
+  "link"
+ ],
+ "items": [
+  {
+   "date": "2026-05-18",
+   "caption": "스승의날 기념",
+   "image": "assets/gallery/photo-01.jpg",
+   "group": "PNU",
+   "link": ""
+  },
+  {
+   "date": "2026-08-20",
+   "caption": "한국CDE학회 2026 하계학술대회 참석 기념",
+   "image": "assets/gallery/photo-02.jpg",
+   "group": "PNU",
+   "link": ""
+  },
+  {
+   "date": "2026-08-21",
+   "caption": "우수포스터상(박현석)",
+   "image": "assets/gallery/photo-03.jpg",
+   "group": "PNU",
+   "link": ""
+  },
+  {
+   "date": "2026-08-20",
+   "caption": "한국CDE학회 포스터발표(문광민)",
+   "image": "assets/gallery/photo-04.jpg",
+   "group": "PNU",
+   "link": ""
+  },
+  {
+   "date": "2026-08-20",
+   "caption": "한국CDE학회 포스터발표(박현석)",
+   "image": "assets/gallery/photo-05.jpg",
+   "group": "PNU",
+   "link": ""
+  },
+  {
+   "date": "2026-09-04",
+   "caption": "연구실 청소 기념",
+   "image": "assets/gallery/photo-06.jpg",
+   "group": "PNU",
+   "link": ""
+  },
+  {
+   "date": "2026-09-09",
+   "caption": "오픈랩 행사 기념",
+   "image": "assets/gallery/photo-07.jpg",
+   "group": "PNU",
+   "link": ""
+  },
+  {
+   "date": "2025-12-12",
+   "caption": "대한기계학회 참석 기념",
+   "image": "assets/gallery/photo-08.jpg",
+   "group": "KIT",
+   "link": ""
+  },
+  {
+   "date": "2025-08-12",
+   "caption": "금오산 등반",
+   "image": "assets/gallery/photo-09.jpg",
+   "group": "KIT",
+   "link": ""
+  },
+  {
+   "date": "2025-08-12",
+   "caption": "금오산 등반",
+   "image": "assets/gallery/photo-10.jpg",
+   "group": "KIT",
+   "link": ""
+  },
+  {
+   "date": "2025-05-14",
+   "caption": "스승의날 기념",
+   "image": "assets/gallery/photo-11.jpg",
+   "group": "KIT",
+   "link": ""
+  },
+  {
+   "date": "2025-04-25",
+   "caption": "히메지성 관광 기념",
+   "image": "assets/gallery/photo-12.jpg",
+   "group": "KIT",
+   "link": ""
+  },
+  {
+   "date": "2024-05-15",
+   "caption": "스승의날 원격 축하^^",
+   "image": "assets/gallery/photo-13.jpg",
+   "group": "KIT",
+   "link": ""
+  },
+  {
+   "date": "2024-05-15",
+   "caption": "스승의날 기념",
+   "image": "assets/gallery/photo-14.jpg",
+   "group": "KIT",
+   "link": ""
+  },
+  {
+   "date": "2024-04-02",
+   "caption": "교내 벚꽃 구경",
+   "image": "assets/gallery/photo-15.jpg",
+   "group": "KIT",
+   "link": ""
+  },
+  {
+   "date": "2024-04-02",
+   "caption": "교내 벚꽃 구경",
+   "image": "assets/gallery/photo-16.jpg",
+   "group": "KIT",
+   "link": ""
+  },
+  {
+   "date": "2024-04-02",
+   "caption": "교내 벚꽃 구경",
+   "image": "assets/gallery/photo-17.jpg",
+   "group": "KIT",
+   "link": ""
+  },
+  {
+   "date": "2024-04-02",
+   "caption": "교내 벚꽃 구경",
+   "image": "assets/gallery/photo-18.jpg",
+   "group": "KIT",
+   "link": ""
+  },
+  {
+   "date": "2024-04-02",
+   "caption": "교내 벚꽃 구경",
+   "image": "assets/gallery/photo-19.jpg",
+   "group": "KIT",
+   "link": ""
+  },
+  {
+   "date": "2023-05-12",
+   "caption": "스승의날 기념",
+   "image": "assets/gallery/photo-20.jpg",
+   "group": "KIT",
+   "link": ""
+  },
+  {
+   "date": "2023-11-06",
+   "caption": "생일 기념",
+   "image": "assets/gallery/photo-21.jpg",
+   "group": "KIT",
+   "link": ""
+  },
+  {
+   "date": "2022-05-17",
+   "caption": "스승의날 기념",
+   "image": "assets/gallery/photo-22.jpg",
+   "group": "KIT",
+   "link": ""
+  },
+  {
+   "date": "2021-05-12",
+   "caption": "스승의날 기념",
+   "image": "assets/gallery/photo-23.jpg",
+   "group": "KIT",
+   "link": ""
+  }
+ ]
+}

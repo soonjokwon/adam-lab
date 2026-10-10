@@ -1,0 +1,146 @@
+/* Research page (Sites /research) — project cards with period progress. */
+
+.pj-head { display: flex; flex-wrap: wrap; gap: 8px 26px; align-items: flex-end; margin-bottom: 4px; }
+.pj-stat { display: grid; gap: 2px; }
+.pj-stat b {
+  font-family: var(--font-display); font-weight: 700; font-size: clamp(30px, 4.4vw, 42px);
+  line-height: 0.95; color: var(--ink); font-variant-numeric: tabular-nums;
+}
+.pj-stat.on b { color: var(--navy); }
+.pj-stat span { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-dim); }
+.pj-stat span i { font-style: normal; font-family: var(--font-body); letter-spacing: 0; text-transform: none; color: var(--ink-dim); margin-left: 4px; }
+
+.pj-sep { width: 1px; height: 22px; background: var(--line); margin: 0 2px; flex: 0 0 auto; }
+
+.pj-sec { margin-top: 18px; }
+.pj-sh {
+  display: flex; align-items: baseline; gap: 10px;
+  margin: 0 0 12px; padding-bottom: 8px; border-bottom: 1px solid var(--line);
+}
+.pj-sh .t { font-family: var(--font-display); font-weight: 700; font-size: 18px; color: var(--navy); letter-spacing: 0.01em; }
+.pj-sh .ko { font-size: 13px; color: var(--ink-dim); }
+.pj-sh .ax-count { margin-left: auto; }
+
+.pj-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 12px; }
+
+.pj-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 14px 16px 14px;
+  background: rgba(255, 255, 255, 0.96);
+  border: 1px solid var(--line);
+  transition: border-color 0.18s var(--ease), box-shadow 0.18s var(--ease), transform 0.18s var(--ease);
+}
+.pj-card:hover { border-color: var(--navy); box-shadow: 0 10px 22px rgba(16, 43, 134, 0.07); transform: translateY(-2px); }
+.pj-card[data-status="completed"] { background: rgba(255, 255, 255, 0.88); }
+.pj-card[data-status="completed"] .pj-title { color: #2c3247; }
+
+.pj-top { display: flex; align-items: center; justify-content: space-between; gap: 10px; min-height: 30px; }
+.pj-logo { height: 30px; max-width: 150px; display: flex; align-items: center; }
+.pj-logo img { max-height: 30px; max-width: 150px; object-fit: contain; display: block; }
+.pj-funder-mark {
+  font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.06em; color: var(--ink-dim);
+  border-left: 2px solid var(--line); padding-left: 8px; line-height: 1.3;
+}
+
+.pj-pill {
+  display: inline-flex; align-items: center; gap: 6px; flex: 0 0 auto;
+  font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase;
+  padding: 4px 8px; border: 1px solid var(--line); color: var(--ink-dim); background: #fff; line-height: 1;
+}
+.pj-pill .ko { font-family: var(--font-body); letter-spacing: 0; text-transform: none; font-size: 11px; }
+.pj-pill.ongoing { border-color: var(--navy); color: #fff; background: var(--navy); }
+.pj-pill.ongoing::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+.pj-pill.upcoming { border-color: var(--blue); color: var(--blue); border-style: dashed; }
+@media (prefers-reduced-motion: no-preference) {
+  .pj-pill.ongoing::before { animation: pj-blink 1.8s ease-in-out infinite; }
+}
+@keyframes pj-blink { 50% { opacity: 0.35; } }
+
+.pj-title { margin: 0; font-size: 15px; font-weight: 700; line-height: 1.45; color: var(--ink); }
+.pj-title a { text-decoration: none; }
+.pj-title a:hover { color: var(--navy); }
+.pj-meta { font-size: 12.5px; color: var(--ink-dim); line-height: 1.5; }
+.pj-meta .f { color: var(--ink); font-weight: 500; }
+.pj-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+
+.pj-period { margin-top: auto; padding-top: 6px; }
+.pj-dates { display: flex; justify-content: space-between; font-family: var(--font-mono); font-size: 10.5px; color: var(--ink-dim); letter-spacing: 0.04em; }
+.pj-dates .pct { color: var(--navy); }
+.pj-track { position: relative; height: 4px; margin-top: 5px; background: var(--line-soft); }
+.pj-fill { position: absolute; left: 0; top: 0; bottom: 0; background: var(--navy); }
+.pj-card[data-status="completed"] .pj-fill { background: var(--ink-faint); }
+.pj-now { position: absolute; top: -3px; width: 2px; height: 10px; background: var(--accent); transform: translateX(-1px); }
+
+/* compact mode (e.g. Team/Recruiting) */
+.pj.compact .pj-grid { grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 10px; }
+.pj.compact .pj-sec { margin-top: 4px; }
+
+@container ax (max-width: 520px) {
+  .pj-grid { grid-template-columns: minmax(0, 1fr); gap: 8px; }
+  .pj-card { padding: 12px; }
+  .pj-sep { display: none; }
+}
+
+@media (max-height: 520px) {
+  .pj-head { gap: 4px 16px; }
+  .pj-stat { grid-auto-flow: column; align-items: baseline; gap: 6px; }
+  .pj-stat b { font-size: 20px; }
+  .pj-stat span i { display: none; }
+  .pj-sec { margin-top: 8px; }
+  .pj-sh { margin-bottom: 8px; padding-bottom: 6px; }
+}
+.pj-period.no-bar .pj-track { display: none; }
+
+/* phone embed (html.ax-pe — ~355×337 Research): no stats head, tighter cards. */
+html.ax-pe .pj-head { display: none; }
+html.ax-pe .pj-sec { margin-top: 8px; }
+html.ax-pe .pj-sh { gap: 8px; margin-bottom: 6px; padding-bottom: 4px; }
+html.ax-pe .pj-sh .t { font-size: 14px; }
+html.ax-pe .pj-sh .ko { font-size: 11.5px; }
+html.ax-pe .pj-grid { gap: 6px; }
+html.ax-pe .pj-card { padding: 9px 10px; gap: 5px; }
+html.ax-pe .pj-card:hover { transform: none; }
+html.ax-pe .pj-top { min-height: 22px; }
+html.ax-pe .pj-logo { height: 22px; max-width: 110px; }
+html.ax-pe .pj-logo img { max-height: 22px; max-width: 110px; }
+html.ax-pe .pj-pill { font-size: 9px; padding: 3px 6px; }
+html.ax-pe .pj-pill .ko { font-size: 10px; }
+html.ax-pe .pj-title { font-size: 13.5px; line-height: 1.4; }
+html.ax-pe .pj-meta { font-size: 11.5px; }
+html.ax-pe .pj-tags .ax-badge { font-size: 9.5px; padding: 3px 5px; }
+html.ax-pe .pj-period { padding-top: 2px; }
+
+/* compact (Team/Recruiting, ?compact=1 — ~355×91 on a phone): one swipeable
+   row of cards; the last stop is the "open full view" link. Horizontal
+   swipes don't fight the page's vertical scroll. */
+html.ax-pe .pj.compact {
+  display: flex; gap: 8px; height: 100vh; padding: 6px 10px;
+  overflow-x: auto; overflow-y: hidden; scroll-snap-type: x mandatory; scroll-padding: 0 10px;
+  scrollbar-width: none; overscroll-behavior-x: contain;
+}
+html.ax-pe .pj.compact::-webkit-scrollbar { display: none; }
+html.ax-pe .pj.compact .pj-list,
+html.ax-pe .pj.compact .pj-sec,
+html.ax-pe .pj.compact .pj-grid { display: contents; }
+html.ax-pe .pj.compact .pj-card { flex: 0 0 86%; scroll-snap-align: start; overflow: hidden; }
+html.ax-pe .pj.compact .pj-grid > .pj-card:only-child { flex-basis: calc(100% - 96px); }
+html.ax-pe .pj.compact .ax-skel { flex: 0 0 86%; height: auto !important; margin: 0; }
+html.ax-pe .pj.compact .adam-state { flex: 1 0 100%; margin: 0; }
+html.ax-pe .pj.compact .ax-pe-open.floating { display: none; }
+html.ax-pe .pj.compact .ax-pe-end {
+  flex: 0 0 88px; margin: 0; padding: 6px; flex-direction: column; gap: 2px;
+  text-align: center; font-size: 11px; line-height: 1.3;
+}
+html.ax-pe-tiny .pj.compact { padding: 5px 10px; }
+html.ax-pe-tiny .pj.compact .pj-card { padding: 7px 10px; gap: 3px; justify-content: center; }
+html.ax-pe-tiny .pj.compact .pj-top,
+html.ax-pe-tiny .pj.compact .pj-tags,
+html.ax-pe-tiny .pj.compact .pj-period { display: none; }
+html.ax-pe-tiny .pj.compact .pj-title {
+  font-size: 13px; line-height: 1.35;
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+}
+html.ax-pe-tiny .pj.compact .pj-meta { font-size: 11px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }

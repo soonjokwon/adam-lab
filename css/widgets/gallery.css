@@ -1,0 +1,107 @@
+/* Board page (Sites /board) — photo gallery. Card language follows the
+   Latest News cards (white card, 1px line, mono navy date, navy hover). */
+
+/* row-wise grid (newest first, left → right), uniform 4:3 tiles */
+.gl-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; margin-top: 6px; align-items: start; }
+.gl-skel { height: auto; aspect-ratio: 4 / 4.2; margin: 0; }
+.gl-card {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 0;
+  text-align: left;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.95);
+  cursor: zoom-in;
+  overflow: hidden;
+  transition: border-color 0.18s var(--ease), box-shadow 0.18s var(--ease), transform 0.18s var(--ease);
+}
+.gl-card:hover { border-color: var(--navy); box-shadow: 0 8px 14px rgba(16, 43, 134, 0.06); transform: translateY(-3px); }
+.gl-img { position: relative; background: var(--grid); overflow: hidden; aspect-ratio: 4 / 3; }
+.gl-img img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 40%; transition: transform 0.45s var(--ease); }
+.gl-card:hover .gl-img img { transform: scale(1.03); }
+.gl-cap { padding: 9px 11px 10px; display: grid; gap: 3px; }
+.gl-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.gl-date { font-family: var(--font-mono); font-size: 11px; font-weight: 500; letter-spacing: 0.06em; color: var(--navy); }
+.gl-tag { font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-dim); border: 1px solid var(--line); padding: 2px 6px; background: rgba(255, 255, 255, 0.85); }
+.gl-text { font-size: 13px; font-weight: 500; line-height: 1.45; color: var(--ink); }
+
+.gl-year {
+  grid-column: 1 / -1;
+  display: flex; align-items: center; gap: 10px;
+  margin: 6px 0 -2px;
+  font-family: var(--font-display); font-weight: 700; font-size: 18px; color: var(--navy); line-height: 1;
+}
+.gl-year::after { content: ""; flex: 1; height: 1px; background: var(--line); }
+
+/* lightbox — column: top bar · stage (takes what is left) · caption (own scroll when long).
+   The <img> fills the stage and is fitted with object-fit, so a tall portrait shrinks to
+   fit above the caption instead of pushing it off screen. Viewport inside a Sites embed =
+   the iframe box, so this also holds in short phone boxes. */
+.gl-box {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  height: 100vh; height: 100dvh;
+  display: flex; flex-direction: column;
+  background: rgba(16, 20, 38, 0.92);
+  color: #fff;
+  overscroll-behavior: contain;
+}
+.gl-box-top { flex: none; display: flex; justify-content: space-between; align-items: center; padding: 10px 12px; gap: 10px; }
+.gl-box-top .ax-mono { font-size: 11px; letter-spacing: 0.08em; color: #d5dae8; }
+.gl-box-acts { display: flex; gap: 8px; }
+.gl-box-stage { position: relative; flex: 1 1 auto; min-height: 60px; margin: 0 52px; }
+.gl-box-stage img {
+  position: absolute; inset: 0; margin: auto; width: 100%; height: 100%;
+  max-height: calc(100vh - 140px); max-height: calc(100dvh - 140px);   /* belt and braces; the stage box is the real limit */
+  object-fit: scale-down;   /* = contain, but never upscales small photos */
+  filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.35));
+}
+.gl-box-cap {
+  flex: 0 1 auto; min-height: 0; max-height: 34vh; max-height: 34dvh; overflow-y: auto; overscroll-behavior: contain;
+  padding: 12px 16px 16px; padding-bottom: max(16px, env(safe-area-inset-bottom)); text-align: center; font-size: 14px; line-height: 1.5;
+}
+.gl-box-cap .d { font-family: var(--font-mono); font-size: 11px; color: var(--accent); letter-spacing: 0.08em; margin-right: 8px; }
+.gl-btn {
+  width: 38px; height: 38px; display: grid; place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.35); background: rgba(255, 255, 255, 0.06); color: #fff; cursor: pointer;
+}
+.gl-btn:hover { border-color: #fff; background: rgba(255, 255, 255, 0.14); }
+.gl-btn svg { width: 14px; height: 14px; }
+.gl-prev, .gl-next { position: absolute; top: 50%; transform: translateY(-50%); z-index: 1; }
+.gl-prev { left: -46px; } .gl-next { right: -46px; }
+
+html.gl-locked { overflow: hidden; }
+
+/* narrow phones: thinner side gutters for the arrows */
+@media (max-width: 480px) {
+  .gl-box-stage { margin: 0 42px; }
+  .gl-prev { left: -38px; } .gl-next { right: -38px; }
+  .gl-box-cap { font-size: 13.5px; }
+}
+
+@container ax (max-width: 520px) {
+  .gl-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+  .gl-cap { padding: 7px 8px 8px; }
+  .gl-text { font-size: 12.5px; }
+}
+/* short iframes (Sites scales embed height with width on phones) */
+@media (max-height: 420px) {
+  .gl-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 8px; }
+  .gl-box-cap { padding: 6px 12px 8px; font-size: 12.5px; line-height: 1.45; max-height: 30vh; max-height: 30dvh; }
+  .gl-box-top { padding: 6px 10px; }
+  .gl-btn { width: 32px; height: 32px; }
+  .gl-box-stage { margin: 0 40px; }
+  .gl-prev { left: -36px; } .gl-next { right: -36px; }
+  .gl-box-stage img { max-height: none; }   /* short box: use the whole stage */
+}
+
+/* phone embed (html.ax-pe — ~355×246): 3-up thumbnails with date only
+   (caption is in the lightbox). */
+html.ax-pe .gl-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 5px; margin-top: 2px; }
+html.ax-pe .gl-card:hover { transform: none; }
+html.ax-pe .gl-cap { padding: 3px 5px 4px; gap: 0; }
+html.ax-pe .gl-text, html.ax-pe .gl-tag { display: none; }
+html.ax-pe .gl-date { font-size: 9.5px; letter-spacing: 0.02em; }
+html.ax-pe .gl-year { font-size: 14px; margin: 4px 0 -1px; }
+html.ax-pe .gl-skel { aspect-ratio: 4 / 3.6; height: auto !important; }

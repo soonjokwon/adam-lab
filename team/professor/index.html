@@ -7,9 +7,20 @@
   <meta name="description" content="ADAM Lab@PNU — Advanced Design And Manufacturing Laboratory, Pusan National University.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../../css/site.css">
+  <link rel="stylesheet" href="../../css/sheet/tokens.css">
+  <link rel="stylesheet" href="../../css/sheet/base.css">
+  <link rel="stylesheet" href="../../css/sheet/sheet.css">
+  <link rel="stylesheet" href="../../css/widgets/sections.css">
+  <link rel="stylesheet" href="../../css/widgets/talks.css">
+  <script>window.ADAM_SITE_PARAMS = {};</script>
   <script defer src="../../js/site.js"></script>
+  <script defer src="../../js/sheet/boot.js"></script>
+  <script defer src="../../js/sheet/sheets.js"></script>
+  <script defer src="../../js/sheet/sheet-loader.js"></script>
+  <script defer src="../../js/widgets/sections.js"></script>
+  <script defer src="../../js/widgets/talks.js"></script>
 </head>
 <body>
   <a class="skip" href="#main">본문으로 건너뛰기</a>
@@ -27,25 +38,21 @@
 <a href="../index.html">Team</a>
 <button type="button" class="nav-chevron" aria-expanded="false" aria-label="Team submenu">▾</button>
 <div class="submenu">
-
-<a href="../../team/index.html">Team</a>
-<a href="../../team/professor/index.html">Professor</a>
-<a href="../../team/recruiting/index.html">Recruiting</a>
+<a href="../index.html">Team</a>
+<a href="../professor/index.html">Professor</a>
+<a href="../recruiting/index.html">Recruiting</a>
 </div></div>
 <a href="../../awards/index.html">Awards</a>
 <a href="../../publications/index.html">Publications</a>
 <a href="../../board/index.html">Board</a>
-</nav>    </div>
+</nav>
+    </div>
   </header>
   <main id="main">
     <div class="page-kicker"><div class="label">TEAM</div><h1>Professor</h1></div>
-    <section class="section">
-      <div class="embed" data-widget="/sections/?block=professor" data-min-height="1290" data-title="Professor"></div>
-    </section>
+    <section class="section"><div class="panel" data-adam="sections" data-block="professor"></div></section>
     <div class="band"><div class="band__inner"><h2>Invited Talks</h2></div></div>
-    <section class="section">
-      <div class="embed" data-widget="/talks/" data-min-height="700" data-title="Invited Talks"></div>
-    </section>
+    <section class="section"><div class="panel" id="adam-talks"></div></section>
   </main>
   <footer class="site-footer">
     <div class="site-footer__inner">
@@ -54,7 +61,7 @@
         School of Mechanical Engineering, Pusan National University
       </div>
       <div>
-        Widgets: <a href="https://soonjokwon.github.io/adam-lab-widgets/" target="_blank" rel="noopener">adam-lab-widgets</a>
+        Data: <a href="https://docs.google.com/spreadsheets/d/1bmfsOkVl16OJ2KWzWJG6NtV5Ds98fXKnSiRtxKxgzlw" target="_blank" rel="noopener">Google Sheet</a>
         · Sites: <a href="https://sites.google.com/view/adam-pnu" target="_blank" rel="noopener">adam-pnu</a>
         · <span data-year></span>
       </div>

@@ -293,36 +293,19 @@ main { display: block; }
   .split { grid-template-columns: 1fr; }
 }
 
-/* ---------- Embeds ---------- */
-.embed {
+/* ---------- In-page sheet panels (no iframes) ---------- */
+.panel {
   position: relative;
+  width: 100%;
+  min-width: 0;
   background: #fff;
   border: 1px solid var(--line);
-  overflow: hidden;
+  overflow: visible;
 }
-.embed iframe {
-  width: 100%;
-  border: 0;
-  display: block;
-  min-height: 200px;
-  background: #fff;
+.panel .ax-root,
+.panel .adam-sheet {
+  max-width: 100%;
 }
-.embed__tools {
-  display: flex;
-  justify-content: flex-end;
-  gap: 8px;
-  padding: 6px 8px;
-  border-top: 1px solid var(--line-soft);
-  background: var(--grid);
-}
-.embed__tools a {
-  font-size: 0.78rem;
-  font-family: var(--font-display);
-  font-weight: 600;
-  color: var(--ink-dim);
-  text-decoration: none;
-}
-.embed__tools a:hover { color: var(--navy); }
 
 /* ---------- Carousel ---------- */
 .carousel {

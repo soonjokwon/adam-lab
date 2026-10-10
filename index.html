@@ -7,9 +7,20 @@
   <meta name="description" content="ADAM Lab@PNU — Advanced Design And Manufacturing Laboratory, Pusan National University.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/site.css">
+  <link rel="stylesheet" href="css/sheet/tokens.css">
+  <link rel="stylesheet" href="css/sheet/base.css">
+  <link rel="stylesheet" href="css/sheet/sheet.css">
+  <link rel="stylesheet" href="css/widgets/news.css">
+  <link rel="stylesheet" href="css/widgets/sections.css">
+  <script>window.ADAM_SITE_PARAMS = {};</script>
   <script defer src="js/site.js"></script>
+  <script defer src="js/sheet/boot.js"></script>
+  <script defer src="js/sheet/sheets.js"></script>
+  <script defer src="js/sheet/sheet-loader.js"></script>
+  <script defer src="js/widgets/news.js"></script>
+  <script defer src="js/widgets/sections.js"></script>
 </head>
 <body>
   <a class="skip" href="#main">본문으로 건너뛰기</a>
@@ -27,7 +38,6 @@
 <a href="team/index.html">Team</a>
 <button type="button" class="nav-chevron" aria-expanded="false" aria-label="Team submenu">▾</button>
 <div class="submenu">
-
 <a href="team/index.html">Team</a>
 <a href="team/professor/index.html">Professor</a>
 <a href="team/recruiting/index.html">Recruiting</a>
@@ -35,7 +45,8 @@
 <a href="awards/index.html">Awards</a>
 <a href="publications/index.html">Publications</a>
 <a href="board/index.html">Board</a>
-</nav>    </div>
+</nav>
+    </div>
   </header>
   <main id="main">
     <div class="hero-wrap"><div class="hero-frame">
@@ -43,7 +54,7 @@
     </div></div>
     <div class="band"><div class="band__inner"><h2>Latest News</h2></div></div>
     <section class="section">
-      <div class="embed" data-widget="/news/" data-min-height="400" data-title="Latest News"></div>
+      <div class="panel" id="adam-news"></div>
     </section>
     <div class="band"><div class="band__inner"><h2>Research Pillars</h2></div></div>
     <section class="section">
@@ -54,17 +65,13 @@
           <div class="carousel__slide" style="background-image:url('assets/home/pillars/pillar-3.jpg')" role="img" aria-label="Autonomy"></div>
           <div class="carousel__dots"></div>
         </div>
-      <div class="embed" data-widget="/sections/?block=home-pillars" data-min-height="460" data-title="Research Pillars"></div>
+        <div class="panel" data-adam="sections" data-block="home-pillars"></div>
       </div>
     </section>
     <div class="band"><div class="band__inner"><h2>Growth Pillars</h2></div></div>
-    <section class="section">
-      <div class="embed" data-widget="/sections/?block=home-growth" data-min-height="540" data-title="Growth Pillars"></div>
-    </section>
+    <section class="section"><div class="panel" data-adam="sections" data-block="home-growth"></div></section>
     <div class="band"><div class="band__inner"><h2>Join ADAM Lab</h2></div></div>
-    <section class="section">
-      <div class="embed" data-widget="/sections/?block=home-join" data-min-height="510" data-title="Join ADAM Lab"></div>
-    </section>
+    <section class="section"><div class="panel" data-adam="sections" data-block="home-join"></div></section>
   </main>
   <footer class="site-footer">
     <div class="site-footer__inner">
@@ -73,7 +80,7 @@
         School of Mechanical Engineering, Pusan National University
       </div>
       <div>
-        Widgets: <a href="https://soonjokwon.github.io/adam-lab-widgets/" target="_blank" rel="noopener">adam-lab-widgets</a>
+        Data: <a href="https://docs.google.com/spreadsheets/d/1bmfsOkVl16OJ2KWzWJG6NtV5Ds98fXKnSiRtxKxgzlw" target="_blank" rel="noopener">Google Sheet</a>
         · Sites: <a href="https://sites.google.com/view/adam-pnu" target="_blank" rel="noopener">adam-pnu</a>
         · <span data-year></span>
       </div>

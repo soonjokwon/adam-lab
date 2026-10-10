@@ -1,0 +1,790 @@
+{
+ "source": "https://sites.google.com/view/adam-pnu-2",
+ "extracted": "2026-10-09",
+ "note": "Text blocks of the Sites pages (Professor, Recruiting, Research, Home). One row = one line/item; block = which embed (?block=…). type: bullet | entry | text | lead | fact | card | callout | figure | thumb | profile | contact | button | photo (= image). Markup in text: **굵게**, {{주황 강조}}, [글자](링크).",
+ "columns": [
+  "block",
+  "section",
+  "type",
+  "sub",
+  "text",
+  "link",
+  "image"
+ ],
+ "items": [
+  {
+   "block": "professor",
+   "section": "",
+   "type": "profile",
+   "sub": "",
+   "text": "Soonjo Kwon (권순조), Ph.D.",
+   "link": "",
+   "image": "assets/members/member-01.jpg"
+  },
+  {
+   "block": "professor",
+   "section": "",
+   "type": "profile",
+   "sub": "",
+   "text": "**Assistant Professor**",
+   "link": "",
+   "image": ""
+  },
+  {
+   "block": "professor",
+   "section": "",
+   "type": "profile",
+   "sub": "",
+   "text": "School of Mechanical Engineering",
+   "link": "",
+   "image": ""
+  },
+  {
+   "block": "professor",
+   "section": "",
+   "type": "profile",
+   "sub": "",
+   "text": "(Intelligent Manufacturing Systems Major)",
+   "link": "",
+   "image": ""
+  },
+  {
+   "block": "professor",
+   "section": "",
+   "type": "profile",
+   "sub": "",
+   "text": "**Pusan National University (PNU)**",
+   "link": "",
+   "image": ""
+  },
+  {
+   "block": "professor",
+   "section": "",
+   "type": "profile",
+   "sub": "",
+   "text": "GoogleScholar",
+   "link": "https://scholar.google.co.kr/citations?user=0cuj7OoAAAAJ&hl=en",
+   "image": ""
+  },
+  {
+   "block": "professor",
+   "section": "",
+   "type": "profile",
+   "sub": "",
+   "text": "ResearchGate",
+   "link": "https://www.researchgate.net/profile/Soonjo_Kwon3",
+   "image": ""
+  },
+  {
+   "block": "professor",
+   "section": "",
+   "type": "profile",
+   "sub": "",
+   "text": "Orcid",
+   "link": "https://orcid.org/0000-0003-1578-9262",
+   "image": ""
+  },
+  {
+   "block": "professor",
+   "section": "Experiences",
+   "type": "entry",
+   "sub": "",
+   "text": "**부산대학교**, 기계공학부, 조교수 (2026.03~현재)",
+   "link": "",
+   "image": ""
+  },
+  {
+   "block": "professor",
+   "section": "Experiences",
+   "type": "entry",
+   "sub": "",
+   "text": "**국립금오공과대학교**, 기계공학부, 조교수/부교수 (2020.09~2026.02)",
+   "link": "",
+   "image": ""
+  },
+  {
+   "block": "professor",
+   "section": "Experiences",
+   "type": "entry",
+   "sub": "",
+   "text": "**미국 국립표준기술연구소(NIST)**, Systems Integration Division, Guest Researcher (2019.01~2020.08)",
+   "link": "",
+   "image": ""
+  },
+  {
+   "block": "professor",
+   "section": "Experiences",
+   "type": "entry",
+   "sub": "",
+   "text": "**한국과학기술원(KAIST)**, 기계기술연구소, 연수원구원 (2018.03~2018.12)",
+   "link": "",
+   "image": ""
+  },
+  {
+   "block": "professor",
+   "section": "Educations",
+   "type": "entry",
+   "sub": "",
+   "text": "**한국과학기술원(KAIST)** 기계공학 박사 (2013.09~2018.02)",
+   "link": "",
+   "image": ""
+  },
+  {
+   "block": "professor",
+   "section": "Educations",
+   "type": "entry",
+   "sub": "",
+   "text": "**한국과학기술원(KAIST)** 해양시스템공학 석사 (2011.09~2013.08)",
+   "link": "",
+   "image": ""
+  },
+  {
+   "block": "professor",
+   "section": "Educations",
+   "type": "entry",
+   "sub": "",
+   "text": "**인하대학교** 조선해양공학 학사 (2008.03~2011.08)",
+   "link": "",
+   "image": ""
+  },
+  {
+   "block": "professor",
+   "section": "Academic Activities",
+   "type": "entry",
+   "sub": "Membership",
+   "text": "한국CDE학회, 종신회원",
+   "link": "",
+   "image": ""
+  },
+  {
+   "block": "professor",
+   "section": "Academic Activities",
+   "type": "entry",
+   "sub": "Membership",
+   "text": "대한기계학회, 정회원 (2020.09~현재)",
+   "link": "",
+   "image": ""
+  },
+  {
+   "block": "professor",
+   "section": "Academic Activities",
+   "type": "entry",
+   "sub": "Membership",
+   "text": "한국기계가공학회, 정회원 (2021.09~현재)",
+   "link": "",
+   "image": ""
+  },
+  {
+   "block": "professor",
+   "section": "Academic Activities",
+   "type": "entry",
+   "sub": "Membership",
+   "text": "한국정밀공학회, 정회원 (2022.03~현재)",
+   "link": "",
+   "image": ""
+  },
+  {
+   "block": "professor",
+   "section": "Academic Activities",
+   "type": "entry",
+   "sub": "Director",
+   "text": "한국CDE학회, 협력이사 (2023.03~2025.02), 홍보이사 (2025.03~현재)",
+   "link": "",
+   "image": ""
+  },
+  {
+   "block": "professor",
+   "section": "Academic Activities",
+   "type": "entry",
+   "sub": "Director",
+   "text": "대한기계학회, 생산 및 설계공학부문, 편집이사 (2024.01~현재)",
+   "link": "",
+   "image": ""
+  },
+  {
+   "block": "professor",
+   "section": "Academic Activities",
+   "type": "entry",
+   "sub": "Director",
+   "text": "한국기계가공학회, 대외협력이사 (2023.01~현재)",
+   "link": "",
+   "image": ""
+  },
+  {
+   "block": "professor",
+   "section": "Academic Activities",
+   "type": "entry",
+   "sub": "Director",
+   "text": "한국정밀공학회, 스마트생산시스템 부문, 이사 (2025.03~현재)",
+   "link": "",
+   "image": ""
+  },
+  {
+   "block": "professor",
+   "section": "Academic Activities",
+   "type": "entry",
+   "sub": "Committee",
+   "text": "한국정밀공학회, 교육위원회, 위원 (2025.03~현재)",
+   "link": "",
+   "image": ""
+  },
+  {
+   "block": "professor",
+   "section": "Academic Activities",
+   "type": "entry",
+   "sub": "Editorship",
+   "text": "한국CDE학회 논문집, 편집위원 (2019.02~현재)",
+   "link": "",
+   "image": ""
+  },
+  {
+   "block": "professor",
+   "section": "Academic Activities",
+   "type": "entry",
+   "sub": "Editorship",
+   "text": "한국기계가공학회지, 편집위원 (2022.10~현재)",
+   "link": "",
+   "image": ""
+  },
+  {
+   "block": "professor",
+   "section": "Academic Activities",
+   "type": "entry",
+   "sub": "Organizer",
+   "text": "IDETC/CIE, Design for Manufacturing and the Life Cycle Conference (DFMLC), Symposium Organizer (2020~2023)",
+   "link": "",
+   "image": ""
+  },
+  {
+   "block": "professor",
+   "section": "Academic Activities",
+   "type": "entry",
+   "sub": "Organizer",
+   "text": "한국CDE학회 학술대회, 조직위원 (2023 하계, 2025 동계)",
+   "link": "",
+   "image": ""
+  },
+  {
+   "block": "professor",
+   "section": "Academic Activities",
+   "type": "entry",
+   "sub": "Organizer",
+   "text": "한국CDE학회 학술대회, 30주년준비위원 (2025 동계)",
+   "link": "",
+   "image": ""
+  },
+  {
+   "block": "professor",
+   "section": "Standardization Activities",
+   "type": "entry",
+   "sub": "Membership",
+   "text": "ISO TC184/SC4 (Industrial Data), Member (2014.05~현재)",
+   "link": "",
+   "image": ""
+  },
+  {
+   "block": "professor",
+   "section": "Standardization Activities",
+   "type": "entry",
+   "sub": "Membership",
+   "text": "(사)한국산업데이터표준협회, 회원 (2014.05~현재)",
+   "link": "",
+   "image": ""
+  },
+  {
+   "block": "professor",
+   "section": "Standardization Activities",
+   "type": "entry",
+   "sub": "Committee",
+   "text": "국가기술표준원, 산업데이터전문위원회, 전문위원 (2022.02~현재)",
+   "link": "",
+   "image": ""
+  },
+  {
+   "block": "professor",
+   "section": "Standardization Activities",
+   "type": "entry",
+   "sub": "Organizer",
+   "text": "87th ISO TC 184/SC4 Meeting, Seoul, Korea (2024.05.12~17.), Organizing Committee Member.",
+   "link": "",
+   "image": ""
+  },
+  {
+   "block": "recruit-intro",
+   "section": "",
+   "type": "lead",
+   "sub": "",
+   "text": "ADAM Lab에서 {{학부연구생 및 대학원생}}을 모집합니다.",
+   "link": "",
+   "image": ""
+  },
+  {
+   "block": "recruit-intro",
+   "section": "",
+   "type": "fact",
+   "sub": "대상",
+   "text": "좋은 태도, 성장 마인드셋, 열정 및 끈기를 가진 학생",
+   "link": "",
+   "image": ""
+  },
+  {
+   "block": "recruit-intro",
+   "section": "",
+   "type": "fact",
+   "sub": "대상",
+   "text": "대학원 진학을 희망하는 **기계공학부 3·4학년 재학생 및 졸업생**",
+   "link": "",
+   "image": ""
+  },
+  {
+   "block": "recruit-intro",
+   "section": "",
+   "type": "fact",
+   "sub": "선발 인원",
+   "text": "00명",
+   "link": "",
+   "image": ""
+  },
+  {
+   "block": "recruit-intro",
+   "section": "",
+   "type": "fact",
+   "sub": "신청 기간",
+   "text": "2026년 4월 까지",
+   "link": "",
+   "image": ""
+  },
+  {
+   "block": "recruit-topics",
+   "section": "연구 주제 (See also [here](https://sites.google.com/view/adam-pnu/research))",
+   "type": "card",
+   "sub": "설계 자율화",
+   "text": "CAD/CAPP/CAM을 통합한 AI 기반 설계 자동화 및 적층/하이브리드/지속가능 제조를 고려한 설계 방법론 연구",
+   "link": "",
+   "image": ""
+  },
+  {
+   "block": "recruit-topics",
+   "section": "연구 주제 (See also [here](https://sites.google.com/view/adam-pnu/research))",
+   "type": "card",
+   "sub": "설계 지능화",
+   "text": "설계 경험과 데이터를 지능형 의사결정 지식으로 전환하는 데이터 및 지식 기반 설계 방법론 연구",
+   "link": "",
+   "image": ""
+  },
+  {
+   "block": "recruit-topics",
+   "section": "연구 주제 (See also [here](https://sites.google.com/view/adam-pnu/research))",
+   "type": "card",
+   "sub": "설계 디지털화",
+   "text": "디지털 트윈/디지털 스레드 기반 전주기 데이터 통합, VR 시뮬레이션/엔지니어링 VR/산업용 AR을 활용한 연구",
+   "link": "",
+   "image": ""
+  },
+  {
+   "block": "recruit-benefits",
+   "section": "참여 혜택",
+   "type": "card",
+   "sub": "",
+   "text": "연구 인건비 지급",
+   "link": "",
+   "image": ""
+  },
+  {
+   "block": "recruit-benefits",
+   "section": "참여 혜택",
+   "type": "card",
+   "sub": "",
+   "text": "연구 공간 및 연구용 장비 제공",
+   "link": "",
+   "image": ""
+  },
+  {
+   "block": "recruit-benefits",
+   "section": "참여 혜택",
+   "type": "card",
+   "sub": "",
+   "text": "국내외 학회 발표, 논문 출판, 경진대회 출품 등 다양한 연구 실적 구축 기회 제공",
+   "link": "",
+   "image": ""
+  },
+  {
+   "block": "recruit-benefits",
+   "section": "참여 혜택",
+   "type": "card",
+   "sub": "",
+   "text": "연구 프로젝트 참여를 통한 실무 능력 배양, 인적 네트워크 구축, 취업 연계 기회 제공",
+   "link": "",
+   "image": ""
+  },
+  {
+   "block": "recruit-apply",
+   "section": "지원 방법",
+   "type": "callout",
+   "sub": "",
+   "text": "이메일([soonjo.kwon@pusan.ac.kr](mailto:soonjo.kwon@pusan.ac.kr))로 연락(자기소개 및 지원 동기 포함) 후 개별 면담 진행",
+   "link": "",
+   "image": ""
+  },
+  {
+   "block": "recruit-apply",
+   "section": "지원 방법",
+   "type": "contact",
+   "sub": "E",
+   "text": "soonjo.kwon@pusan.ac.kr",
+   "link": "mailto:soonjo.kwon@pusan.ac.kr",
+   "image": ""
+  },
+  {
+   "block": "recruit-apply",
+   "section": "지원 방법",
+   "type": "contact",
+   "sub": "T",
+   "text": "+82-51-510-2319, 2164",
+   "link": "tel:+82515102319",
+   "image": ""
+  },
+  {
+   "block": "recruit-apply",
+   "section": "지원 방법",
+   "type": "contact",
+   "sub": "Office",
+   "text": "**Rm 708**, Integrated Mechanical Engineering Bldg., 2, Busandaehak-ro 63beon-gil, Geumjeong-gu, Busan 46241, Korea",
+   "link": "",
+   "image": ""
+  },
+  {
+   "block": "recruit-apply",
+   "section": "지원 방법",
+   "type": "contact",
+   "sub": "Lab",
+   "text": "**Rm 703**, Integrated Mechanical Engineering Bldg., 2, Busandaehak-ro 63beon-gil, Geumjeong-gu, Busan 46241, Korea",
+   "link": "",
+   "image": ""
+  },
+  {
+   "block": "research",
+   "section": "설계 자율화: Idea to Product ({{Autonomy}})",
+   "type": "bullet",
+   "sub": "",
+   "text": "ADAM Lab은 아이디어를 실제 제품으로 자동 전환하는 **Autonomous Engineering Design** 기술을 연구합니다.",
+   "link": "",
+   "image": ""
+  },
+  {
+   "block": "research",
+   "section": "설계 자율화: Idea to Product ({{Autonomy}})",
+   "type": "bullet",
+   "sub": "",
+   "text": "CAD, CAPP, CAM을 통합한 AI 기반 설계 자동화와 Design for Additive/Hybrid/Sustainable Manufacturing을 통해 설계와 제조 의사결정을 자율적으로 수행하는 차세대 제품 개발 패러다임을 구축합니다.",
+   "link": "",
+   "image": ""
+  },
+  {
+   "block": "research",
+   "section": "설계 자율화: Idea to Product ({{Autonomy}})",
+   "type": "figure",
+   "sub": "",
+   "text": "[그림: NotebookLM]",
+   "link": "",
+   "image": "assets/research/figure-autonomy.jpg"
+  },
+  {
+   "block": "research",
+   "section": "설계 자율화: Idea to Product ({{Autonomy}})",
+   "type": "thumb",
+   "sub": "",
+   "text": "심층 강화학습 기반 {{케이블 라우팅 자동화}}",
+   "link": "",
+   "image": "assets/research/autonomy-1.jpg"
+  },
+  {
+   "block": "research",
+   "section": "설계 자율화: Idea to Product ({{Autonomy}})",
+   "type": "thumb",
+   "sub": "",
+   "text": "심층 강화학습 기반 {{의미 및 제조성을 고려한 부품 분할}}",
+   "link": "",
+   "image": "assets/research/autonomy-2.jpg"
+  },
+  {
+   "block": "research",
+   "section": "설계 자율화: Idea to Product ({{Autonomy}})",
+   "type": "thumb",
+   "sub": "",
+   "text": "LLM 및 AI 기반 {{최적 공정 추천}}",
+   "link": "",
+   "image": "assets/research/autonomy-3.jpg"
+  },
+  {
+   "block": "research",
+   "section": "설계 지능화: Data to Knowledge ({{Intelligence}})",
+   "type": "bullet",
+   "sub": "",
+   "text": "ADAM Lab은 제품 설계 데이터와 엔지니어링 데이터를 활용하여 새로운 설계 지식을 생성하는 **AI-driven Design Intelligence** 기술을 연구합니다.",
+   "link": "",
+   "image": ""
+  },
+  {
+   "block": "research",
+   "section": "설계 지능화: Data to Knowledge ({{Intelligence}})",
+   "type": "bullet",
+   "sub": "",
+   "text": "데이터 기반 설계(Data-driven Design)와 지식 기반 설계(Knowledge-based Design)를 통해 설계 경험과 제품 데이터를 지능형 의사결정 지식으로 전환하는 차세대 엔지니어링 환경을 구축합니다.",
+   "link": "",
+   "image": ""
+  },
+  {
+   "block": "research",
+   "section": "설계 지능화: Data to Knowledge ({{Intelligence}})",
+   "type": "figure",
+   "sub": "",
+   "text": "[그림: NotebookLM]",
+   "link": "",
+   "image": "assets/research/figure-intelligence.jpg"
+  },
+  {
+   "block": "research",
+   "section": "설계 지능화: Data to Knowledge ({{Intelligence}})",
+   "type": "thumb",
+   "sub": "",
+   "text": "설계 및 계측 {{지식 그래프 생성 및 연결}}",
+   "link": "",
+   "image": "assets/research/intelligence-1.jpg"
+  },
+  {
+   "block": "research",
+   "section": "설계 지능화: Data to Knowledge ({{Intelligence}})",
+   "type": "thumb",
+   "sub": "",
+   "text": "자기 지도 학습 기반 {{점군 표면 및 모서리 보강}}",
+   "link": "",
+   "image": "assets/research/intelligence-2.jpg"
+  },
+  {
+   "block": "research",
+   "section": "설계 지능화: Data to Knowledge ({{Intelligence}})",
+   "type": "thumb",
+   "sub": "",
+   "text": "친환경 부품 분할을 위한 {{AI 기반 CO2 예측}}",
+   "link": "",
+   "image": "assets/research/intelligence-3.jpg"
+  },
+  {
+   "block": "research",
+   "section": "설계 디지털화: Physical to Digital ({{Digitalization}})",
+   "type": "bullet",
+   "sub": "",
+   "text": "ADAM Lab은 물리적 제품과 제조 시스템을 디지털 환경으로 연결하는 **Digital Transformation** 기술을 연구합니다.",
+   "link": "",
+   "image": ""
+  },
+  {
+   "block": "research",
+   "section": "설계 디지털화: Physical to Digital ({{Digitalization}})",
+   "type": "bullet",
+   "sub": "",
+   "text": "Digital Twin과 Digital Thread를 기반으로 제품 전주기 데이터를 통합하고, Engineering VR 및 Industrial AR을 활용하여 차세대 몰입형 설계 및 제조 환경을 구현합니다.",
+   "link": "",
+   "image": ""
+  },
+  {
+   "block": "research",
+   "section": "설계 디지털화: Physical to Digital ({{Digitalization}})",
+   "type": "figure",
+   "sub": "",
+   "text": "[그림: NotebookLM]",
+   "link": "",
+   "image": "assets/research/figure-digitalization.jpg"
+  },
+  {
+   "block": "research",
+   "section": "설계 디지털화: Physical to Digital ({{Digitalization}})",
+   "type": "thumb",
+   "sub": "",
+   "text": "디지털 트윈 구축용 {{3D 모델 단순화 및 경량화}}",
+   "link": "",
+   "image": "assets/research/digitalization-1.jpg"
+  },
+  {
+   "block": "research",
+   "section": "설계 디지털화: Physical to Digital ({{Digitalization}})",
+   "type": "thumb",
+   "sub": "",
+   "text": "AR 기반 설계 및 계측 {{정보 증강 가시화}}",
+   "link": "",
+   "image": "assets/research/digitalization-2.jpg"
+  },
+  {
+   "block": "research",
+   "section": "설계 디지털화: Physical to Digital ({{Digitalization}})",
+   "type": "thumb",
+   "sub": "",
+   "text": "VR 시뮬레이션 기반 {{동적 대피 안내 강화학습}}",
+   "link": "",
+   "image": "assets/research/digitalization-3.jpg"
+  },
+  {
+   "block": "home-pillars",
+   "section": "",
+   "type": "lead",
+   "sub": "",
+   "text": "We {{AID}} engineering design with,",
+   "link": "",
+   "image": ""
+  },
+  {
+   "block": "home-pillars",
+   "section": "",
+   "type": "card",
+   "sub": "{{A}}utonomy: Idea to Product",
+   "text": "CAD/CAPP/CAM",
+   "link": "",
+   "image": ""
+  },
+  {
+   "block": "home-pillars",
+   "section": "",
+   "type": "card",
+   "sub": "{{A}}utonomy: Idea to Product",
+   "text": "Design for additive/hybrid/sustainable manufacturing",
+   "link": "",
+   "image": ""
+  },
+  {
+   "block": "home-pillars",
+   "section": "",
+   "type": "card",
+   "sub": "{{I}}ntelligence: Data to Knowledge",
+   "text": "Data-driven design",
+   "link": "",
+   "image": ""
+  },
+  {
+   "block": "home-pillars",
+   "section": "",
+   "type": "card",
+   "sub": "{{I}}ntelligence: Data to Knowledge",
+   "text": "Knowledge-based design",
+   "link": "",
+   "image": ""
+  },
+  {
+   "block": "home-pillars",
+   "section": "",
+   "type": "card",
+   "sub": "{{D}}igitalization: Physical to Digital",
+   "text": "Digital twin/Digital thread",
+   "link": "",
+   "image": ""
+  },
+  {
+   "block": "home-pillars",
+   "section": "",
+   "type": "card",
+   "sub": "{{D}}igitalization: Physical to Digital",
+   "text": "Engineering VR/Industrial AR",
+   "link": "",
+   "image": ""
+  },
+  {
+   "block": "home-growth",
+   "section": "",
+   "type": "card",
+   "sub": "Unite",
+   "text": "We leverage collective intelligence for multidimensional growth.",
+   "link": "",
+   "image": "assets/home/growth-unite.png"
+  },
+  {
+   "block": "home-growth",
+   "section": "",
+   "type": "card",
+   "sub": "Execute",
+   "text": "We value practical action over perfect theory.",
+   "link": "",
+   "image": "assets/home/growth-execute.png"
+  },
+  {
+   "block": "home-growth",
+   "section": "",
+   "type": "card",
+   "sub": "Share",
+   "text": "We spread our insights to inspire others and grow together.",
+   "link": "",
+   "image": "assets/home/growth-share.png"
+  },
+  {
+   "block": "home-join",
+   "section": "",
+   "type": "text",
+   "sub": "",
+   "text": "**ADAM Lab**에서는 {{성장 마인드셋, 열정 및 끈기}}가 있는 **학부연구생, 대학원생**을 상시모집하고 있습니다. 언제든 편하게 연락주시기 바랍니다.",
+   "link": "",
+   "image": ""
+  },
+  {
+   "block": "home-join",
+   "section": "",
+   "type": "text",
+   "sub": "",
+   "text": "**ADAM Lab** is looking for **undergraduate and graduate students** with a {{Growth Mindset and Grit}}. Please feel free to contact us via **e-mail** or **telephone** at any time.",
+   "link": "",
+   "image": ""
+  },
+  {
+   "block": "home-join",
+   "section": "",
+   "type": "contact",
+   "sub": "Office",
+   "text": "**Rm 708**, Integrated Mechanical Engineering Bldg., 2, Busandaehak-ro 63beon-gil, Geumjeong-gu, Busan 46241, Korea",
+   "link": "",
+   "image": ""
+  },
+  {
+   "block": "home-join",
+   "section": "",
+   "type": "contact",
+   "sub": "Lab",
+   "text": "**Rm 703**, Integrated Mechanical Engineering Bldg., 2, Busandaehak-ro 63beon-gil, Geumjeong-gu, Busan 46241, Korea",
+   "link": "",
+   "image": ""
+  },
+  {
+   "block": "home-join",
+   "section": "",
+   "type": "contact",
+   "sub": "E",
+   "text": "soonjo.kwon@pusan.ac.kr",
+   "link": "mailto:soonjo.kwon@pusan.ac.kr",
+   "image": ""
+  },
+  {
+   "block": "home-join",
+   "section": "",
+   "type": "contact",
+   "sub": "T",
+   "text": "+82-51-510-2319, 2164",
+   "link": "tel:+82515102319",
+   "image": ""
+  },
+  {
+   "block": "home-join",
+   "section": "",
+   "type": "button",
+   "sub": "",
+   "text": "Instagram",
+   "link": "https://www.instagram.com/pnu_adam_lab?stkn=eWJlOHk4cHp6MDVt&utm_source=qr",
+   "image": "assets/home/icon-instagram.png"
+  },
+  {
+   "block": "home-join",
+   "section": "",
+   "type": "image",
+   "sub": "",
+   "text": "부산대학교 통합기계관",
+   "link": "https://naver.me/F9N44XkL",
+   "image": "assets/home/building.jpg"
+  }
+ ]
+}

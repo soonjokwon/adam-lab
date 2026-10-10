@@ -1,0 +1,337 @@
+{
+ "source": "https://sites.google.com/view/adam-pnu",
+ "extracted": "2026-10-08",
+ "note": "Awards page. category: paper(논문) | presentation(발표) | competition(경진대회).",
+ "columns": [
+  "date",
+  "category",
+  "award",
+  "recipients",
+  "title",
+  "event",
+  "organizer",
+  "link"
+ ],
+ "items": [
+  {
+   "date": "2026-02-10",
+   "category": "paper",
+   "award": "가헌학술상",
+   "recipients": "김군찬, 권순조",
+   "title": "심층 강화학습을 활용한 3D 전기 패널의 자동 케이블 라우팅",
+   "event": "한국CDE학회 논문집, 30(1), 122-135",
+   "organizer": "한국CDE학회",
+   "link": "https://doi.org/10.7315/CDE.2025.122"
+  },
+  {
+   "date": "2024-11-07",
+   "category": "paper",
+   "award": "대한기계학회논문집A 우수논문",
+   "recipients": "김재연, 이상명, 고민석, 안성익, 신규태, 박재민, 이길용, 권순조",
+   "title": "적층 제조 고려 설계에 기반한 연질 소재 유도탄 보호 덮개 설계 및 제작",
+   "event": "대한기계학회 논문집 A권, 47(10), 829-840",
+   "organizer": "대한기계학회",
+   "link": "https://doi.org/10.3795/KSME-A.2023.47.10.829"
+  },
+  {
+   "date": "2026-08-21",
+   "category": "presentation",
+   "award": "우수포스터상",
+   "recipients": "박현석, 김태길, 권순조",
+   "title": "산업 디자인 초기 단계에서의 간섭 검증을 위한 지식 기반 강화 학습",
+   "event": "한국CDE학회 2026 하계학술대회",
+   "organizer": "",
+   "link": ""
+  },
+  {
+   "date": "2026-02-11",
+   "category": "presentation",
+   "award": "우수논문상",
+   "recipients": "엄태주, 최민주, 김민규, 권순조",
+   "title": "비수밀 CAD 데이터의 내부 형상 제거를 위한 NeuS 가이드 하이브리드 레이캐스팅 기법",
+   "event": "한국CDE학회 2026 동계학술대회",
+   "organizer": "",
+   "link": ""
+  },
+  {
+   "date": "2025-08-22",
+   "category": "presentation",
+   "award": "우수포스터상",
+   "recipients": "김군찬, 이승현, 김현철, 권순조",
+   "title": "화재 확산과 군중 행동을 고려한 강화학습 기반 대피 보조 에이전트 개발",
+   "event": "한국CDE학회 2025 하계학술대회",
+   "organizer": "",
+   "link": ""
+  },
+  {
+   "date": "2025-08-22",
+   "category": "presentation",
+   "award": "우수포스터상",
+   "recipients": "이초빈, 전예성, 박재민, 정진호, 신규태, 손현진, 양시훈, 김도희, 위정욱, 김현찬, 권순조",
+   "title": "금속 적층 제조 기반 유도 미사일 조종 날개의 최적 격자 구조 선정",
+   "event": "한국CDE학회 2025 하계학술대회",
+   "organizer": "",
+   "link": ""
+  },
+  {
+   "date": "2025-02-21",
+   "category": "presentation",
+   "award": "우수포스터상",
+   "recipients": "한서희, 고민석, 권순조",
+   "title": "설명 가능한 적정 제조 방식 추천을 위한 LLM의 활용",
+   "event": "한국CDE학회 2025 동계학술대회",
+   "organizer": "",
+   "link": ""
+  },
+  {
+   "date": "2024-08-22",
+   "category": "presentation",
+   "award": "우수포스터상",
+   "recipients": "한서희, 고민석, 권순조",
+   "title": "적층 제조 적합 부품 식별을 위한 기준 및 절차 수립",
+   "event": "한국CDE학회 2024 하계학술대회",
+   "organizer": "",
+   "link": ""
+  },
+  {
+   "date": "2024-05-31",
+   "category": "presentation",
+   "award": "우수논문상",
+   "recipients": "S. Kwon, H. Kim",
+   "title": "Saliency-Aware Point Cloud Upsampling Approach for Edge Consolidation",
+   "event": "ICMDT 2023",
+   "organizer": "",
+   "link": ""
+  },
+  {
+   "date": "2024-04-12",
+   "category": "presentation",
+   "award": "특별상(한국기계연구원장상)",
+   "recipients": "김군찬, 윤영준, 권순조",
+   "title": "케이블 자동 라우팅을 위한 강화학습 기반 최적 케이블 형상 생성 방안",
+   "event": "2024년 한국기계가공학회 춘계학술대회",
+   "organizer": "",
+   "link": ""
+  },
+  {
+   "date": "2024-01-31",
+   "category": "presentation",
+   "award": "우수논문상",
+   "recipients": "고민석, 김재연, 권순조",
+   "title": "적층 제조의 탄소 배출량 예측을 위한 심층 신경망 활용",
+   "event": "한국CDE학회 2024 동계학술대회",
+   "organizer": "",
+   "link": ""
+  },
+  {
+   "date": "2024-01-31",
+   "category": "presentation",
+   "award": "우수포스터상",
+   "recipients": "배대철, 전예성, 정재호, 윤영준, 고민석, 김재연, 김군찬, 권순조",
+   "title": "3D 프린팅 품질 및 상태 관찰을 위한 웹 기반 디지털 트윈 구현",
+   "event": "한국CDE학회 2024 동계학술대회",
+   "organizer": "",
+   "link": ""
+  },
+  {
+   "date": "2023-12-22",
+   "category": "presentation",
+   "award": "Best Paper Award",
+   "recipients": "M. Ko, S. Kwon",
+   "title": "A Review of Lifecycle Assessment (LCA) Cases in the Shipbuilding Industry",
+   "event": "AeroNDT 2023",
+   "organizer": "",
+   "link": ""
+  },
+  {
+   "date": "2023-08-25",
+   "category": "presentation",
+   "award": "우수논문상",
+   "recipients": "고민석, 김재연, 한혜련, 권순조",
+   "title": "적층 제조에서 설계 및 제조 정보 기반 전생애주기평가 도구 개발",
+   "event": "한국CDE학회 2023 하계학술대회",
+   "organizer": "",
+   "link": ""
+  },
+  {
+   "date": "2023-08-25",
+   "category": "presentation",
+   "award": "우수논문상",
+   "recipients": "윤영준, 김재연, 최민주, 권순조",
+   "title": "3D 프린팅을 위한 커스텀 제품의 최적 모듈화",
+   "event": "한국CDE학회 2023 하계학술대회",
+   "organizer": "",
+   "link": ""
+  },
+  {
+   "date": "2023-08-24",
+   "category": "presentation",
+   "award": "우수논문상",
+   "recipients": "김재연, 윤영준, 이상명, 김형기, 권순조",
+   "title": "기계 3D CAD 모델 자동 채점을 위한 형상 유사도 활용",
+   "event": "한국CDE학회 2023 하계학술대회",
+   "organizer": "",
+   "link": ""
+  },
+  {
+   "date": "2023-08-25",
+   "category": "presentation",
+   "award": "우수논문상",
+   "recipients": "정동원, 권순조, 김형기",
+   "title": "미분 가능한 샘플링과 점군-메쉬 거리를 활용한 QEM 간략화 메쉬의 원본 형상 복원 기법",
+   "event": "한국CDE학회 2023 하계학술대회",
+   "organizer": "",
+   "link": ""
+  },
+  {
+   "date": "2023-02-10",
+   "category": "presentation",
+   "award": "우수포스터상",
+   "recipients": "김재연, 윤영준, 이상명, 김형기, 권순조",
+   "title": "2D 이미지의 특징점을 활용한 3D CAD 모델의 국소 형상 비교",
+   "event": "한국CDE학회 2023 동계학술대회",
+   "organizer": "",
+   "link": ""
+  },
+  {
+   "date": "2023-02-10",
+   "category": "presentation",
+   "award": "우수포스터상",
+   "recipients": "윤영준, 김재연, 이상명, 김형기, 권순조",
+   "title": "단면도의 형상 분산을 활용한 3D CAD 모델의 형상 유사도 비교",
+   "event": "한국CDE학회 2023 동계학술대회",
+   "organizer": "",
+   "link": ""
+  },
+  {
+   "date": "2022-08-25",
+   "category": "presentation",
+   "award": "우수포스터상",
+   "recipients": "김현식, 서규민, 이승현, 노태환, 김현철, 권순조",
+   "title": "증강현실 기반 실내 화재 대피 내비게이션 시스템 개발",
+   "event": "한국CDE학회 2022 하계학술대회",
+   "organizer": "",
+   "link": ""
+  },
+  {
+   "date": "2020-11-20",
+   "category": "presentation",
+   "award": "우수논문상",
+   "recipients": "오요셉, 고현웅, 권순조",
+   "title": "효율적인 3D 프린팅을 위한 부품 분해 최적화",
+   "event": "대한기계학회 대구경북지회 2020년 춘추계통합학술대회",
+   "organizer": "",
+   "link": ""
+  },
+  {
+   "date": "2026-02-10",
+   "category": "competition",
+   "award": "금상",
+   "recipients": "권순조, 김형기, 전예성, 박현석, 차준렬",
+   "title": "",
+   "event": "CDE DX Awards 2025, 대학 부문",
+   "organizer": "한국CDE학회",
+   "link": ""
+  },
+  {
+   "date": "2025-12-12",
+   "category": "competition",
+   "award": "혁신설계 우수상",
+   "recipients": "이초빈, 김동환, 변재호, 남승건",
+   "title": "",
+   "event": "사용자 중심 융합설계연구회 2025년 적층제조 기반 융합설계 워크숍",
+   "organizer": "대한기계학회 생산 및 설계공학부문",
+   "link": ""
+  },
+  {
+   "date": "2025-11-28",
+   "category": "competition",
+   "award": "협의회장상",
+   "recipients": "이초빈, 김동환, 변재호, 남승건",
+   "title": "",
+   "event": "적층제조 융합설계 경진대회: Folding Chair",
+   "organizer": "첨단분야 혁신융합대학 사업단 협의회",
+   "link": ""
+  },
+  {
+   "date": "2025-11-21",
+   "category": "competition",
+   "award": "우수상(한국산업단지공단이사장상)",
+   "recipients": "권순조, 전예성, 이초빈, 김윤서, 김현찬, 박재민, 정진호, 신규태, 이동완, 김도희",
+   "title": "",
+   "event": "제10회 3D프린팅 BIZCON경진대회, 구동 부문",
+   "organizer": "3D프린팅산업협회",
+   "link": ""
+  },
+  {
+   "date": "2025-11-11",
+   "category": "competition",
+   "award": "대상(과학기술정보통신부장관상)",
+   "recipients": "정진호, 박재민, 이동완, 김진우, 전예성",
+   "title": "",
+   "event": "2025 DfAM 경진대회, 산업부문",
+   "organizer": "울산광역시",
+   "link": ""
+  },
+  {
+   "date": "2025-09-30",
+   "category": "competition",
+   "award": "최우수상",
+   "recipients": "김태길, 김군찬, 전예성, 박현석, 이초빈",
+   "title": "",
+   "event": "제4회 가상공학 플랫폼 소프트웨어(KIMM Cyber Lab) 활용 경진대회",
+   "organizer": "한국기계연구원",
+   "link": ""
+  },
+  {
+   "date": "2024-11-08",
+   "category": "competition",
+   "award": "우수 융합설계상",
+   "recipients": "전예성, 조용우, 유정현, 피영민, 이동준, 배경근",
+   "title": "",
+   "event": "사용자 중심 융합설계연구회 2024 첨단 융합설계 워크숍",
+   "organizer": "대한기계학회 생산 및 설계공학부문",
+   "link": ""
+  },
+  {
+   "date": "2024-10-19",
+   "category": "competition",
+   "award": "최우수상(특허청장상)",
+   "recipients": "박재민, 신규태, 정진호, 이길용, 권순조, 이민형, 김군찬",
+   "title": "",
+   "event": "제9회 3D프린팅 BIZCON 경진대회, 구동 부문",
+   "organizer": "3D프린팅산업협회",
+   "link": ""
+  },
+  {
+   "date": "2023-10-26",
+   "category": "competition",
+   "award": "1위",
+   "recipients": "김재연",
+   "title": "",
+   "event": "제1회 BDU 3D 경진대회",
+   "organizer": "LS e-Mobility Solutions",
+   "link": ""
+  },
+  {
+   "date": "2021-12-22",
+   "category": "competition",
+   "award": "대상",
+   "recipients": "김현식, 이주은, 김건영",
+   "title": "",
+   "event": "2021 보조기기 아이디어 공모전",
+   "organizer": "경기도",
+   "link": ""
+  },
+  {
+   "date": "2021-11-20",
+   "category": "competition",
+   "award": "우수상",
+   "recipients": "노태환, 김재연",
+   "title": "",
+   "event": "제6회 3D프린팅 BIZCON경진대회, 국방 부문",
+   "organizer": "3D프린팅산업협회",
+   "link": ""
+  }
+ ]
+}

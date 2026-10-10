@@ -1,0 +1,196 @@
+{
+ "source": "https://sites.google.com/view/adam-pnu",
+ "extracted": "2026-10-08",
+ "note": "Team/Professor page · Invited Talks.",
+ "columns": [
+  "date",
+  "title",
+  "venue",
+  "location",
+  "link"
+ ],
+ "items": [
+  {
+   "date": "2026-09-11",
+   "title": "CAD에서 자율 설계·제조까지",
+   "venue": "한국광기술원",
+   "location": "광주",
+   "link": ""
+  },
+  {
+   "date": "2026-01-15",
+   "title": "Part decomposition for additive manufacturing using reinforcement learning",
+   "venue": "1st International Conference on Digital Composites Manufacturing (ICDCM 2026), 경상대학교",
+   "location": "진주",
+   "link": ""
+  },
+  {
+   "date": "2025-12-19",
+   "title": "Redesign for Additive Manufacturing in the Age of AI: Methods, Applications and Emerging Opportunities",
+   "venue": "UNIST",
+   "location": "울산",
+   "link": ""
+  },
+  {
+   "date": "2025-12-04",
+   "title": "안전 디지털 트윈 구축을 위한 화재 대피 시뮬레이션 기반 대피 지원 에이전트의 강화학습",
+   "venue": "제조에서 Physical AI 표준화 추진 전략 워크숍",
+   "location": "서울",
+   "link": ""
+  },
+  {
+   "date": "2025-06-19",
+   "title": "From Draft to Craft: Toward Intelligent and Autonomous Design and Manufacturing",
+   "venue": "GIST",
+   "location": "광주",
+   "link": ""
+  },
+  {
+   "date": "2024-02-07",
+   "title": "CAD 및 적층 제조를 위한 AI 지원 공학 설계 자동화 연구 진행 현황",
+   "venue": "고려대학교",
+   "location": "서울",
+   "link": ""
+  },
+  {
+   "date": "2023-10-31",
+   "title": "Redesign for Additive Manufacturing: Methodologies, Applications, and Opportunities",
+   "venue": "한양대학교 ERICA",
+   "location": "온라인",
+   "link": ""
+  },
+  {
+   "date": "2023-09-22",
+   "title": "디지털 트윈 제조를 위한 디지털 쓰레드 요구사항",
+   "venue": "ISO/TC 184-K 및 디지털 트윈 제조 표준 기술 워크숍",
+   "location": "여수",
+   "link": ""
+  },
+  {
+   "date": "2023-09-11",
+   "title": "ISO 10303 표준 개요: 디지털 트윈에서의 활용",
+   "venue": "한국전자통신연구원",
+   "location": "대전",
+   "link": ""
+  },
+  {
+   "date": "2023-03-21",
+   "title": "제조 디지털 쓰레드 사례 조사 및 요구사항 분석",
+   "venue": "ISO 23247 제조 디지털 트윈 표준화 워크숍",
+   "location": "부산",
+   "link": ""
+  },
+  {
+   "date": "2023-02-27",
+   "title": "3D Shape Similarity Measures for Digital Twin Correspondence",
+   "venue": "Korea STEP Center",
+   "location": "온라인",
+   "link": ""
+  },
+  {
+   "date": "2023-02-07",
+   "title": "디지털 트윈 3D 모델 구축/경량화/가시화 사례 조사",
+   "venue": "한국기계연구원",
+   "location": "대전",
+   "link": ""
+  },
+  {
+   "date": "2023-01-19",
+   "title": "디지털 트윈 3D 구축 및 가시화 지원을 위한 도구 및 현황 조사",
+   "venue": "경희대학교",
+   "location": "용인",
+   "link": ""
+  },
+  {
+   "date": "2022-11-18",
+   "title": "3D 기술 기반 제조 산업의 디지털 전환",
+   "venue": "경기대학교",
+   "location": "온라인",
+   "link": ""
+  },
+  {
+   "date": "2022-11-01",
+   "title": "Design for Additive Manufacturing: Applications and Opportunities",
+   "venue": "경희대학교",
+   "location": "용인",
+   "link": ""
+  },
+  {
+   "date": "2022-06-27",
+   "title": "DfAM(Design for Additive Manufacturing) 연구 진행 현황",
+   "venue": "인천대학교",
+   "location": "인천",
+   "link": ""
+  },
+  {
+   "date": "2022-05-24",
+   "title": "온톨로지를 활용한 표준 기반 디지털 쓰레드 구현 사례",
+   "venue": "한국전자통신연구원",
+   "location": "대전",
+   "link": ""
+  },
+  {
+   "date": "2022-05-12",
+   "title": "적층 제조 효율성 향상을 위한 모델 분해 및 조립 방안",
+   "venue": "한국정밀공학회 2022 춘계 학술대회 젊은공학자 초청세션",
+   "location": "제주",
+   "link": ""
+  },
+  {
+   "date": "2021-11-04",
+   "title": "대형 기기 CAD 모델의 경량화를 위한 영역 확장법의 응용",
+   "venue": "대한기계학회 2021 학술대회 유망과학기술자 세션",
+   "location": "광주",
+   "link": ""
+  },
+  {
+   "date": "2021-10-18",
+   "title": "제조업에서 디지털 전환을 가속화하는 3D 설계 및 시뮬레이션 기술",
+   "venue": "경기대학교",
+   "location": "온라인",
+   "link": ""
+  },
+  {
+   "date": "2021-07-08",
+   "title": "적층제조 특화설계의 연구 동향 및 응용 사례",
+   "venue": "LIGNex1",
+   "location": "구미",
+   "link": ""
+  },
+  {
+   "date": "2021-04-01",
+   "title": "Research Trends and Use Cases of Design for Additive Manufacturing",
+   "venue": "전북대학교",
+   "location": "온라인",
+   "link": ""
+  },
+  {
+   "date": "2020-10-05",
+   "title": "OntoSTEP and its applications",
+   "venue": "32nd ISO TC184/SC5/WG10 Meeting",
+   "location": "온라인",
+   "link": ""
+  },
+  {
+   "date": "2018-12-12",
+   "title": "2D, 3D CAD 분야에서 딥러닝 기술의 활용 방안",
+   "venue": "경북대학교",
+   "location": "상주",
+   "link": ""
+  },
+  {
+   "date": "2018-08-03",
+   "title": "ISO 15926 & Gellish 소개 및 활용 방안",
+   "venue": "PartDB",
+   "location": "대전",
+   "link": ""
+  },
+  {
+   "date": "2018-04-24",
+   "title": "조선 해양 산업에서 3D CAD 모델 단순화 기술의 활용",
+   "venue": "삼성중공업",
+   "location": "거제",
+   "link": ""
+  }
+ ]
+}

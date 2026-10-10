@@ -2,17 +2,9 @@
   "use strict";
 
   var path = location.pathname || "/";
-  var BASE = path.indexOf("/adam-lab-site") === 0 ? "/adam-lab-site/" : "/";
+  var BASE = path.indexOf("/adam-lab") === 0 ? "/adam-lab/" : "/";
   window.ADAM_SITE_BASE = BASE;
 
-  var WIDGETS = "https://soonjokwon.github.io/adam-lab-widgets";
-
-  function joinBase(rel) {
-    if (!rel || rel.charAt(0) === "#" || /^https?:/i.test(rel)) return rel;
-    return BASE.replace(/\/?$/, "/") + String(rel).replace(/^\//, "");
-  }
-
-  /* ---------- Nav active state ---------- */
   function markNav() {
     var links = document.querySelectorAll(".nav a[href]");
     var here = path.replace(/\/index\.html$/, "/");
@@ -33,7 +25,6 @@
     });
     if (best) best.setAttribute("aria-current", "page");
   }
-
 
   function bindTeamMenu() {
     document.querySelectorAll(".nav-group").forEach(function (g) {
@@ -63,7 +54,6 @@
     });
   }
 
-  /* ---------- Mobile nav ---------- */
   function bindNavToggle() {
     var btn = document.querySelector(".nav-toggle");
     var header = document.querySelector(".site-header");
@@ -74,59 +64,6 @@
     });
   }
 
-  /* ---------- Widget embeds: height via postMessage ---------- */
-  var embeds = new Map();
-
-  function bindEmbeds() {
-    document.querySelectorAll(".embed[data-widget]").forEach(function (box) {
-      var pathPart = box.getAttribute("data-widget");
-      var minH = parseInt(box.getAttribute("data-min-height") || "320", 10);
-      var title = box.getAttribute("data-title") || "ADAM Lab widget";
-      var src = WIDGETS + pathPart;
-      var iframe = document.createElement("iframe");
-      iframe.src = src;
-      iframe.title = title;
-      iframe.loading = "lazy";
-      iframe.referrerPolicy = "no-referrer-when-downgrade";
-      iframe.style.height = minH + "px";
-      iframe.setAttribute("data-min-height", String(minH));
-      box.insertBefore(iframe, box.firstChild);
-
-      var tools = document.createElement("div");
-      tools.className = "embed__tools";
-      var open = document.createElement("a");
-      open.href = src + (src.indexOf("?") >= 0 ? "&" : "?") + "full=1";
-      open.target = "_blank";
-      open.rel = "noopener";
-      open.textContent = "전체 화면으로 보기 ↗";
-      tools.appendChild(open);
-      box.appendChild(tools);
-
-      embeds.set(iframe, { minH: minH, box: box });
-    });
-  }
-
-  function onMessage(ev) {
-    var data = ev.data;
-    if (!data || typeof data !== "object") return;
-    if (data.type !== "adam-widget-height") return;
-    var h = Number(data.height);
-    if (!isFinite(h) || h < 80) return;
-    var frames = document.querySelectorAll(".embed iframe");
-    for (var i = 0; i < frames.length; i++) {
-      var f = frames[i];
-      if (f.contentWindow === ev.source) {
-        var meta = embeds.get(f) || { minH: 200 };
-        var next = Math.max(meta.minH, Math.ceil(h) + 4);
-        if (Math.abs((parseInt(f.style.height, 10) || 0) - next) > 2) {
-          f.style.height = next + "px";
-        }
-        break;
-      }
-    }
-  }
-
-  /* ---------- Pillars carousel ---------- */
   function bindCarousel() {
     var root = document.querySelector("[data-carousel]");
     if (!root) return;
@@ -171,7 +108,6 @@
     restart();
   }
 
-  /* ---------- Footer year ---------- */
   function stampYear() {
     var el = document.querySelector("[data-year]");
     if (el) el.textContent = String(new Date().getFullYear());
@@ -181,12 +117,7 @@
     markNav();
     bindNavToggle();
     bindTeamMenu();
-    bindEmbeds();
     bindCarousel();
     stampYear();
   });
-  window.addEventListener("message", onMessage);
-
-  /* expose for debugging */
-  window.ADAM_SITE = { base: BASE, widgets: WIDGETS, joinBase: joinBase };
 })();
