@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>ADAM Lab@PNU — Recruiting</title>
-  <meta name="description" content="ADAM Lab@PNU — Advanced Design And Manufacturing Laboratory, Pusan National University.">
+  <meta name="description" content="ADAM Lab@PNU — Autonomous Design for Advanced Manufacturing Laboratory, Pusan National University.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -15,6 +15,7 @@
   <link rel="stylesheet" href="../../css/widgets/sections.css">
   <link rel="stylesheet" href="../../css/widgets/projects.css">
   <script>window.ADAM_SITE_PARAMS = {"recruit":"1","compact":"1"};</script>
+  <script defer src="../../js/search-index.js"></script>
   <script defer src="../../js/site.js"></script>
   <script defer src="../../js/sheet/boot.js"></script>
   <script defer src="../../js/sheet/sheets.js"></script>
@@ -27,38 +28,37 @@
   <header class="site-header">
     <div class="site-header__inner">
       <a class="brand" href="../../index.html">
-        <span class="brand__mark">ADAM Lab@PNU</span>
-        <span class="brand__sub">Advanced Design And Manufacturing</span>
+        <img class="brand__logo" src="../../assets/brand/nav-mark.png" alt="" width="36" height="36">
+        <span class="brand__text">
+          <span class="brand__mark">ADAM Lab@PNU</span>
+          <span class="brand__sub">Autonomous Design for Advanced Manufacturing</span>
+        </span>
       </a>
       <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-nav">Menu</button>
       <nav id="primary-nav" class="nav" aria-label="Primary">
 <a href="../../index.html">Home</a>
 <a href="../../research/index.html">Research</a>
-<div class="nav-group">
 <a href="../index.html">Team</a>
-<button type="button" class="nav-chevron" aria-expanded="false" aria-label="Team submenu">▾</button>
-<div class="submenu">
-<a href="../index.html">Team</a>
-<a href="../professor/index.html">Professor</a>
-<a href="../recruiting/index.html">Recruiting</a>
-</div></div>
 <a href="../../awards/index.html">Awards</a>
 <a href="../../publications/index.html">Publications</a>
 <a href="../../board/index.html">Board</a>
+<button type="button" class="search-toggle" aria-expanded="false" aria-controls="site-search" aria-label="Search">
+  <svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12.8 12.8 17 17" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+</button>
 </nav>
     </div>
   </header>
   <main id="main">
     <div class="page-kicker"><div class="label">TEAM</div><h1>Recruiting</h1></div>
-    <section class="section">
+    <section class="section reveal">
       <div class="split">
         <div class="panel" data-adam="sections" data-block="recruit-intro"></div>
         <div class="panel" data-adam="sections" data-block="recruit-topics"></div>
       </div>
     </section>
-    <div class="band"><div class="band__inner"><h2>연구 프로젝트</h2></div></div>
-    <section class="section"><div class="panel" id="adam-projects"></div></section>
-    <section class="section">
+    <div class="band reveal"><div class="band__inner"><h2>연구 프로젝트</h2></div></div>
+    <section class="section reveal"><div class="panel" id="adam-projects"></div></section>
+    <section class="section reveal">
       <div class="split">
         <div class="panel" data-adam="sections" data-block="recruit-benefits"></div>
         <div class="panel" data-adam="sections" data-block="recruit-apply"></div>
@@ -67,16 +67,26 @@
   </main>
   <footer class="site-footer">
     <div class="site-footer__inner">
-      <div>
-        <strong>ADAM Lab@PNU</strong><br>
-        School of Mechanical Engineering, Pusan National University
+      <div class="footer-logos">
+        <a class="footer-logo" href="https://www.pusan.ac.kr/" target="_blank" rel="noopener" title="Pusan National University">
+          <img src="../../assets/brand/pnu-logo.png" alt="Pusan National University" width="280" height="70" loading="lazy">
+        </a>
+        <a class="footer-logo" href="https://me.pusan.ac.kr/" target="_blank" rel="noopener" title="School of Mechanical Engineering">
+          <img src="../../assets/brand/mech-logo.png" alt="School of Mechanical Engineering, PNU" width="120" height="76" loading="lazy">
+        </a>
       </div>
-      <div>
-        Data: <a href="https://docs.google.com/spreadsheets/d/1bmfsOkVl16OJ2KWzWJG6NtV5Ds98fXKnSiRtxKxgzlw" target="_blank" rel="noopener">Google Sheet</a>
-        · Sites: <a href="https://sites.google.com/view/adam-pnu" target="_blank" rel="noopener">adam-pnu</a>
-        · <span data-year></span>
-      </div>
+      <p class="copyright">© ADAM Lab / Autonomous Design for Advanced Manufacturing, Pusan National University</p>
     </div>
   </footer>
+
+  <div id="site-search" class="site-search" hidden>
+    <div class="site-search__panel" role="dialog" aria-modal="true" aria-label="Site search">
+      <form class="site-search__form" action="#" method="get">
+        <input type="search" name="q" class="site-search__input" placeholder="Search this site" autocomplete="off" enterkeyhint="search">
+        <button type="button" class="site-search__close" aria-label="Close search">×</button>
+      </form>
+      <div class="site-search__results" role="listbox" aria-live="polite"></div>
+    </div>
+  </div>
 </body>
 </html>
