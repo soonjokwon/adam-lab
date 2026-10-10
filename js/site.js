@@ -34,6 +34,31 @@
     if (best) best.setAttribute("aria-current", "page");
   }
 
+
+  function bindTeamMenu() {
+    document.querySelectorAll(".nav-group").forEach(function (g) {
+      var top = g.querySelector(":scope > a");
+      if (!top) return;
+      top.addEventListener("click", function (e) {
+        if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
+        if (!g.classList.contains("is-open")) {
+          e.preventDefault();
+          document.querySelectorAll(".nav-group.is-open").forEach(function (o) {
+            if (o !== g) o.classList.remove("is-open");
+          });
+          g.classList.add("is-open");
+        }
+      });
+    });
+    document.addEventListener("click", function (e) {
+      if (!e.target.closest(".nav-group")) {
+        document.querySelectorAll(".nav-group.is-open").forEach(function (o) {
+          o.classList.remove("is-open");
+        });
+      }
+    });
+  }
+
   /* ---------- Mobile nav ---------- */
   function bindNavToggle() {
     var btn = document.querySelector(".nav-toggle");
@@ -151,6 +176,7 @@
   document.addEventListener("DOMContentLoaded", function () {
     markNav();
     bindNavToggle();
+    bindTeamMenu();
     bindEmbeds();
     bindCarousel();
     stampYear();

@@ -110,9 +110,8 @@ a:hover { color: var(--navy); }
   background: rgba(16, 43, 134, 0.08);
 }
 
-.nav details { position: relative; }
-.nav details summary::-webkit-details-marker { display: none; }
-.nav details summary::after {
+.nav .nav-group { position: relative; }
+.nav .nav-group > a::after {
   content: "▾";
   margin-left: 4px;
   font-size: 0.7em;
@@ -122,15 +121,21 @@ a:hover { color: var(--navy); }
   position: absolute;
   right: 0;
   top: calc(100% + 4px);
-  min-width: 180px;
+  min-width: 200px;
   background: #fff;
   border: 1px solid var(--line);
   border-radius: 8px;
   padding: 6px;
   box-shadow: 0 10px 28px rgba(22, 26, 43, 0.1);
-  display: flex;
+  display: none;
   flex-direction: column;
   gap: 2px;
+  z-index: 60;
+}
+.nav .nav-group:hover .submenu,
+.nav .nav-group:focus-within .submenu,
+.nav .nav-group.is-open .submenu {
+  display: flex;
 }
 .nav .submenu a { font-size: 0.88rem; }
 

@@ -74,6 +74,9 @@ Research Pillars 왼쪽 캐러셀은 Sites `sitesv-images` CDN이 403을 반환�
 
 위젯 쪽(`adam-lab-widgets` shared loader)이 같은 메시지를 보내도록 최소 변경이 필요합니다. 반영 전에는 README 권장 `min-height`와 **전체 화면으로 보기** 링크로 동작합니다. Sites 임베드는 메시지를 무시해도 기존 비율 박스가 유지됩니다.
 
+패치 파일: [`docs/widgets-height-postmessage.patch`](docs/widgets-height-postmessage.patch)  
+`adam-lab-widgets`에서 `git apply` 후 `python3 scripts/make_pages.py` 하고 Pages에 올리면 됩니다. (이 에이전트 토큰은 widgets 저장소 push 권한이 없었습니다.)
+
 ## 구조
 
 ```
