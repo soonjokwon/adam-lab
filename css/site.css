@@ -110,13 +110,21 @@ a:hover { color: var(--navy); }
   background: rgba(16, 43, 134, 0.08);
 }
 
-.nav .nav-group { position: relative; }
-.nav .nav-group > a::after {
-  content: "▾";
-  margin-left: 4px;
-  font-size: 0.7em;
-  color: var(--ink-faint);
+.nav .nav-group {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
 }
+.nav-chevron {
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  color: var(--ink-faint);
+  font-size: 0.75rem;
+  padding: 8px 4px 8px 0;
+  font-family: var(--font-display);
+}
+.nav-chevron:hover { color: var(--navy); }
 .nav .submenu {
   position: absolute;
   right: 0;
