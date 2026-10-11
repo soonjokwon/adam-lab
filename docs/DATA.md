@@ -33,9 +33,42 @@ python3 scripts/snapshot_sheet.py
 
 ## Tabs
 
-`news`, `publications`, `patents`, `awards`, `members`, `projects`, `talks`, `gallery`, `sections`
+`news`, `publications`, `patents`, `awards`, `members`, `projects`, `talks`, `gallery`, `sections`, **`topics`**
 
 Tab names and columns must match `scripts/snapshot_sheet.py` (`TABS`).
+
+### Tab `topics` (publications / patents vocabulary)
+
+Research-topic ids used in the `topics` column of `publications` and `patents` (semicolon-separated, e.g. `am; rl`) are mapped to display labels by this tab. The site loads committed `data/topics.json` only.
+
+**Exact header row (column names):**
+
+| Column | Required | Meaning |
+| --- | --- | --- |
+| `topic_key` | yes | Stable id written in publications/patents cells (`cad`, `am`, …). Lowercase letters / digits / hyphens. |
+| `label_en` | yes | English label (tooltip / search). |
+| `label_ko` | yes | Korean full label (tooltip). |
+| `label_short` | yes | Short Korean shown on tags and filter chips. |
+| `aliases` | no | Semicolon-separated alternate spellings that resolve to this key (e.g. `B-rep; CAD`). |
+| `sort` | no | Integer sort order (lower first). Blank → sheet row order. |
+| `active` | no | `Y` (default) or `N`. `N` excludes the topic from the map. |
+| `color` | no | Optional CSS color for tag border (e.g. `#2f6fed`). Leave blank for default styling. |
+
+**How the professor edits topics**
+
+1. Open the [management sheet](https://docs.google.com/spreadsheets/d/1bmfsOkVl16OJ2KWzWJG6NtV5Ds98fXKnSiRtxKxgzlw).
+2. Create a worksheet named exactly **`topics`** (if it does not exist yet).
+3. Put the header row above in row 1; import or paste [`docs/topics-seed.csv`](topics-seed.csv) (same rows as `data/topics.json`).
+4. Add / rename / reorder topics; set `active` to `N` to retire a key.
+5. In `publications` / `patents`, keep using `topic_key` values in the `topics` cell (`am; rl`).
+6. Run **Actions → Snapshot sheet → Pages** (or Apps Script dispatch). Pages then serves the new `data/topics.json`.
+
+Until the live `topics` tab exists, snapshot **skips** that tab (soft) and keeps the committed seed `data/topics.json` so the rest of the pipeline still succeeds. After the tab exists, snapshot overwrites `data/topics.json` from the sheet.
+
+**Seed keys (shipped in `data/topics.json`):**  
+`cad`, `assembly`, `am`, `kg`, `llm`, `mesh`, `rl`, `edu`, `design`, `dt`, `lca`, `routing`, `safety`, `ship`, `std`.
+
+Unknown keys in a paper’s `topics` cell still render as a custom tag (raw text) — they do not break the page.
 
 ## Preferred: GitHub Actions
 

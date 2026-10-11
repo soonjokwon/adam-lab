@@ -75,6 +75,11 @@ TABS = {
     "talks": ["date", "title", "venue", "location", "link"],
     "gallery": ["date", "caption", "image", "group", "link"],
     "sections": ["block", "section", "type", "sub", "text", "link", "image"],
+    # Research-topic vocabulary for publications/patents `topics` cells.
+    "topics": [
+        "topic_key", "label_en", "label_ko", "label_short",
+        "aliases", "sort", "active", "color",
+    ],
 }
 
 NOTES = {
@@ -87,7 +92,16 @@ NOTES = {
     "talks": "Invited talks.",
     "gallery": "group: PNU | KIT. image: assets/gallery/… preferred.",
     "sections": "block/section/type text blocks (Professor, Recruiting, Research, Home).",
+    "topics": (
+        "topic_key (id in publications/patents topics cells); "
+        "label_en / label_ko / label_short (tag text); "
+        "aliases (semicolon-separated); sort; active Y/N; color optional."
+    ),
 }
+
+# Tabs that may be absent until editors create them. Missing → keep committed
+# data/<tab>.json and do not fail the whole snapshot run.
+OPTIONAL_TABS = frozenset({"topics"})
 
 
 def _cell_str(value: Any) -> str:
@@ -219,6 +233,21 @@ def ensure_columns(got: list[str], expected: list[str], tab: str) -> None:
         )
 
 
+def _is_missing_tab_error(message: str) -> bool:
+    """True when Sheets API cannot find the worksheet tab (range parse / not found)."""
+    m = (message or "").lower()
+    return any(
+        needle in m
+        for needle in (
+            "unable to parse range",
+            "unable to parse sheet",
+            "not found",
+            "no sheet with that name",
+            "does not exist",
+        )
+    )
+
+
 def write_json(tab: str, columns: list[str], items: list[dict], sheet_id: str, extracted: str) -> Path:
     ordered = [c for c in TABS[tab] if c in columns] + [c for c in columns if c not in TABS[tab]]
     normalized = [{c: row.get(c, "") for c in ordered} for row in items]
@@ -300,6 +329,17 @@ def snapshot(
             path = write_json(tab, columns, rows, sheet_id, extracted)
             print(f"OK  {tab:14} {len(rows):4d} rows → {path.relative_to(ROOT)}")
         except Exception as exc:  # noqa: BLE001 — report per-tab and continue
+            msg = str(exc)
+            soft = tab in OPTIONAL_TABS and _is_missing_tab_error(msg)
+            if soft:
+                keep = DATA / f"{tab}.json"
+                print(
+                    f"SKIP {tab:14} sheet tab missing — keep "
+                    f"{keep.relative_to(ROOT) if keep.is_file() else '(no local file)'}",
+                    file=sys.stderr,
+                )
+                print(f"     {msg}", file=sys.stderr)
+                continue
             errors.append(f"{tab}: {exc}")
             print(f"ERR {tab:14} {exc}", file=sys.stderr)
 

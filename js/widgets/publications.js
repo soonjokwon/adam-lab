@@ -364,9 +364,14 @@
       revealForHash();
       render();
     }
-    A.load("publications", { required: ["type", "title", "authors", "venue"], onUpdate: apply }).then(apply).catch(function () {
-      A.status(refs.list, "논문 목록을 불러오지 못했습니다.");
-    });
+    var loadPubs = function () {
+      A.load("publications", { required: ["type", "title", "authors", "venue"], onUpdate: apply }).then(apply).catch(function () {
+        A.status(refs.list, "논문 목록을 불러오지 못했습니다.");
+      });
+    };
+    /* Wait for data/topics.json (sheet tab `topics`) so tags match the map. */
+    if (A.topicsReady && typeof A.topicsReady.then === "function") A.topicsReady.then(loadPubs, loadPubs);
+    else loadPubs();
     window.addEventListener("hashchange", function () {
       if (!state.items.length) return;
       if (revealForHash()) render();

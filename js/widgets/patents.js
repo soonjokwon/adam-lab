@@ -164,7 +164,13 @@
       if (state.topic !== "all" && !by[state.topic]) state.topic = "all";
       render();
     }
-    A.load("patents", { required: ["title", "status", "number"], onUpdate: apply }).then(apply).catch(function () { A.status(refs.list, "특허 목록을 불러오지 못했습니다."); });
+    var loadPatents = function () {
+      A.load("patents", { required: ["title", "status", "number"], onUpdate: apply }).then(apply).catch(function () {
+        A.status(refs.list, "특허 목록을 불러오지 못했습니다.");
+      });
+    };
+    if (A.topicsReady && typeof A.topicsReady.then === "function") A.topicsReady.then(loadPatents, loadPatents);
+    else loadPatents();
   }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot); else boot();
 })();

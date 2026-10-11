@@ -1,0 +1,169 @@
+{
+ "lab": "ADAM Lab@PNU",
+ "source": "https://docs.google.com/spreadsheets/d/1bmfsOkVl16OJ2KWzWJG6NtV5Ds98fXKnSiRtxKxgzlw",
+ "sheet_tab": "topics",
+ "extracted": "2026-10-11T00:00:00Z",
+ "note": "Research-topic vocabulary for publications/patents. Columns: topic_key, label_en, label_ko, label_short, aliases, sort, active, color. Seeded from former hardcoded ADAM.TOPICS — create matching sheet tab `topics` then snapshot.",
+ "columns": [
+  "topic_key",
+  "label_en",
+  "label_ko",
+  "label_short",
+  "aliases",
+  "sort",
+  "active",
+  "color"
+ ],
+ "items": [
+  {
+   "topic_key": "cad",
+   "label_en": "B-rep / CAD Modeling",
+   "label_ko": "B-rep·CAD 모델링",
+   "label_short": "CAD 모델링",
+   "aliases": "B-rep; CAD; CAD Modeling",
+   "sort": "10",
+   "active": "Y",
+   "color": ""
+  },
+  {
+   "topic_key": "assembly",
+   "label_en": "Assembly & Mates",
+   "label_ko": "조립·메이트",
+   "label_short": "조립·메이트",
+   "aliases": "조립·체결; Assembly",
+   "sort": "20",
+   "active": "Y",
+   "color": ""
+  },
+  {
+   "topic_key": "am",
+   "label_en": "Additive Manufacturing",
+   "label_ko": "적층제조",
+   "label_short": "적층제조",
+   "aliases": "적층 제조; Additive Mfg.",
+   "sort": "30",
+   "active": "Y",
+   "color": ""
+  },
+  {
+   "topic_key": "kg",
+   "label_en": "Knowledge Graph / Ontology",
+   "label_ko": "지식 그래프·온톨로지",
+   "label_short": "지식그래프",
+   "aliases": "Knowledge Graph",
+   "sort": "40",
+   "active": "Y",
+   "color": ""
+  },
+  {
+   "topic_key": "llm",
+   "label_en": "LLM / Generative AI",
+   "label_ko": "LLM·생성형 AI",
+   "label_short": "LLM·생성형AI",
+   "aliases": "LLM · GenAI",
+   "sort": "50",
+   "active": "Y",
+   "color": ""
+  },
+  {
+   "topic_key": "mesh",
+   "label_en": "Mesh & Point Cloud",
+   "label_ko": "메쉬·점군",
+   "label_short": "메쉬·점군",
+   "aliases": "Mesh · Point Cloud",
+   "sort": "60",
+   "active": "Y",
+   "color": ""
+  },
+  {
+   "topic_key": "rl",
+   "label_en": "Reinforcement Learning",
+   "label_ko": "강화학습",
+   "label_short": "강화학습",
+   "aliases": "",
+   "sort": "70",
+   "active": "Y",
+   "color": ""
+  },
+  {
+   "topic_key": "edu",
+   "label_en": "CAD Education / Grading",
+   "label_ko": "CAD 교육·자동 채점",
+   "label_short": "CAD 교육",
+   "aliases": "CAD Education",
+   "sort": "80",
+   "active": "Y",
+   "color": ""
+  },
+  {
+   "topic_key": "design",
+   "label_en": "Product Design",
+   "label_ko": "제품 설계",
+   "label_short": "제품 설계",
+   "aliases": "",
+   "sort": "90",
+   "active": "Y",
+   "color": ""
+  },
+  {
+   "topic_key": "dt",
+   "label_en": "Digital Twin / Smart Manufacturing",
+   "label_ko": "디지털 트윈·스마트 제조",
+   "label_short": "디지털 트윈",
+   "aliases": "Digital Twin",
+   "sort": "100",
+   "active": "Y",
+   "color": ""
+  },
+  {
+   "topic_key": "lca",
+   "label_en": "Sustainability / LCA",
+   "label_ko": "지속가능성·LCA",
+   "label_short": "지속가능성",
+   "aliases": "Sustainability",
+   "sort": "110",
+   "active": "Y",
+   "color": ""
+  },
+  {
+   "topic_key": "routing",
+   "label_en": "Cable Routing",
+   "label_ko": "케이블 라우팅",
+   "label_short": "케이블 라우팅",
+   "aliases": "",
+   "sort": "120",
+   "active": "Y",
+   "color": ""
+  },
+  {
+   "topic_key": "safety",
+   "label_en": "Safety & Evacuation",
+   "label_ko": "안전·대피",
+   "label_short": "안전·대피",
+   "aliases": "Safety",
+   "sort": "130",
+   "active": "Y",
+   "color": ""
+  },
+  {
+   "topic_key": "ship",
+   "label_en": "Shipbuilding / Ocean",
+   "label_ko": "조선·해양",
+   "label_short": "조선·해양",
+   "aliases": "Ship · Ocean",
+   "sort": "140",
+   "active": "Y",
+   "color": ""
+  },
+  {
+   "topic_key": "std",
+   "label_en": "Standards (ISO·STEP·AAS)",
+   "label_ko": "표준 (ISO·STEP·AAS)",
+   "label_short": "표준",
+   "aliases": "Standards",
+   "sort": "150",
+   "active": "Y",
+   "color": ""
+  }
+ ]
+}

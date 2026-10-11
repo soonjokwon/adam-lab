@@ -18,7 +18,7 @@
 | Team → Professor | `/team/professor/` | `sections` (`professor`) · `talks` |
 | Team → Recruiting | `/team/recruiting/` | `sections` (`recruit-*`) · `projects` (모집 중) |
 | Awards | `/awards/` | `awards` |
-| Publications | `/publications/` | `publications` · `patents` |
+| Publications | `/publications/` | `publications` · `patents` · `topics` |
 | Board | `/board/` | `news` · `gallery` |
 
 ## 데이터 스냅샷 (시트 → JSON → Pages)
@@ -76,7 +76,8 @@ gh api -X PUT repos/soonjokwon/adam-pnu/pages \
 
 ## 데이터·렌더
 
-- 스냅샷 스크립트: `scripts/snapshot_sheet.py` (gviz CSV → `data/<tab>.json`)  
+- 스냅샷 스크립트: `scripts/snapshot_sheet.py` (Sheets API → `data/<tab>.json`)  
+- 주제 맵: 시트 탭 `topics` → `data/topics.json` (없으면 시드 JSON / 코드 폴백)  
 - 로더: `js/sheet/sheet-loader.js` — `ADAM.load`는 로컬 JSON만  
 - 렌더러: `js/widgets/*.js` + `css/widgets/*` (사이트 내 복제본; 원본 widgets 저장소는 그대로)  
 - 이미지 `assets/…` → `https://soonjokwon.github.io/adam-lab-widgets/` CDN  

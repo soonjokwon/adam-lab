@@ -191,7 +191,8 @@
     projects: ["title", "funder", "org_role"],
     talks: ["date", "title", "venue", "location"],
     gallery: ["caption", "image"],
-    sections: ["block", "type", "text"]
+    sections: ["block", "type", "text"],
+    topics: ["topic_key", "label_en", "label_short"]
   };
   function detectTab(header) {
     var best = "";
@@ -364,37 +365,85 @@
   };
 
   /* Research-topic vocabulary for publications/patents (`topics` column,
-     semicolon-separated). Cells may use the id, the English or the Korean
-     label; anything else is shown as a custom tag. Ids match scripts/tag_topics.py. */
-  ADAM.TOPICS = [
-    { id: "cad", en: "B-rep / CAD Modeling", ko: "B-rep·CAD 모델링", kos: "CAD 모델링" },
-    { id: "assembly", en: "Assembly & Mates", ko: "조립·메이트", kos: "조립·메이트" },
-    { id: "am", en: "Additive Manufacturing", ko: "적층제조", kos: "적층제조" },
-    { id: "kg", en: "Knowledge Graph / Ontology", ko: "지식 그래프·온톨로지", kos: "지식그래프" },
-    { id: "llm", en: "LLM / Generative AI", ko: "LLM·생성형 AI", kos: "LLM·생성형AI" },
-    { id: "mesh", en: "Mesh & Point Cloud", ko: "메쉬·점군", kos: "메쉬·점군" },
-    { id: "rl", en: "Reinforcement Learning", ko: "강화학습", kos: "강화학습" },
-    { id: "edu", en: "CAD Education / Grading", ko: "CAD 교육·자동 채점", kos: "CAD 교육" },
-    { id: "design", en: "Product Design", ko: "제품 설계", kos: "제품 설계" },
-    { id: "dt", en: "Digital Twin / Smart Manufacturing", ko: "디지털 트윈·스마트 제조", kos: "디지털 트윈" },
-    { id: "lca", en: "Sustainability / LCA", ko: "지속가능성·LCA", kos: "지속가능성" },
-    { id: "routing", en: "Cable Routing", ko: "케이블 라우팅", kos: "케이블 라우팅" },
-    { id: "safety", en: "Safety & Evacuation", ko: "안전·대피", kos: "안전·대피" },
-    { id: "ship", en: "Shipbuilding / Ocean", ko: "조선·해양", kos: "조선·해양" },
-    { id: "std", en: "Standards (ISO·STEP·AAS)", ko: "표준 (ISO·STEP·AAS)", kos: "표준" }
+     semicolon-separated). Preferred source: data/topics.json (sheet tab
+     `topics`). Hardcoded DEFAULT_TOPICS is the offline fallback only. */
+  var DEFAULT_TOPICS = [
+    { id: "cad", en: "B-rep / CAD Modeling", ko: "B-rep·CAD 모델링", kos: "CAD 모델링", aliases: ["B-rep", "CAD", "CAD Modeling"] },
+    { id: "assembly", en: "Assembly & Mates", ko: "조립·메이트", kos: "조립·메이트", aliases: ["조립·체결", "Assembly"] },
+    { id: "am", en: "Additive Manufacturing", ko: "적층제조", kos: "적층제조", aliases: ["적층 제조", "Additive Mfg."] },
+    { id: "kg", en: "Knowledge Graph / Ontology", ko: "지식 그래프·온톨로지", kos: "지식그래프", aliases: ["Knowledge Graph"] },
+    { id: "llm", en: "LLM / Generative AI", ko: "LLM·생성형 AI", kos: "LLM·생성형AI", aliases: ["LLM · GenAI"] },
+    { id: "mesh", en: "Mesh & Point Cloud", ko: "메쉬·점군", kos: "메쉬·점군", aliases: ["Mesh · Point Cloud"] },
+    { id: "rl", en: "Reinforcement Learning", ko: "강화학습", kos: "강화학습", aliases: [] },
+    { id: "edu", en: "CAD Education / Grading", ko: "CAD 교육·자동 채점", kos: "CAD 교육", aliases: ["CAD Education"] },
+    { id: "design", en: "Product Design", ko: "제품 설계", kos: "제품 설계", aliases: [] },
+    { id: "dt", en: "Digital Twin / Smart Manufacturing", ko: "디지털 트윈·스마트 제조", kos: "디지털 트윈", aliases: ["Digital Twin"] },
+    { id: "lca", en: "Sustainability / LCA", ko: "지속가능성·LCA", kos: "지속가능성", aliases: ["Sustainability"] },
+    { id: "routing", en: "Cable Routing", ko: "케이블 라우팅", kos: "케이블 라우팅", aliases: [] },
+    { id: "safety", en: "Safety & Evacuation", ko: "안전·대피", kos: "안전·대피", aliases: ["Safety"] },
+    { id: "ship", en: "Shipbuilding / Ocean", ko: "조선·해양", kos: "조선·해양", aliases: ["Ship · Ocean"] },
+    { id: "std", en: "Standards (ISO·STEP·AAS)", ko: "표준 (ISO·STEP·AAS)", kos: "표준", aliases: ["Standards"] }
   ];
   function topicKey(s) { return String(s || "").toLowerCase().replace(/[\s·.\/&()_+-]+/g, ""); }
   var TOPIC_BY = {};
-  ADAM.TOPICS.forEach(function (t, i) {
-    t.order = i;
-    [t.id, t.en, t.ko, t.kos].forEach(function (k) { TOPIC_BY[topicKey(k)] = t; });
+  function topicActive(v) {
+    var s = String(v == null ? "Y" : v).trim().toLowerCase();
+    if (!s) return true;
+    return !(s === "n" || s === "no" || s === "false" || s === "0" || s === "off");
+  }
+  function rebuildTopics(list) {
+    ADAM.TOPICS = [];
+    TOPIC_BY = {};
+    (list || []).forEach(function (raw, i) {
+      if (!raw) return;
+      var id = String(raw.id || raw.topic_key || "").trim().toLowerCase().replace(/\s+/g, "-");
+      if (!id) return;
+      if (!topicActive(raw.active)) return;
+      var en = String(raw.en || raw.label_en || raw.label || id).trim() || id;
+      var ko = String(raw.ko || raw.label_ko || en).trim() || en;
+      var kos = String(raw.kos || raw.label_short || ko).trim() || ko;
+      var sortN = parseInt(raw.sort != null && raw.sort !== "" ? raw.sort : i * 10, 10);
+      if (isNaN(sortN)) sortN = i * 10;
+      var color = String(raw.color || raw.badge || "").trim();
+      var aliases = [];
+      if (Array.isArray(raw.aliases)) {
+        aliases = raw.aliases.map(function (a) { return String(a || "").trim(); }).filter(Boolean);
+      } else {
+        String(raw.aliases || "").split(/[;,；\n]+/).forEach(function (a) {
+          a = a.trim();
+          if (a) aliases.push(a);
+        });
+      }
+      var t = { id: id, en: en, ko: ko, kos: kos, order: sortN, color: color, aliases: aliases };
+      ADAM.TOPICS.push(t);
+      [t.id, t.en, t.ko, t.kos].concat(aliases).forEach(function (k) {
+        var key = topicKey(k);
+        if (key) TOPIC_BY[key] = t;
+      });
+    });
+    ADAM.TOPICS.sort(function (a, b) { return a.order - b.order; });
+    ADAM.TOPICS.forEach(function (t, i) { t.order = i; });
+  }
+  rebuildTopics(DEFAULT_TOPICS);
+
+  ADAM.applyTopicRows = function (rows) {
+    if (!rows || !rows.length) return false;
+    rebuildTopics(rows);
+    return ADAM.TOPICS.length > 0;
+  };
+
+  /* Resolves when data/topics.json has been applied (or fallback kept). */
+  ADAM.topicsReady = ADAM.load("topics", { required: ["topic_key"] }).then(function (res) {
+    if (res && res.rows && res.rows.length && ADAM.applyTopicRows(res.rows)) {
+      return { source: res.source, count: ADAM.TOPICS.length };
+    }
+    rebuildTopics(DEFAULT_TOPICS);
+    return { source: "default", count: ADAM.TOPICS.length };
+  }).catch(function () {
+    rebuildTopics(DEFAULT_TOPICS);
+    return { source: "default", count: ADAM.TOPICS.length };
   });
-  TOPIC_BY[topicKey("B-rep")] = TOPIC_BY[topicKey("CAD")] = ADAM.TOPICS[0];
-  ["조립·체결", "적층 제조", "Additive Mfg.", "LLM · GenAI", "Knowledge Graph", "Mesh · Point Cloud", "CAD Modeling", "Assembly",
-   "CAD Education", "Digital Twin", "Sustainability", "Safety", "Ship · Ocean", "Standards"].forEach(function (k, i) {
-    var ids = ["assembly", "am", "am", "llm", "kg", "mesh", "cad", "assembly", "edu", "dt", "lca", "safety", "ship", "std"];
-    ADAM.TOPICS.forEach(function (t) { if (t.id === ids[i]) TOPIC_BY[topicKey(k)] = t; });
-  });
+
   ADAM.topic = function (v) {
     var raw = String(v || "").trim(), k = topicKey(raw);
     if (!k) return null;
@@ -412,6 +461,10 @@
   ADAM.topicTag = function (t, active, onPick) {
     var b = ADAM.el("button", { type: "button", class: "ax-tag", "aria-pressed": String(active),
       title: t.custom ? t.en : t.ko + " · " + t.en, text: t.kos, lang: "ko" });
+    if (t.color) {
+      b.style.borderColor = t.color;
+      b.setAttribute("data-topic-color", t.color);
+    }
     b.addEventListener("click", function () { onPick(t.id); });
     return b;
   };
