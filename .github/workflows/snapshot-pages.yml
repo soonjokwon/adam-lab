@@ -2,13 +2,11 @@
 # Browser never reads the Sheet. Actions uses Sheets API + a service account
 # (repo secret GOOGLE_SERVICE_ACCOUNT_JSON). Share the private sheet Viewer
 # with the SA email. Do not log or commit the key.
+# Triggers: manual workflow_dispatch, or Apps Script on sheet change (external).
 name: Snapshot sheet → Pages
 
 on:
   workflow_dispatch:
-  schedule:
-    # Every 30 minutes, every day (professor 2026-10-11)
-    - cron: "*/30 * * * *"
 
 permissions:
   contents: write

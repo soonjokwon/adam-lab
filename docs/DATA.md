@@ -41,7 +41,7 @@ Tab names and columns must match `scripts/snapshot_sheet.py` (`TABS`).
 
 Workflow: [`.github/workflows/snapshot-pages.yml`](../.github/workflows/snapshot-pages.yml)
 
-- **Triggers:** `workflow_dispatch` and `cron: "*/30 * * * *"` (every 30 minutes, every day).  
+- **Triggers:** `workflow_dispatch` only — no periodic cron. Refresh is triggered manually or by Apps Script when the management sheet changes (external `workflow_dispatch`).  
 - **Job:** checkout → Python 3.12 → write `secrets.GOOGLE_SERVICE_ACCOUNT_JSON` to a temp file → `pip install google-auth google-api-python-client` → `python3 scripts/snapshot_sheet.py` → if `data/` / `js/sheet/sheets.js` changed, commit `data: refresh sheet snapshot` and push `main`.  
 - **Pages:** Deploy from branch on `main` — no `actions/deploy-pages` step.
 
