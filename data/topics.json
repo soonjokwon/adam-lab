@@ -2,7 +2,7 @@
  "lab": "ADAM Lab@PNU",
  "source": "https://docs.google.com/spreadsheets/d/1bmfsOkVl16OJ2KWzWJG6NtV5Ds98fXKnSiRtxKxgzlw",
  "sheet_tab": "topics",
- "extracted": "2026-10-11T15:07:00Z",
+ "extracted": "2026-10-11T15:08:10Z",
  "note": "topic_key (id in publications/patents topics cells); label_en / label_ko / label_short (tag text); aliases (semicolon-separated); sort; active Y/N; color optional.",
  "columns": [
   "topic_key",
@@ -21,7 +21,7 @@
    "label_ko": "인공 지능 응용",
    "label_short": "AI응용",
    "aliases": "",
-   "sort": "180",
+   "sort": "10",
    "active": "Y",
    "color": ""
   },
@@ -31,36 +31,16 @@
    "label_ko": "강화학습",
    "label_short": "강화학습",
    "aliases": "",
-   "sort": "70",
-   "active": "Y",
-   "color": ""
-  },
-  {
-   "topic_key": "cad",
-   "label_en": "B-rep / CAD Modeling",
-   "label_ko": "B-rep·CAD 모델링",
-   "label_short": "CAD 모델링",
-   "aliases": "B-rep; CAD; CAD Modeling",
-   "sort": "10",
-   "active": "Y",
-   "color": ""
-  },
-  {
-   "topic_key": "assembly",
-   "label_en": "Assembly & Mates",
-   "label_ko": "조립·메이트",
-   "label_short": "조립·메이트",
-   "aliases": "조립·체결; Assembly",
    "sort": "20",
    "active": "Y",
    "color": ""
   },
   {
-   "topic_key": "am",
-   "label_en": "Additive Manufacturing",
-   "label_ko": "적층제조",
-   "label_short": "적층제조",
-   "aliases": "적층 제조; Additive Mfg.",
+   "topic_key": "llm",
+   "label_en": "LLM / Generative AI",
+   "label_ko": "LLM·생성형 AI",
+   "label_short": "LLM·생성형AI",
+   "aliases": "LLM · GenAI",
    "sort": "30",
    "active": "Y",
    "color": ""
@@ -76,12 +56,32 @@
    "color": ""
   },
   {
-   "topic_key": "llm",
-   "label_en": "LLM / Generative AI",
-   "label_ko": "LLM·생성형 AI",
-   "label_short": "LLM·생성형AI",
-   "aliases": "LLM · GenAI",
+   "topic_key": "cad",
+   "label_en": "B-rep / CAD Modeling",
+   "label_ko": "B-rep·CAD 모델링",
+   "label_short": "CAD 모델링",
+   "aliases": "B-rep; CAD; CAD Modeling",
    "sort": "50",
+   "active": "Y",
+   "color": ""
+  },
+  {
+   "topic_key": "assembly",
+   "label_en": "Assembly & Mates",
+   "label_ko": "조립·메이트",
+   "label_short": "조립·메이트",
+   "aliases": "조립·체결; Assembly",
+   "sort": "60",
+   "active": "Y",
+   "color": ""
+  },
+  {
+   "topic_key": "am",
+   "label_en": "Additive Manufacturing",
+   "label_ko": "적층제조",
+   "label_short": "적층제조",
+   "aliases": "적층 제조; Additive Mfg.",
+   "sort": "70",
    "active": "Y",
    "color": ""
   },
@@ -91,7 +91,7 @@
    "label_ko": "메쉬·점군",
    "label_short": "메쉬·점군",
    "aliases": "Mesh · Point Cloud",
-   "sort": "60",
+   "sort": "80",
    "active": "Y",
    "color": ""
   },
@@ -101,7 +101,7 @@
    "label_ko": "CAD 교육·자동 채점",
    "label_short": "CAD 교육",
    "aliases": "CAD Education",
-   "sort": "80",
+   "sort": "90",
    "active": "Y",
    "color": ""
   },
@@ -111,7 +111,7 @@
    "label_ko": "제품 설계",
    "label_short": "제품 설계",
    "aliases": "",
-   "sort": "90",
+   "sort": "100",
    "active": "Y",
    "color": ""
   },
@@ -121,7 +121,7 @@
    "label_ko": "디지털 트윈·스마트 제조",
    "label_short": "디지털 트윈",
    "aliases": "Digital Twin",
-   "sort": "100",
+   "sort": "110",
    "active": "Y",
    "color": ""
   },
@@ -131,7 +131,7 @@
    "label_ko": "지속가능성·LCA",
    "label_short": "지속가능성",
    "aliases": "Sustainability",
-   "sort": "110",
+   "sort": "120",
    "active": "Y",
    "color": ""
   },
@@ -141,7 +141,7 @@
    "label_ko": "케이블 라우팅",
    "label_short": "케이블 라우팅",
    "aliases": "",
-   "sort": "120",
+   "sort": "130",
    "active": "Y",
    "color": ""
   },
@@ -151,7 +151,7 @@
    "label_ko": "안전·대피",
    "label_short": "안전·대피",
    "aliases": "Safety",
-   "sort": "130",
+   "sort": "140",
    "active": "Y",
    "color": ""
   },
@@ -161,7 +161,7 @@
    "label_ko": "조선·해양",
    "label_short": "조선·해양",
    "aliases": "Ship · Ocean",
-   "sort": "140",
+   "sort": "150",
    "active": "Y",
    "color": ""
   },
@@ -171,7 +171,7 @@
    "label_ko": "표준 (ISO·STEP·AAS)",
    "label_short": "표준",
    "aliases": "Standards",
-   "sort": "150",
+   "sort": "160",
    "active": "Y",
    "color": ""
   },
@@ -181,7 +181,7 @@
    "label_ko": "제조 특징형상 인식",
    "label_short": "특징형상 인식",
    "aliases": "",
-   "sort": "160",
+   "sort": "170",
    "active": "Y",
    "color": ""
   },
@@ -190,16 +190,6 @@
    "label_en": "Computer-Aided Process Planning",
    "label_ko": "컴퓨터 지원 공정 계획",
    "label_short": "공정 계획",
-   "aliases": "",
-   "sort": "170",
-   "active": "Y",
-   "color": ""
-  },
-  {
-   "topic_key": "ai",
-   "label_en": "Artificial Intelligence",
-   "label_ko": "인공 지능 응용",
-   "label_short": "AI응용",
    "aliases": "",
    "sort": "180",
    "active": "Y",
