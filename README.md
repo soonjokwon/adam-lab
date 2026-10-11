@@ -29,8 +29,7 @@
 
 워크플로: [`.github/workflows/snapshot-pages.yml`](.github/workflows/snapshot-pages.yml)
 
-- 수동: Actions → **Snapshot sheet → Pages** → Run workflow  
-- 자동: 매일 30분마다 (`cron: "*/30 * * * *"`)  
+- 트리거: `workflow_dispatch`만 (주기 cron 없음). 시트 변경 시 Apps Script가 외부에서 dispatch, 또는 Actions에서 수동 Run  
 - Sheets API + 서비스 계정 (repo secret **`GOOGLE_SERVICE_ACCOUNT_JSON`**); 시트는 SA 이메일에 Viewer로 공유  
 - 변경이 있을 때만 `data: refresh sheet snapshot` 커밋 후 `main` 푸시 → Pages(브랜치 배포) 갱신  
 

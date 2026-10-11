@@ -64,7 +64,7 @@ The script also updates `js/sheet/sheets.js` (`ADAM_DATA_VERSION` cache-bust) an
 ## Deploy checklist
 
 1. Edit the Sheet (shared Viewer with the SA email).  
-2. Prefer: Actions → **Snapshot sheet → Pages** → Run workflow (or wait for cron).  
+2. Prefer: sheet change → Apps Script `workflow_dispatch`, or Actions → **Snapshot sheet → Pages** → Run workflow.  
 3. Fallback: run `python3 scripts/snapshot_sheet.py` with SA credentials, review `git diff data/`, commit, push `main`.  
 4. GitHub Pages (branch deploy from `main`) publishes the site.
 
