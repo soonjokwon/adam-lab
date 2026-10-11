@@ -17,9 +17,13 @@ Share the spreadsheet with the service account email as Viewer
 
 Run (local or Actions):
   python3 scripts/snapshot_sheet.py
-  git add data/ js/sheet/sheets.js
+  git add data/ js/sheet/sheets.js '*.html'
   git commit -m "data: refresh sheet snapshot"
   git push origin main
+
+Also rewrites sheets.js?v=… on every HTML page that loads sheets.js
+(placeholder __SHEETS_JS_V__ or any prior ?v=) so GitHub Pages does not
+serve a stale sheets.js for ~10 minutes after a snapshot.
 """
 
 from __future__ import annotations
@@ -27,6 +31,7 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import re
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
@@ -35,6 +40,11 @@ from typing import Any
 ROOT = Path(__file__).resolve().parents[1]
 DATA = ROOT / "data"
 SHEETS_JS = ROOT / "js" / "sheet" / "sheets.js"
+SHEETS_JS_V_PLACEHOLDER = "__SHEETS_JS_V__"
+# Match src="…/sheets.js" or src="…/sheets.js?v=…" (relative paths OK).
+SHEETS_JS_SRC_RE = re.compile(
+    r'(src=["\'](?:\.\./)*(?:js/sheet/)?sheets\.js)(?:\?v=[^"\']*)?(["\'])'
+)
 
 DEFAULT_SHEET_ID = "1bmfsOkVl16OJ2KWzWJG6NtV5Ds98fXKnSiRtxKxgzlw"
 SCOPES = ("https://www.googleapis.com/auth/spreadsheets.readonly",)
@@ -231,13 +241,36 @@ def update_sheets_js(version: str, sheet_id: str) -> None:
    The browser never fetches Google Sheets — it loads committed data/*.json.
    Refresh JSON:  python3 scripts/snapshot_sheet.py
    Sheet: https://docs.google.com/spreadsheets/d/{sheet_id}
-   (Share Viewer with the snapshot service account; tab names → scripts/snapshot_sheet.py). */
+   (Share Viewer with the snapshot service account; tab names → scripts/snapshot_sheet.py).
+   ADAM_DATA_VERSION is for debug/display; HTML cache-busts this file via ?v=. */
 window.ADAM_SHEET_ID = "{sheet_id}";
 window.ADAM_DATA_VERSION = "{version}";
 /* Intentionally empty: no docs.google.com / gviz URLs in the browser. */
 window.ADAM_SHEETS = {{}};
 '''
     SHEETS_JS.write_text(content, encoding="utf-8")
+
+
+def update_html_sheets_js_v(version: str) -> list[Path]:
+    """Rewrite sheets.js?v=… (or bare sheets.js / __SHEETS_JS_V__) on all site HTML pages."""
+    changed: list[Path] = []
+    for path in sorted(ROOT.rglob("*.html")):
+        if any(part.startswith(".") for part in path.parts):
+            continue
+        text = path.read_text(encoding="utf-8")
+        if "sheets.js" not in text:
+            continue
+        new_text, n = SHEETS_JS_SRC_RE.subn(rf"\1?v={version}\2", text)
+        # Also replace explicit placeholder if present outside the regex edge cases.
+        new_text = new_text.replace(
+            f"sheets.js?v={SHEETS_JS_V_PLACEHOLDER}", f"sheets.js?v={version}"
+        )
+        if new_text != text or n:
+            if new_text != text:
+                path.write_text(new_text, encoding="utf-8")
+                changed.append(path)
+                print(f"OK  html           sheets.js?v={version} → {path.relative_to(ROOT)}")
+    return changed
 
 
 def snapshot(
@@ -272,6 +305,7 @@ def snapshot(
 
     update_sheets_js(version, sheet_id)
     print(f"OK  sheets.js       ADAM_DATA_VERSION={version}")
+    update_html_sheets_js_v(version)
     meta = {
         "sheet_id": sheet_id,
         "extracted": extracted,

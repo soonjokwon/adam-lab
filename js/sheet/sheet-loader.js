@@ -1,9 +1,9 @@
 /* ADAM Lab site data loader (vanilla, no deps).
 
    ADAM.load(tab, { required: ["col", ...], onUpdate: fn }) loads only the
-   committed snapshot at data/<tab>.json (optional ?v= cache-bust from
-   ADAM_DATA_VERSION). The browser never calls Google Sheets / gviz.
-   Refresh snapshots: python3 scripts/snapshot_sheet.py
+   committed snapshot at data/<tab>.json (per-load cache-bust; never reuse a
+   stale ADAM_DATA_VERSION from a cached sheets.js). The browser never calls
+   Google Sheets / gviz. Refresh snapshots: python3 scripts/snapshot_sheet.py
    ?debug=1 shows source / dropped rows; ADAM.track(tab) lets each widget
    report rows it dropped or values it did not recognise.
    Paste builds may set window.ADAM_ROOT and window.ADAM_INLINE[tab].
@@ -295,9 +295,10 @@
     function fromJson() {
       var inline = window.ADAM_INLINE && window.ADAM_INLINE[tab];
       if (Array.isArray(inline) && inline.length) return Promise.resolve({ rows: inline, source: "inline" });
-      var ver = window.ADAM_DATA_VERSION || "";
-      var url = ADAM.root + "data/" + tab + ".json" + (ver ? "?v=" + encodeURIComponent(ver) : "");
-      return fetchTimeout(url, 8000, { cache: "no-cache" })
+      /* Do not use ADAM_DATA_VERSION here — it lives in sheets.js which GitHub
+         Pages may cache for minutes. Bust every page load instead. */
+      var url = ADAM.root + "data/" + tab + ".json?_=" + Date.now();
+      return fetchTimeout(url, 8000, { cache: "no-store" })
         .then(function (res) {
           if (!res.ok) throw new Error("json " + res.status);
           return res.json();

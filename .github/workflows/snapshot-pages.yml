@@ -53,6 +53,8 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add data/ js/sheet/sheets.js
+          # Snapshot also rewrites sheets.js?v= on HTML pages (Pages CDN cache-bust)
+          git add index.html awards board publications research team
           if git diff --staged --quiet; then
             echo "No snapshot changes."
             exit 0
