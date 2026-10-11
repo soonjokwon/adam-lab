@@ -2,8 +2,9 @@
    The browser never fetches Google Sheets — it loads committed data/*.json.
    Refresh JSON:  python3 scripts/snapshot_sheet.py
    Sheet: https://docs.google.com/spreadsheets/d/1bmfsOkVl16OJ2KWzWJG6NtV5Ds98fXKnSiRtxKxgzlw
-   (Share Viewer with the snapshot service account; tab names → scripts/snapshot_sheet.py). */
+   (Share Viewer with the snapshot service account; tab names → scripts/snapshot_sheet.py).
+   ADAM_DATA_VERSION is for debug/display; HTML cache-busts this file via ?v=. */
 window.ADAM_SHEET_ID = "1bmfsOkVl16OJ2KWzWJG6NtV5Ds98fXKnSiRtxKxgzlw";
-window.ADAM_DATA_VERSION = "20261011-070221";
+window.ADAM_DATA_VERSION = "20261011-071022";
 /* Intentionally empty: no docs.google.com / gviz URLs in the browser. */
 window.ADAM_SHEETS = {};
