@@ -2,7 +2,7 @@
  "lab": "ADAM Lab@PNU",
  "source": "https://docs.google.com/spreadsheets/d/1bmfsOkVl16OJ2KWzWJG6NtV5Ds98fXKnSiRtxKxgzlw",
  "sheet_tab": "publications",
- "extracted": "2026-10-11T15:01:36Z",
+ "extracted": "2026-10-11T15:03:11Z",
  "note": "type: journal-intl | journal-kr | conf-intl | conf-kr | in-prep | other.",
  "columns": [
   "type",
@@ -2017,7 +2017,7 @@
    "year": "2024",
    "authors": "전예성, 한서희, 윤영준, 권순조",
    "title": "3D CAD 모델에서 내부 국소 특징형상 탐지를 위한 단면도 활용",
-   "topics": "cad",
+   "topics": "cad; mfr",
    "venue": "대한기계학회 2024년 학술대회",
    "details": "제주국제컨벤션센터, 제주, 2024.11.06~09. (11.07.)",
    "date": "2024-11-07",
