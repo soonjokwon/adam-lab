@@ -13,6 +13,17 @@
   margin-top: 8px;
   padding-top: 8px;
 }
+.mb-band__head {
+  margin: 4px 4px 14px;
+}
+.mb-band__title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(1.15rem, 2.4vw, 1.45rem);
+  color: var(--navy);
+  letter-spacing: -0.02em;
+}
 .mb-pi {
   display: grid;
   grid-template-columns: 148px minmax(0, 1fr);

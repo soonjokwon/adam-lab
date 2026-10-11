@@ -147,8 +147,11 @@
     refs.count.textContent = current.length + " current · " + alumni.length + " alumni";
 
     refs.body.innerHTML = "";
-    /* No Current/Alumni band titles — cards only. */
-    var currentBand = el("section", { class: "mb-band mb-band--current", "aria-label": "Current members" });
+    /* English band titles only (no Korean explanatory subtitles). */
+    var currentBand = el("section", { class: "mb-band mb-band--current", "aria-labelledby": "mb-current-title" });
+    currentBand.appendChild(el("header", { class: "mb-band__head" }, [
+      el("h2", { id: "mb-current-title", class: "mb-band__title", text: "Current Members" })
+    ]));
     var currentBody = el("div", { class: "mb-band__body" });
     var f = state.filter;
     if (f === "all" || f === "pi") {
@@ -172,7 +175,10 @@
 
     refs.alumniSec = null;
     if (alumni.length) {
-      var alumBand = el("section", { class: "mb-band mb-band--alumni", "aria-label": "Alumni" });
+      var alumBand = el("section", { class: "mb-band mb-band--alumni", "aria-labelledby": "mb-alumni-title" });
+      alumBand.appendChild(el("header", { class: "mb-band__head" }, [
+        el("h2", { id: "mb-alumni-title", class: "mb-band__title", text: "Alumni" })
+      ]));
       var alumBody = el("div", { class: "mb-band__body" });
       var labs = [];
       alumni.forEach(function (it) { if (labs.indexOf(it.lab) === -1) labs.push(it.lab); });
