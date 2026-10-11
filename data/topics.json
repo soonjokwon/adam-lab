@@ -2,7 +2,7 @@
  "lab": "ADAM Lab@PNU",
  "source": "https://docs.google.com/spreadsheets/d/1bmfsOkVl16OJ2KWzWJG6NtV5Ds98fXKnSiRtxKxgzlw",
  "sheet_tab": "topics",
- "extracted": "2026-10-11T14:58:27Z",
+ "extracted": "2026-10-11T14:59:57Z",
  "note": "topic_key (id in publications/patents topics cells); label_en / label_ko / label_short (tag text); aliases (semicolon-separated); sort; active Y/N; color optional.",
  "columns": [
   "topic_key",
@@ -163,6 +163,16 @@
    "aliases": "Standards",
    "sort": "150",
    "active": "Y",
+   "color": ""
+  },
+  {
+   "topic_key": "mfr",
+   "label_en": "Manufacturing Feature Recognition",
+   "label_ko": "제조 특징형상 인식",
+   "label_short": "특징형상 인식",
+   "aliases": "",
+   "sort": "160",
+   "active": "",
    "color": ""
   }
  ]
