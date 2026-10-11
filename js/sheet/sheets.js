@@ -5,6 +5,6 @@
    (Share Viewer with the snapshot service account; tab names → scripts/snapshot_sheet.py).
    ADAM_DATA_VERSION is for debug/display; HTML cache-busts this file via ?v=. */
 window.ADAM_SHEET_ID = "1bmfsOkVl16OJ2KWzWJG6NtV5Ds98fXKnSiRtxKxgzlw";
-window.ADAM_DATA_VERSION = "20261011-151510";
+window.ADAM_DATA_VERSION = "20261011-151614";
 /* Intentionally empty: no docs.google.com / gviz URLs in the browser. */
 window.ADAM_SHEETS = {};
