@@ -125,6 +125,12 @@
     return wrapEl;
   }
 
+  function aidLetter(sub) {
+    var s = String(sub || "");
+    var m = s.match(/\{\{\s*([AID])\s*\}\}/i) || s.match(/\b([AID])(?:utonomy|ntelligence|igitalization)\b/i);
+    return m ? m[1].toUpperCase() : "";
+  }
+
   function cardRun(items) {
     /* rows with the same non-empty sub (consecutive) = one card */
     var cards = [], cur = null;
@@ -132,15 +138,24 @@
       if (cur && it.sub && it.sub === cur.sub) cur.items.push(it);
       else { cur = { sub: it.sub, items: [it] }; cards.push(cur); }
     });
-        /* icon cards (Growth Pillars) = rows on desktop, three mini columns on phones */
+    /* icon cards (Growth Pillars) = rows on desktop, three mini columns on phones */
     var icons = cards.some(function (c) { return c.items[0].image; });
-    var grid = el("div", { class: "sx-cards" + (icons ? " has-icon" : ""), "data-min": icons ? "640" : "300", "data-min-pe": icons ? "96" : "300" });
+    var aid = cards.map(function (c) { return aidLetter(c.sub); }).filter(Boolean);
+    var isAid = !icons && aid.length >= 2;
+    var grid = el("div", {
+      class: "sx-cards" + (icons ? " has-icon" : "") + (isAid ? " sx-aid" : ""),
+      "data-min": icons ? "640" : (isAid ? "220" : "300"),
+      "data-min-pe": icons ? "96" : (isAid ? "200" : "300")
+    });
     cards.forEach(function (c, i) {
       var first = c.items[0], link = first.link;
+      var letter = aidLetter(c.sub);
       var body = c.items.length > 1
         ? el("ul", { class: "sx-list" }, c.items.map(function (it) { return el("li", {}, [inline(it.text)]); }))
         : rich("p", "sx-body", first.text);
-      var card = el(link ? "a" : "div", link ? { class: "sx-card", href: link, target: /^https?:/.test(link) ? "_blank" : null, rel: "noopener" } : { class: "sx-card" }, [
+      var cls = "sx-card" + (letter ? " sx-card--aid sx-card--" + letter.toLowerCase() : "");
+      var card = el(link ? "a" : "div", link ? { class: cls, href: link, target: /^https?:/.test(link) ? "_blank" : null, rel: "noopener" } : { class: cls }, [
+        letter ? el("span", { class: "sx-aid-letter", "aria-hidden": "true", text: letter }) : null,
         first.image ? el("div", { class: "sx-icon" }, [img(first.image, plain(c.sub))]) : null,
         el("div", { class: "sx-cardtxt" }, [
           c.sub ? rich("h4", "sx-ct", c.sub) : el("span", { class: "sx-num", text: (i + 1 < 10 ? "0" : "") + (i + 1) }),

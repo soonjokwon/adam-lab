@@ -373,6 +373,22 @@ main { display: block; }
   .split { grid-template-columns: 1fr; }
 }
 
+/* Research Pillars: visual carousel, then A·I·D cards full-width */
+.pillars-section {
+  display: grid;
+  gap: 14px;
+}
+.pillars-visual {
+  overflow: hidden;
+}
+.pillars-visual .carousel {
+  aspect-ratio: 16 / 9;
+  border: 0;
+}
+.pillars-aid {
+  padding: 14px 12px 16px;
+}
+
 /* ---------- Panels (hover glow only) ---------- */
 .panel {
   position: relative;

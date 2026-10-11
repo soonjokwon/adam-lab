@@ -17,7 +17,12 @@
   var ROLE_ALIAS = { "교수": "professor", "책임자": "professor", pi: "professor", "박사후연구원": "postdoc", "연구원": "researcher",
     "박사과정": "phd", "석박사통합과정": "ms-phd", "통합과정": "ms-phd", "석사과정": "ms", master: "ms", "학부연구생": "undergrad", "학사과정": "undergrad", undergraduate: "undergrad" };
   var ROLE_ORDER = { professor: 0, postdoc: 1, researcher: 2, phd: 3, "ms-phd": 4, ms: 5, undergrad: 6 };   // "other" = unrecognised role
-  var state = { items: [], filter: "all", alumni: A.params.get("alumni") === "1" };
+  /* Always show alumni below current on adam-lab Team page (toggle still works if ?alumni=0). */
+  var state = {
+    items: [],
+    filter: "all",
+    alumni: A.params.get("alumni") !== "0"
+  };
   var showJoin = A.params.get("join") !== "0";
   var refs = {};
 
@@ -65,20 +70,14 @@
   function shell() {
     mount.innerHTML = "";
     refs.chips = el("div", { class: "ax-chips", role: "group", "aria-label": "구성원 분류" });
-    refs.alumni = el("button", { type: "button", class: "ax-chip", "aria-pressed": "false" });
     refs.count = el("span", { class: "ax-count", "aria-live": "polite" });
     refs.body = el("div", { class: "mb-body-wrap" });
     var root = el("div", { class: "ax-root mb" }, [
-      el("div", { class: "ax-bar" }, [refs.chips, el("span", { class: "ax-grow" }), refs.alumni, refs.count]),
+      el("div", { class: "ax-bar" }, [refs.chips, el("span", { class: "ax-grow" }), refs.count]),
       refs.body
     ]);
     mount.appendChild(root);
     A.phone(root, { title: "구성원 Team" });
-    refs.alumni.addEventListener("click", function () {
-      state.alumni = !state.alumni;
-      render();
-      if (state.alumni && refs.alumniSec) refs.alumniSec.scrollIntoView({ behavior: "smooth", block: "start" });
-    });
     for (var i = 0; i < 3; i++) refs.body.appendChild(el("div", { class: "ax-skel", "aria-hidden": "true", style: "height:120px" }));
   }
 
@@ -143,17 +142,21 @@
     var current = state.items.filter(function (it) { return it.status === "current"; });
     var alumni = state.items.filter(function (it) { return it.status === "alumni"; });
     renderChips(current);
-    refs.alumni.innerHTML = "";
-    refs.alumni.appendChild(el("span", { class: "ko", text: state.alumni ? "졸업생 숨기기" : "졸업생 보기" }));
-    refs.alumni.appendChild(el("span", { class: "n", text: String(alumni.length) }));
-    refs.alumni.setAttribute("aria-pressed", String(state.alumni));
-    refs.alumni.hidden = !alumni.length;
-    refs.count.textContent = current.length + " members";
+    refs.count.textContent = current.length + " current · " + alumni.length + " alumni";
 
     refs.body.innerHTML = "";
+    var currentBand = el("section", { class: "mb-band mb-band--current", "aria-labelledby": "mb-current-title" });
+    currentBand.appendChild(el("header", { class: "mb-band__head" }, [
+      el("h2", { id: "mb-current-title", class: "mb-band__title" }, [
+        el("span", { class: "en", text: "Current Members" }),
+        el("span", { class: "ko", text: "구성원" })
+      ]),
+      el("p", { class: "mb-band__desc", text: "재학·재직 중인 연구실 구성원" })
+    ]));
+    var currentBody = el("div", { class: "mb-band__body" });
     var f = state.filter;
     if (f === "all" || f === "pi") {
-      current.filter(function (it) { return it.role === "professor"; }).forEach(function (it) { refs.body.appendChild(piCard(it)); });
+      current.filter(function (it) { return it.role === "professor"; }).forEach(function (it) { currentBody.appendChild(piCard(it)); });
     }
     SECTIONS.forEach(function (s) {
       if (f !== "all" && f !== s.id) return;
@@ -162,23 +165,30 @@
       var grid = el("div", { class: "mb-grid" });
       list.forEach(function (it) { grid.appendChild(memberCard(it)); });
       if (s.join && showJoin) grid.appendChild(joinCard());
-      refs.body.appendChild(el("section", { class: "mb-sec" }, [
+      currentBody.appendChild(el("section", { class: "mb-sec" }, [
         el("h3", { class: "mb-sh" }, [el("span", { class: "ax-kicker", text: s.en }), el("span", { class: "ko", text: s.ko }),
           el("span", { class: "ax-count", text: String(list.length) })]),
         grid
       ]));
     });
+    currentBand.appendChild(currentBody);
+    refs.body.appendChild(currentBand);
 
     refs.alumniSec = null;
-    if (state.alumni && alumni.length) {
-      var sec = el("section", { class: "mb-sec ax-in" }, [
-        el("h3", { class: "mb-sh" }, [el("span", { class: "ax-kicker", text: "Alumni" }), el("span", { class: "ko", text: "졸업생" }),
-          el("span", { class: "ax-count", text: String(alumni.length) })])
-      ]);
+    if (alumni.length) {
+      var alumBand = el("section", { class: "mb-band mb-band--alumni", "aria-labelledby": "mb-alumni-title" });
+      alumBand.appendChild(el("header", { class: "mb-band__head" }, [
+        el("h2", { id: "mb-alumni-title", class: "mb-band__title" }, [
+          el("span", { class: "en", text: "Alumni" }),
+          el("span", { class: "ko", text: "졸업생" })
+        ]),
+        el("p", { class: "mb-band__desc", text: "연구실을 졸업·수료한 구성원 · " + alumni.length + "명" })
+      ]));
+      var alumBody = el("div", { class: "mb-band__body" });
       var labs = [];
       alumni.forEach(function (it) { if (labs.indexOf(it.lab) === -1) labs.push(it.lab); });
       labs.forEach(function (lab) {
-        if (lab) sec.appendChild(el("div", { class: "mb-lab", text: lab }));
+        if (lab) alumBody.appendChild(el("div", { class: "mb-lab", text: lab }));
         var grid = el("div", { class: "mb-alumni-grid" });
         alumni.filter(function (it) { return it.lab === lab; }).forEach(function (it) {
           var av = el("div", { class: "av", "aria-hidden": "true", text: it.photo ? "" : (it.ko || it.en).charAt(0) });
@@ -190,10 +200,11 @@
             it.affiliation ? el("div", { class: "a", text: it.affiliation }) : null
           ])]));
         });
-        sec.appendChild(grid);
+        alumBody.appendChild(grid);
       });
-      refs.alumniSec = sec;
-      refs.body.appendChild(sec);
+      alumBand.appendChild(alumBody);
+      refs.alumniSec = alumBand;
+      refs.body.appendChild(alumBand);
     }
   }
 
