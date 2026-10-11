@@ -7,8 +7,8 @@ name: Snapshot sheet → Pages
 on:
   workflow_dispatch:
   schedule:
-    # ~09:18–18:48 KST weekdays (UTC+9): :18 and :48, hours 00–09 UTC, Mon–Fri
-    - cron: "18,48 0-9 * * 1-5"
+    # Every 30 minutes, every day (professor 2026-10-11)
+    - cron: "*/30 * * * *"
 
 permissions:
   contents: write
