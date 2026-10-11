@@ -19,7 +19,14 @@
     conference: "conf-intl", "conf": "conf-intl", "korean-conf": "conf-kr", preprint: "in-prep", "in-preparation": "in-prep", prep: "in-prep" };
   var TYPE_BY = {};
   TYPES.forEach(function (t, i) { t.order = i; TYPE_BY[t.id] = t; });
-  var STATUS_KO = { "in-press": "게재 예정", "accepted": "게재 승인", "in-revision": "In revision", "in-preparation": "In preparation", "under-review": "Under review" };
+  var STATUS_KO = {
+    "in-press": "게재 예정",
+    "accepted": "게재 승인",
+    "in-revision": "In revision",
+    "in-preparation": "In preparation",
+    "under-review": "Under review",
+    "submitted": "Submitted"
+  };
   var PAGE = A.pe ? 20 : 60;   /* phone embeds: shorter list → the inner scroll ends sooner */
 
   var allowed = (A.params.get("types") || "").split(",").map(function (s) { return canonType(s); }).filter(Boolean);
