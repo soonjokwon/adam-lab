@@ -4,6 +4,6 @@
    Sheet: https://docs.google.com/spreadsheets/d/1bmfsOkVl16OJ2KWzWJG6NtV5Ds98fXKnSiRtxKxgzlw
    (Share Viewer with the snapshot service account; tab names → scripts/snapshot_sheet.py). */
 window.ADAM_SHEET_ID = "1bmfsOkVl16OJ2KWzWJG6NtV5Ds98fXKnSiRtxKxgzlw";
-window.ADAM_DATA_VERSION = "20261011-065117";
+window.ADAM_DATA_VERSION = "20261011-065136";
 /* Intentionally empty: no docs.google.com / gviz URLs in the browser. */
 window.ADAM_SHEETS = {};
