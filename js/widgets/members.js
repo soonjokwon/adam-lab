@@ -17,7 +17,7 @@
   var ROLE_ALIAS = { "교수": "professor", "책임자": "professor", pi: "professor", "박사후연구원": "postdoc", "연구원": "researcher",
     "박사과정": "phd", "석박사통합과정": "ms-phd", "통합과정": "ms-phd", "석사과정": "ms", master: "ms", "학부연구생": "undergrad", "학사과정": "undergrad", undergraduate: "undergrad" };
   var ROLE_ORDER = { professor: 0, postdoc: 1, researcher: 2, phd: 3, "ms-phd": 4, ms: 5, undergrad: 6 };   // "other" = unrecognised role
-  /* Always show alumni below current on adam-lab Team page (toggle still works if ?alumni=0). */
+  /* Always show alumni below current on adam-pnu Team page (toggle still works if ?alumni=0). */
   var state = {
     items: [],
     filter: "all",
@@ -147,14 +147,8 @@
     refs.count.textContent = current.length + " current · " + alumni.length + " alumni";
 
     refs.body.innerHTML = "";
-    var currentBand = el("section", { class: "mb-band mb-band--current", "aria-labelledby": "mb-current-title" });
-    currentBand.appendChild(el("header", { class: "mb-band__head" }, [
-      el("h2", { id: "mb-current-title", class: "mb-band__title" }, [
-        el("span", { class: "en", text: "Current Members" }),
-        el("span", { class: "ko", text: "구성원" })
-      ]),
-      el("p", { class: "mb-band__desc", text: "재학·재직 중인 연구실 구성원" })
-    ]));
+    /* No Current/Alumni band titles — cards only. */
+    var currentBand = el("section", { class: "mb-band mb-band--current", "aria-label": "Current members" });
     var currentBody = el("div", { class: "mb-band__body" });
     var f = state.filter;
     if (f === "all" || f === "pi") {
@@ -178,14 +172,7 @@
 
     refs.alumniSec = null;
     if (alumni.length) {
-      var alumBand = el("section", { class: "mb-band mb-band--alumni", "aria-labelledby": "mb-alumni-title" });
-      alumBand.appendChild(el("header", { class: "mb-band__head" }, [
-        el("h2", { id: "mb-alumni-title", class: "mb-band__title" }, [
-          el("span", { class: "en", text: "Alumni" }),
-          el("span", { class: "ko", text: "졸업생" })
-        ]),
-        el("p", { class: "mb-band__desc", text: "연구실을 졸업·수료한 구성원 · " + alumni.length + "명" })
-      ]));
+      var alumBand = el("section", { class: "mb-band mb-band--alumni", "aria-label": "Alumni" });
       var alumBody = el("div", { class: "mb-band__body" });
       var labs = [];
       alumni.forEach(function (it) { if (labs.indexOf(it.lab) === -1) labs.push(it.lab); });

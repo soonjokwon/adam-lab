@@ -2,7 +2,9 @@
   "use strict";
 
   var path = location.pathname || "/";
-  var BASE = path.indexOf("/adam-lab") === 0 ? "/adam-lab/" : "/";
+  var BASE = path.indexOf("/adam-pnu") === 0 ? "/adam-pnu/"
+    : path.indexOf("/adam-lab") === 0 ? "/adam-lab/"
+    : "/";
   window.ADAM_SITE_BASE = BASE;
 
   function joinBase(rel) {

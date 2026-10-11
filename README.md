@@ -2,8 +2,8 @@
 
 부산대학교 ADAM Lab 공개 홈페이지입니다. Google Sites([adam-pnu](https://sites.google.com/view/adam-pnu))와 같은 메뉴·페이지 트리를 유지하고, 목록·글 블록은 **Google Sheet를 직접 읽어** 이 사이트에서 렌더링합니다 (위젯 iframe/embed 없음).
 
-- **Repo:** https://github.com/soonjokwon/adam-lab  
-- **Pages URL:** https://soonjokwon.github.io/adam-lab/  
+- **Repo:** https://github.com/soonjokwon/adam-pnu  
+- **Pages URL:** https://soonjokwon.github.io/adam-pnu/  
 - **데이터 시트:** [ADAM Lab 위젯 시트](https://docs.google.com/spreadsheets/d/1bmfsOkVl16OJ2KWzWJG6NtV5Ds98fXKnSiRtxKxgzlw)  
 - Sites용 위젯 저장소([adam-lab-widgets](https://github.com/soonjokwon/adam-lab-widgets))는 별도로 유지되며, 이 사이트는 수정하지 않습니다. 시트 이미지 경로(`assets/…`)만 위젯 Pages CDN에서 불러옵니다.
 
@@ -40,7 +40,7 @@ http://localhost:8080/ — 시트·이미지 CDN 접근을 위해 인터넷이 �
 CLI 예:
 
 ```bash
-gh api -X PUT repos/soonjokwon/adam-lab/pages \
+gh api -X PUT repos/soonjokwon/adam-pnu/pages \
   -f build_type=legacy \
   -f source[branch]=main \
   -f source[path]=/
