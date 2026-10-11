@@ -88,13 +88,15 @@
       g.items.forEach(function (it) {
         var title = el("h4", { class: "tk-title" });
         if (it.link) title.appendChild(el("a", { href: it.link, target: "_blank", rel: "noopener", text: it.title })); else title.textContent = it.title;
-        ul.appendChild(el("li", { class: "tk-item" }, [
+        var li = el("li", { class: "tk-item" }, [
           el("div", { class: "tk-date" }, [it.date.slice(5).replace("-", "."), el("small", { text: it.date.slice(0, 4) })]),
           el("div", {}, [title, el("div", { class: "tk-sub" }, [
             it.venue ? el("span", { text: it.venue }) : null,
             it.location ? el("span", { class: "tk-loc" + (/온라인|online/i.test(it.location) ? " online" : ""), text: it.location }) : null
           ])])
-        ]));
+        ]);
+        A.markKey(li, "talk", it.title);
+        ul.appendChild(li);
       });
       refs.list.appendChild(el("section", { class: "tk-year ax-in" }, [
         el("h3", { class: "tk-yh" }, [g.y, el("span", { class: "ax-count", text: g.items.length + (g.items.length > 1 ? " talks" : " talk") })]), ul

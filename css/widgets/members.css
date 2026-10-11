@@ -149,24 +149,21 @@
 }
 .mb-alum {
   display: grid;
-  grid-template-columns: 38px minmax(0, 1fr);
-  gap: 10px;
-  align-items: start;
-  padding: 10px 12px;
+  gap: 3px;
+  padding: 12px 14px;
   background: rgba(255, 255, 255, 0.95);
   border: 1px solid var(--line);
 }
-.mb-alum .av {
-  width: 38px; height: 38px; display: grid; place-items: center;
-  border: 1px solid var(--line); background: #f7f8fc;
-  font-family: var(--font-display); font-weight: 700; font-size: 16px; color: var(--navy);
-  overflow: hidden;
+.mb-alum .n { font-weight: 700; font-size: 14.5px; color: var(--ink); }
+.mb-alum .en {
+  font-family: var(--font-display); font-size: 12px; font-weight: 600; color: var(--navy);
 }
-.mb-alum .av img { width: 100%; height: 100%; object-fit: cover; }
-.mb-alum .n { font-weight: 700; font-size: 14px; }
-.mb-alum .h { font-size: 12px; color: var(--ink-dim); line-height: 1.45; }
-.mb-alum .a { margin-top: 3px; font-size: 12px; color: var(--ink); }
-.mb-alum .a::before { content: "→ "; color: var(--ink-faint); font-family: var(--font-mono); }
+.mb-alum .role { font-size: 13px; color: var(--ink-dim); }
+.mb-alum .period {
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.04em; color: var(--navy);
+}
+.mb-alum .career { margin-top: 2px; font-size: 12.5px; color: var(--ink); }
+.mb-alum .career::before { content: "→ "; color: var(--ink-faint); font-family: var(--font-mono); }
 .mb-lab { margin: 4px 0 8px; font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.08em; color: var(--ink-dim); text-transform: uppercase; }
 
 @container ax (max-width: 520px) {
@@ -216,8 +213,7 @@ html.ax-pe .mb-join .plus { grid-row: span 2; width: 28px; height: 28px; font-si
 html.ax-pe .mb-join .t { font-size: 11.5px; line-height: 1.3; }
 html.ax-pe .mb-join .s { font-size: 10.5px; line-height: 1.3; }
 html.ax-pe .mb-alumni-grid { grid-template-columns: minmax(0, 1fr); gap: 6px; }
-html.ax-pe .mb-alum { grid-template-columns: 32px minmax(0, 1fr); gap: 8px; padding: 8px 10px; }
-html.ax-pe .mb-alum .av { width: 32px; height: 32px; font-size: 14px; }
+html.ax-pe .mb-alum { padding: 8px 10px; }
 html.ax-pe .mb-alum .n { font-size: 13px; }
-html.ax-pe .mb-alum .h, html.ax-pe .mb-alum .a { font-size: 11.5px; }
+html.ax-pe .mb-alum .role, html.ax-pe .mb-alum .career { font-size: 11.5px; }
 html.ax-pe .mb-lab { margin: 2px 0 6px; }

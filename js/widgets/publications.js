@@ -271,7 +271,33 @@
     body.appendChild(meta);
 
     var idx = it.no ? (t.pre || "#") + it.no : "·";
-    return el("li", { class: "pub-item" }, [el("div", { class: "pub-idx", text: idx }), body]);
+    var li = el("li", { class: "pub-item" }, [el("div", { class: "pub-idx", text: idx }), body]);
+    A.markKey(li, "publication", it.title);
+    return li;
+  }
+
+  /* Search deep-link: clear filters once and raise limit so #adam-publication-… is in the DOM. */
+  function revealForHash() {
+    var id = (location.hash || "").replace(/^#/, "");
+    if (!id || id.indexOf("adam-publication-") !== 0) return false;
+    var target = null;
+    for (var i = 0; i < state.items.length; i++) {
+      if (("adam-publication-" + A.slug(state.items[i].title)) === id) { target = state.items[i]; break; }
+    }
+    if (!target) return false;
+    state.type = "all";
+    state.year = "all";
+    state.topic = "all";
+    state.q = "";
+    state.award = false;
+    if (refs.q) refs.q.value = "";
+    if (refs.clear) refs.clear.hidden = true;
+    var shownIdx = -1;
+    for (var j = 0; j < state.items.length; j++) {
+      if (state.items[j] === target) { shownIdx = j; break; }
+    }
+    if (shownIdx >= 0) state.limit = Math.max(state.limit, shownIdx + 1);
+    return true;
   }
 
   function render() {
@@ -325,10 +351,15 @@
       if (tp && refs.present.some(function (t) { return t.id === tp.id; })) state.topic = tp.id;
       topicParam = "";
       if (state.topic !== "all" && !refs.present.some(function (t) { return t.id === state.topic; })) state.topic = "all";
+      revealForHash();
       render();
     }
     A.load("publications", { required: ["type", "title", "authors", "venue"], onUpdate: apply }).then(apply).catch(function () {
       A.status(refs.list, "논문 목록을 불러오지 못했습니다.");
+    });
+    window.addEventListener("hashchange", function () {
+      if (!state.items.length) return;
+      if (revealForHash()) render();
     });
   }
 

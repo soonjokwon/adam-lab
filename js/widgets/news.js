@@ -187,6 +187,7 @@
     var card = document.createElement("article");
     card.className = "news-card" + (item.link ? " is-link" : "");
     card.setAttribute("data-tag", item.tag || "");
+    if (window.ADAM && ADAM.markKey) ADAM.markKey(card, "news", item.title_ko || item.title_en || "");
 
     var node = document.createElement("span");
     node.className = "news-node";

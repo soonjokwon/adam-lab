@@ -24,6 +24,22 @@
 
   function pad(n) { return String(n).padStart(2, "0"); }
 
+  /* Stable fragment id for in-site search deep links */
+  ADAM.slug = function (value) {
+    var s = String(value == null ? "" : value).toLowerCase()
+      .replace(/[^\w\uac00-\ud7a3]+/g, "-")
+      .replace(/^-+|-+$/g, "")
+      .slice(0, 72);
+    return s || "item";
+  };
+  ADAM.markKey = function (node, kind, title) {
+    if (!node) return "";
+    var id = "adam-" + kind + "-" + ADAM.slug(title);
+    node.id = id;
+    node.setAttribute("data-adam-key", id);
+    return id;
+  };
+
   ADAM.normalizeDate = function (value) {
     var s = String(value == null ? "" : value).trim().replace(/\.$/, "");
     if (!s) return "";

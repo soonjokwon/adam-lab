@@ -131,6 +131,15 @@
     return m ? m[1].toUpperCase() : "";
   }
 
+  /* Research page section titles: … ({{Autonomy|Intelligence|Digitalization}}) */
+  function researchPillarKey(sectionTitle) {
+    var s = String(sectionTitle || "");
+    if (/\{\{\s*Autonomy\s*\}\}/i.test(s) || /\bAutonomy\b/i.test(s)) return "a";
+    if (/\{\{\s*Intelligence\s*\}\}/i.test(s) || /\bIntelligence\b/i.test(s)) return "i";
+    if (/\{\{\s*Digitalization\s*\}\}/i.test(s) || /\bDigitalization\b/i.test(s)) return "d";
+    return "";
+  }
+
   function cardRun(items) {
     /* rows with the same non-empty sub (consecutive) = one card */
     var cards = [], cur = null;
@@ -162,6 +171,8 @@
           body
         ])
       ]);
+      if (letter) A.markKey(card, "section", letter + "-" + plain(c.sub));
+      else if (c.sub) A.markKey(card, "section", plain(c.sub));
       grid.appendChild(card);
     });
     return grid;
@@ -257,7 +268,8 @@
     }));
   }
 
-  function renderSection(sec) {
+  function renderSection(sec, opts) {
+    opts = opts || {};
     var photos = sec.items.filter(function (it) { return it.type === "photo"; });
     var rest = sec.items.filter(function (it) { return it.type !== "photo"; });
     var main = el("div", { class: "sx-main" });
@@ -265,8 +277,26 @@
     var cbar = compactBar(sec.items);
     if (cbar) main.appendChild(cbar);
     var onlyEntries = rest.length && rest.every(function (it) { return it.type === "entry" && !it.sub; });
-    var node = el("section", { class: "sx-sec ax-in" + (photos.length ? " sx-split" : "") + (onlyEntries && sec.k ? " sx-halfable" : "") + (cbar ? " has-cbar" : "") }, [
-      sec.k ? el("h3", { class: "sx-sh" }, [rich("span", "t", sec.k)]) : null,
+    var pillar = opts.research ? researchPillarKey(sec.k) : "";
+    var cls = "sx-sec ax-in"
+      + (photos.length ? " sx-split" : "")
+      + (onlyEntries && sec.k ? " sx-halfable" : "")
+      + (cbar ? " has-cbar" : "")
+      + (pillar ? " sx-research-card sx-research--" + pillar : "");
+    var head = null;
+    if (sec.k) {
+      if (pillar) {
+        var letter = pillar.toUpperCase();
+        head = el("h3", { class: "sx-research-head" }, [
+          el("span", { class: "sx-research-letter", "aria-hidden": "true", text: letter }),
+          rich("span", "t", sec.k)
+        ]);
+      } else {
+        head = el("h3", { class: "sx-sh" }, [rich("span", "t", sec.k)]);
+      }
+    }
+    var node = el("section", { class: cls }, [
+      head,
       photos.length ? el("div", { class: "sx-splitwrap" }, [main, el("aside", { class: "sx-aside" }, photos.map(function (it) {
         var fig = el("figure", { class: "sx-photo-fig" }, [el("div", { class: "sx-pim" }, [img(it.image, plain(it.text))]), it.text ? rich("figcaption", "", it.text) : null]);
         if (!it.link) return fig;
@@ -275,6 +305,7 @@
         return a;
       }))]) : main
     ]);
+    if (pillar) A.markKey(node, "section", pillar + "-" + plain(sec.k));
     return node;
   }
 
@@ -350,14 +381,31 @@
       return;
     }
     blocks.forEach(function (b) {
-      var blockEl = el("div", { class: "sx-block", "data-block": b.k });
+      var isResearch = b.k === "research";
+      var blockEl = el("div", {
+        class: "sx-block" + (isResearch ? " sx-block--research" : ""),
+        "data-block": b.k
+      });
       if (!want.length) blockEl.appendChild(el("div", { class: "sx-blockid" }, [el("span", { class: "ax-kicker", text: "block" }), el("code", { text: b.k })]));
-      runs(b.items, function (it) { return it.section; }).forEach(function (sec) { blockEl.appendChild(renderSection(sec)); });
-      pairHalves(blockEl);
+      runs(b.items, function (it) { return it.section; }).forEach(function (sec) {
+        blockEl.appendChild(renderSection(sec, { research: isResearch }));
+      });
+      if (!isResearch) pairHalves(blockEl);
       refs.body.appendChild(blockEl);
     });
     layout(mount);
+    stackHomePillars(mount);
     compactFor(mount, refs);
+  }
+
+  /* Home Pillars right column: keep A·I·D as a vertical stack (layout() would otherwise multi-col). */
+  function stackHomePillars(mount) {
+    var blocks = (mount.getAttribute("data-block") || "").split(",").map(function (s) { return s.trim(); });
+    if (blocks.indexOf("home-pillars") === -1 && !mount.classList.contains("pillars-aid")) return;
+    Array.prototype.forEach.call(mount.querySelectorAll(".sx-cards.sx-aid"), function (g) {
+      g.setAttribute("data-min", "9999");
+      g.style.gridTemplateColumns = "minmax(0, 1fr)";
+    });
   }
 
   function boot() {
@@ -372,6 +420,7 @@
       t0 = setTimeout(function () {
         contexts.forEach(function (ctx) {
           layout(ctx.mount);
+          stackHomePillars(ctx.mount);
           compactFor(ctx.mount, ctx.refs);
         });
       }, 60);

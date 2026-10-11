@@ -116,13 +116,15 @@
   function viewList(list) {
     var ul = el("ol", { class: "nl-list" });
     pageSlice(list).forEach(function (it) {
-      ul.appendChild(el("li", { class: "nl-row" + (it.link ? " is-link" : "") }, [
+      var row = el("li", { class: "nl-row" + (it.link ? " is-link" : "") }, [
         el("span", { class: "nl-no", text: String(it.no) }),
         el("span", { class: "nl-date", text: dot(it.date) }),
         badge(it.tag),
         el("div", { class: "nl-tt" }, [title(it), it.en ? el("span", { class: "nl-en", text: it.en }) : null]),
         it.link2 ? el("a", { class: "nl-go", href: it.link2, target: "_blank", rel: "noopener", title: "Link 2", text: "2↗" }) : (it.link ? el("span", { class: "nl-go", "aria-hidden": "true", text: "↗" }) : el("span", { class: "nl-go" }))
-      ]));
+      ]);
+      A.markKey(row, "news", it.ko || it.en || "");
+      ul.appendChild(row);
     });
     return ul;
   }
@@ -140,14 +142,16 @@
         ul = el("ol", { class: "nl-tl-list" });
         wrap.appendChild(ul);
       }
-      ul.appendChild(el("li", { class: "nl-tl-item" + (it.tag === "Award" ? " award" : "") }, [
+      var item = el("li", { class: "nl-tl-item" + (it.tag === "Award" ? " award" : "") }, [
         el("span", { class: "nl-tl-date", text: it.date.slice(5).replace("-", ".") }),
         el("span", { class: "nl-tl-dot", "aria-hidden": "true" }),
         el("div", { class: "nl-tl-body" }, [
           el("div", { class: "nl-tl-head" }, [badge(it.tag), title(it), it.link2 ? el("a", { class: "ax-link", href: it.link2, target: "_blank", rel: "noopener", text: "Link 2" }) : null]),
           it.en ? el("span", { class: "nl-en", text: it.en }) : null
         ])
-      ]));
+      ]);
+      A.markKey(item, "news", it.ko || it.en || "");
+      ul.appendChild(item);
     });
     if (!(state.pe || A.full) && list.length > show.length) {
       var more = el("button", { type: "button", class: "nl-more" }, [el("span", { text: "이전 소식 더 보기" }), el("span", { class: "ax-count", text: "+" + Math.min(10, list.length - show.length) + " · 남은 " + (list.length - show.length) + "건" })]);
@@ -178,9 +182,26 @@
           el("div", { class: "nl-links" }, linkBtns(it).length ? linkBtns(it) : [el("span", { class: "ax-count", text: "링크 없음" })])
         ])
       ]);
-      box.appendChild(el("div", { class: "nl-trow" + (open ? " open" : ""), role: "listitem" }, [row, detail]));
+      var trow = el("div", { class: "nl-trow" + (open ? " open" : ""), role: "listitem" }, [row, detail]);
+      A.markKey(trow, "news", it.ko || it.en || "");
+      box.appendChild(trow);
     });
     return box;
+  }
+
+  function revealForHash() {
+    var id = (location.hash || "").replace(/^#/, "");
+    if (!id || id.indexOf("adam-news-") !== 0) return false;
+    state.tag = "All";
+    var list = filtered();
+    var idx = -1;
+    for (var i = 0; i < list.length; i++) {
+      if (("adam-news-" + A.slug(list[i].ko || list[i].en || "")) === id) { idx = i; break; }
+    }
+    if (idx < 0) return false;
+    if (view === "timeline") state.shown = Math.max(state.shown, idx + 1);
+    else state.page = Math.floor(idx / per0) + 1;
+    return true;
   }
 
   function render() {
@@ -202,9 +223,14 @@
       state.items = normalize(res.rows);
       if (!state.items.length) { A.status(refs.body, "표시할 소식이 없습니다."); return; }
       if (state.tag !== "All" && !state.items.some(function (it) { return it.tag === state.tag; })) state.tag = "All";
+      revealForHash();
       render();
     }
     A.load("news", { required: ["date", "title_ko"], onUpdate: apply }).then(apply).catch(function () { A.status(refs.body, "소식을 불러오지 못했습니다."); });
+    window.addEventListener("hashchange", function () {
+      if (!state.items.length) return;
+      if (revealForHash()) render();
+    });
   }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot); else boot();
 })();

@@ -113,7 +113,7 @@
     var rec = el("div", { class: "aw-rec" });
     rec.appendChild(A.authors(it.recipients));
     var ev = el("div", { class: "aw-event" }, [it.event, it.organizer ? el("span", { class: "org", text: (it.event ? " · " : "") + it.organizer }) : null]);
-    return el("article", { class: "aw-card", "data-cat": it.cat }, [
+    var cardEl = el("article", { class: "aw-card", "data-cat": it.cat }, [
       el("div", { class: "aw-top" }, [el("span", { class: "aw-date", text: it.date.replace(/-/g, ".") }), el("span", { class: "aw-cat", text: cat.lb + " · " + cat.ko })]),
       el("h4", { class: "aw-name" }, [el("span", { html: MEDAL }), el("span", { text: it.award })]),
       it.title ? el("div", { class: "aw-title", text: it.title }) : null,
@@ -121,6 +121,8 @@
       (it.event || it.organizer) ? ev : null,
       el("div", { class: "aw-foot" }, [it.link ? el("a", { class: "ax-link", href: it.link, target: "_blank", rel: "noopener", text: /doi\.org/.test(it.link) ? "DOI" : "LINK" }) : null])
     ]);
+    A.markKey(cardEl, "award", it.award || it.title);
+    return cardEl;
   }
 
   function render() {

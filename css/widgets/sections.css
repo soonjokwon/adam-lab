@@ -17,6 +17,52 @@
 .sx-sec.sx-half { grid-column: auto; }
 @container ax (max-width: 760px) { .sx-sec.sx-half { grid-column: 1 / -1; } }
 
+/* Research page A·I·D — stacked full-width cards (not home Pillars sx-aid) */
+.sx-block--research {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.sx-research-card {
+  grid-column: 1 / -1;
+  background: rgba(255, 255, 255, 0.98);
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--navy);
+  padding: 16px 18px 18px;
+}
+.sx-research--a { border-left-color: #d64545; }
+.sx-research--i { border-left-color: #2f6fed; }
+.sx-research--d { border-left-color: #2f9d6a; }
+.sx-research-head {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin: 0 0 14px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(1.05rem, 2vw, 1.25rem);
+  line-height: 1.35;
+  color: var(--navy);
+}
+.sx-research-head .t { min-width: 0; flex: 1; }
+.sx-research-letter {
+  flex: 0 0 auto;
+  width: 34px;
+  height: 34px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  font-size: 1.05rem;
+  color: #fff;
+  background: var(--navy);
+}
+.sx-research--a .sx-research-letter { background: #d64545; }
+.sx-research--i .sx-research-letter { background: #2f6fed; }
+.sx-research--d .sx-research-letter { background: #2f9d6a; }
+.sx-research-card .sx-main > * + * { margin-top: 14px; }
+.sx-research-card .sx-figure { margin-top: 4px; }
+
 .sx-ac { font-style: normal; color: var(--accent-deep); }
 .sx a { color: var(--navy); text-decoration-color: rgba(16, 43, 134, 0.35); text-underline-offset: 2px; }
 .sx a:hover { text-decoration-color: var(--navy); }

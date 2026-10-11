@@ -136,10 +136,12 @@
           })) : null,
           it.link ? el("a", { class: "ax-link", href: it.link, target: "_blank", rel: "noopener", text: /doi\.org/.test(it.link) ? "DOI" : "LINK" }) : null
         ]);
-        ol.appendChild(el("li", { class: "pub-item" }, [
+        var li = el("li", { class: "pub-item" }, [
           el("div", { class: "pub-idx", text: it.no ? "P" + it.no : "·" }),
           el("div", { class: "pub-body" }, [title, venue, meta])
-        ]));
+        ]);
+        A.markKey(li, "patent", it.title);
+        ol.appendChild(li);
       });
       refs.list.appendChild(el("section", { class: "pub-year ax-in" }, [
         el("h3", { class: "pub-yl" }, [g.key, el("span", { class: "ax-count", text: g.items.length + " items" })]), ol

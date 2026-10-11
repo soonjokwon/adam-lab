@@ -103,7 +103,7 @@
     var attrs = { class: "mb-card ax-in" };
     if (it.link) { attrs.href = it.link; attrs.target = "_blank"; attrs.rel = "noopener"; }
     if (it.email && !it.link) { tag = "a"; attrs.href = "mailto:" + it.email; attrs.target = "_blank"; attrs.rel = "noopener"; }
-    return el(tag, attrs, [
+    var cardEl = el(tag, attrs, [
       photo(it),
       el("div", { class: "mb-body" }, [
         el("div", { class: "mb-name", text: it.ko || it.en }),
@@ -112,6 +112,8 @@
         it.start ? el("div", { class: "mb-since" }, ["Since ", el("b", { text: it.start })]) : null
       ])
     ]);
+    A.markKey(cardEl, "member", it.ko || it.en || it.name);
+    return cardEl;
   }
 
   function joinCard() {
@@ -191,14 +193,18 @@
         if (lab) alumBody.appendChild(el("div", { class: "mb-lab", text: lab }));
         var grid = el("div", { class: "mb-alumni-grid" });
         alumni.filter(function (it) { return it.lab === lab; }).forEach(function (it) {
-          var av = el("div", { class: "av", "aria-hidden": "true", text: it.photo ? "" : (it.ko || it.en).charAt(0) });
-          if (it.photo) av.appendChild(el("img", { src: it.photo, alt: "", loading: "lazy" }));
-          var hist = it.history || [it.position, it.start && "(" + it.start + " ~ " + it.end + ")"].filter(Boolean).join(" ");
-          grid.appendChild(el("div", { class: "mb-alum" }, [av, el("div", {}, [
+          var period = (it.start || it.end)
+            ? [it.start || "—", it.end || "—"].join(" – ")
+            : "";
+          var alum = el("div", { class: "mb-alum" }, [
             el("div", { class: "n", text: it.ko || it.en }),
-            hist ? el("div", { class: "h", text: hist }) : null,
-            it.affiliation ? el("div", { class: "a", text: it.affiliation }) : null
-          ])]));
+            it.en && it.ko ? el("div", { class: "en", text: it.en }) : null,
+            it.position ? el("div", { class: "role", text: it.position }) : null,
+            period ? el("div", { class: "period", text: period }) : null,
+            it.affiliation ? el("div", { class: "career", text: it.affiliation }) : null
+          ]);
+          A.markKey(alum, "member", it.ko || it.en || it.name);
+          grid.appendChild(alum);
         });
         alumBody.appendChild(grid);
       });

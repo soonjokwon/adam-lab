@@ -127,7 +127,9 @@
       if (it.status === "ongoing") track.appendChild(el("span", { class: "pj-now", style: "left:" + (it.pct * 100).toFixed(1) + "%" }));
       period.appendChild(track);
     }
-    return el("article", { class: "pj-card ax-in", "data-status": it.status }, [top, title, meta, tags, period]);
+    var cardEl = el("article", { class: "pj-card ax-in", "data-status": it.status }, [top, title, meta, tags, period]);
+    A.markKey(cardEl, "project", it.title);
+    return cardEl;
   }
 
   function matches(it, skip) {

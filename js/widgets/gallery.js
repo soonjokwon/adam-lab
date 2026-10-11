@@ -171,6 +171,7 @@
       tabindex: "0",
       "aria-label": (alb.caption || "사진") + (multi ? " 캐러셀" : " 크게 보기")
     }, [imgWrap, el("div", { class: "gl-cap" }, capKids)]);
+    A.markKey(card, "photo", (alb.caption || "photo") + "-" + (alb.year || "") + "-" + (alb.group || ""));
 
     if (multi) {
       var prev = el("button", { type: "button", class: "gl-carousel-nav gl-carousel-prev", "aria-label": "이전 사진", html: ICON.prev });

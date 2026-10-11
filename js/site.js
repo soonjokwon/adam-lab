@@ -173,7 +173,9 @@
       hits.slice(0, 24).forEach(function (hit) {
         var a = document.createElement("a");
         a.className = "site-search__hit";
-        a.href = joinBase(hit.item.path);
+        var href = joinBase(hit.item.path);
+        if (hit.item.anchor) href += "#" + hit.item.anchor;
+        a.href = href;
         a.setAttribute("role", "option");
         var kind = KIND_LB[hit.item.kind] || hit.item.kind || "Result";
         a.innerHTML = "<span class=\"site-search__kind\"></span><strong></strong><span class=\"site-search__blurb\"></span>";
@@ -208,11 +210,55 @@
     }
   }
 
+  function bindSearchTarget() {
+    var id = (location.hash || "").replace(/^#/, "");
+    if (!id || id.indexOf("adam-") !== 0) return;
+
+    var tries = 0;
+    var maxTries = 40;
+    var timer;
+
+    function highlight(el) {
+      if (!el) return;
+      el.classList.add("is-search-hit");
+      try {
+        el.scrollIntoView({ behavior: "smooth", block: "center" });
+      } catch (err) {
+        el.scrollIntoView(true);
+      }
+      setTimeout(function () { el.classList.remove("is-search-hit"); }, 2600);
+    }
+
+    function tick() {
+      tries += 1;
+      var el = document.getElementById(id) || document.querySelector('[data-adam-key="' + id + '"]');
+      if (el) {
+        clearInterval(timer);
+        /* wait one frame so late layout (filters/grids) settles */
+        requestAnimationFrame(function () { highlight(el); });
+        return;
+      }
+      if (tries >= maxTries) clearInterval(timer);
+    }
+
+    tick();
+    timer = setInterval(tick, 120);
+    window.addEventListener("hashchange", function () {
+      id = (location.hash || "").replace(/^#/, "");
+      if (!id || id.indexOf("adam-") !== 0) return;
+      tries = 0;
+      clearInterval(timer);
+      timer = setInterval(tick, 120);
+      tick();
+    });
+  }
+
   document.addEventListener("DOMContentLoaded", function () {
     markNav();
     bindNavToggle();
     bindCarousel();
     bindReveal();
     bindSearch();
+    bindSearchTarget();
   });
 })();
