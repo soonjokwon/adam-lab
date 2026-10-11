@@ -2,7 +2,7 @@
  "lab": "ADAM Lab@PNU",
  "source": "https://docs.google.com/spreadsheets/d/1bmfsOkVl16OJ2KWzWJG6NtV5Ds98fXKnSiRtxKxgzlw",
  "sheet_tab": "talks",
- "extracted": "2026-10-11T17:18:38Z",
+ "extracted": "2026-10-11T17:25:53Z",
  "note": "Invited talks. topics: same topic_key values as publications (e.g. am; rl).",
  "columns": [
   "date",
@@ -163,7 +163,7 @@
    "venue": "대한기계학회 2021 학술대회 유망과학기술자 세션",
    "location": "광주",
    "link": "",
-   "topics": "cad; dt"
+   "topics": "cad"
   },
   {
    "date": "2021-10-18",
@@ -171,7 +171,7 @@
    "venue": "경기대학교",
    "location": "온라인",
    "link": "",
-   "topics": ""
+   "topics": "dt; cad"
   },
   {
    "date": "2021-07-08",
@@ -179,7 +179,7 @@
    "venue": "LIGNex1",
    "location": "구미",
    "link": "",
-   "topics": ""
+   "topics": "am"
   },
   {
    "date": "2021-04-01",
@@ -187,7 +187,7 @@
    "venue": "전북대학교",
    "location": "온라인",
    "link": "",
-   "topics": ""
+   "topics": "am"
   },
   {
    "date": "2020-10-05",
@@ -195,7 +195,7 @@
    "venue": "32nd ISO TC184/SC5/WG10 Meeting",
    "location": "온라인",
    "link": "",
-   "topics": ""
+   "topics": "std"
   },
   {
    "date": "2018-12-12",
@@ -203,7 +203,7 @@
    "venue": "경북대학교",
    "location": "상주",
    "link": "",
-   "topics": ""
+   "topics": "ai; cad"
   },
   {
    "date": "2018-08-03",
@@ -211,7 +211,7 @@
    "venue": "PartDB",
    "location": "대전",
    "link": "",
-   "topics": ""
+   "topics": "std"
   },
   {
    "date": "2018-04-24",
@@ -219,7 +219,7 @@
    "venue": "삼성중공업",
    "location": "거제",
    "link": "",
-   "topics": ""
+   "topics": "cad; ship"
   }
  ]
 }
