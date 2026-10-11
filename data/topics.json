@@ -2,7 +2,7 @@
  "lab": "ADAM Lab@PNU",
  "source": "https://docs.google.com/spreadsheets/d/1bmfsOkVl16OJ2KWzWJG6NtV5Ds98fXKnSiRtxKxgzlw",
  "sheet_tab": "topics",
- "extracted": "2026-10-11T15:05:55Z",
+ "extracted": "2026-10-11T15:07:00Z",
  "note": "topic_key (id in publications/patents topics cells); label_en / label_ko / label_short (tag text); aliases (semicolon-separated); sort; active Y/N; color optional.",
  "columns": [
   "topic_key",
@@ -15,6 +15,26 @@
   "color"
  ],
  "items": [
+  {
+   "topic_key": "ai",
+   "label_en": "Artificial Intelligence",
+   "label_ko": "인공 지능 응용",
+   "label_short": "AI응용",
+   "aliases": "",
+   "sort": "180",
+   "active": "Y",
+   "color": ""
+  },
+  {
+   "topic_key": "rl",
+   "label_en": "Reinforcement Learning",
+   "label_ko": "강화학습",
+   "label_short": "강화학습",
+   "aliases": "",
+   "sort": "70",
+   "active": "Y",
+   "color": ""
+  },
   {
    "topic_key": "cad",
    "label_en": "B-rep / CAD Modeling",
@@ -72,16 +92,6 @@
    "label_short": "메쉬·점군",
    "aliases": "Mesh · Point Cloud",
    "sort": "60",
-   "active": "Y",
-   "color": ""
-  },
-  {
-   "topic_key": "rl",
-   "label_en": "Reinforcement Learning",
-   "label_ko": "강화학습",
-   "label_short": "강화학습",
-   "aliases": "",
-   "sort": "70",
    "active": "Y",
    "color": ""
   },
@@ -188,11 +198,11 @@
   {
    "topic_key": "ai",
    "label_en": "Artificial Intelligence",
-   "label_ko": "인공 지능",
-   "label_short": "",
+   "label_ko": "인공 지능 응용",
+   "label_short": "AI응용",
    "aliases": "",
-   "sort": "",
-   "active": "",
+   "sort": "180",
+   "active": "Y",
    "color": ""
   }
  ]
