@@ -2,7 +2,7 @@
  "lab": "ADAM Lab@PNU",
  "source": "https://docs.google.com/spreadsheets/d/1bmfsOkVl16OJ2KWzWJG6NtV5Ds98fXKnSiRtxKxgzlw",
  "sheet_tab": "talks",
- "extracted": "2026-10-11T17:17:34Z",
+ "extracted": "2026-10-11T17:18:38Z",
  "note": "Invited talks. topics: same topic_key values as publications (e.g. am; rl).",
  "columns": [
   "date",
@@ -75,7 +75,7 @@
    "venue": "ISO/TC 184-K 및 디지털 트윈 제조 표준 기술 워크숍",
    "location": "여수",
    "link": "",
-   "topics": ""
+   "topics": "dt; std"
   },
   {
    "date": "2023-09-11",
@@ -83,7 +83,7 @@
    "venue": "한국전자통신연구원",
    "location": "대전",
    "link": "",
-   "topics": ""
+   "topics": "dt; std"
   },
   {
    "date": "2023-03-21",
@@ -91,7 +91,7 @@
    "venue": "ISO 23247 제조 디지털 트윈 표준화 워크숍",
    "location": "부산",
    "link": "",
-   "topics": ""
+   "topics": "dt; std"
   },
   {
    "date": "2023-02-27",
@@ -99,7 +99,7 @@
    "venue": "Korea STEP Center",
    "location": "온라인",
    "link": "",
-   "topics": ""
+   "topics": "cad; dt"
   },
   {
    "date": "2023-02-07",
@@ -107,7 +107,7 @@
    "venue": "한국기계연구원",
    "location": "대전",
    "link": "",
-   "topics": ""
+   "topics": "dt; cad"
   },
   {
    "date": "2023-01-19",
@@ -115,7 +115,7 @@
    "venue": "경희대학교",
    "location": "용인",
    "link": "",
-   "topics": ""
+   "topics": "dt; cad"
   },
   {
    "date": "2022-11-18",
@@ -123,7 +123,7 @@
    "venue": "경기대학교",
    "location": "온라인",
    "link": "",
-   "topics": ""
+   "topics": "cad; dt"
   },
   {
    "date": "2022-11-01",
@@ -131,7 +131,7 @@
    "venue": "경희대학교",
    "location": "용인",
    "link": "",
-   "topics": ""
+   "topics": "am"
   },
   {
    "date": "2022-06-27",
@@ -139,7 +139,7 @@
    "venue": "인천대학교",
    "location": "인천",
    "link": "",
-   "topics": ""
+   "topics": "am"
   },
   {
    "date": "2022-05-24",
@@ -147,7 +147,7 @@
    "venue": "한국전자통신연구원",
    "location": "대전",
    "link": "",
-   "topics": ""
+   "topics": "dt; std"
   },
   {
    "date": "2022-05-12",
@@ -155,7 +155,7 @@
    "venue": "한국정밀공학회 2022 춘계 학술대회 젊은공학자 초청세션",
    "location": "제주",
    "link": "",
-   "topics": ""
+   "topics": "am"
   },
   {
    "date": "2021-11-04",
@@ -163,7 +163,7 @@
    "venue": "대한기계학회 2021 학술대회 유망과학기술자 세션",
    "location": "광주",
    "link": "",
-   "topics": ""
+   "topics": "cad; dt"
   },
   {
    "date": "2021-10-18",
