@@ -103,30 +103,6 @@
     nodes.forEach(function (n) { io.observe(n); });
   }
 
-  function bindMotionHelp() {
-    var btn = document.querySelector(".motion-help__btn");
-    var tip = document.querySelector(".motion-help__tip");
-    if (!btn || !tip) return;
-    function close() {
-      tip.hidden = true;
-      btn.setAttribute("aria-expanded", "false");
-    }
-    function open() {
-      tip.hidden = false;
-      btn.setAttribute("aria-expanded", "true");
-    }
-    btn.addEventListener("click", function (e) {
-      e.stopPropagation();
-      if (tip.hidden) open(); else close();
-    });
-    document.addEventListener("click", function (e) {
-      if (!tip.hidden && !tip.contains(e.target) && e.target !== btn) close();
-    });
-    document.addEventListener("keydown", function (e) {
-      if (e.key === "Escape" && !tip.hidden) close();
-    });
-  }
-
   var KIND_LB = {
     page: "Page", news: "News", publication: "Paper", patent: "Patent",
     award: "Award", project: "Project", member: "Member", talk: "Talk",
