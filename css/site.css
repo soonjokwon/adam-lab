@@ -440,6 +440,20 @@ main { display: block; }
 .carousel__dots button[aria-current="true"] {
   background: var(--accent);
 }
+/* Board album carousel nav pattern (gl-carousel-nav) — Home Pillars only */
+.carousel__nav {
+  position: absolute; top: 50%; transform: translateY(-50%); z-index: 2;
+  width: 30px; height: 30px; display: grid; place-items: center;
+  border: 1px solid rgba(255,255,255,0.55); border-radius: 999px;
+  background: rgba(16, 26, 43, 0.42); color: #fff; cursor: pointer;
+  opacity: 0; transition: opacity 0.18s var(--ease), background 0.18s var(--ease);
+  padding: 0;
+}
+.carousel:hover .carousel__nav,
+.carousel:focus-within .carousel__nav { opacity: 1; }
+.carousel__prev { left: 8px; }
+.carousel__next { right: 8px; }
+.carousel__nav:hover { background: rgba(16, 26, 43, 0.7); }
 
 /* ---------- Allowed motion: (1) scroll fade-up (2) card hover glow (3) slide crossfade ---------- */
 .reveal {

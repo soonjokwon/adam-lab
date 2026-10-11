@@ -20,7 +20,8 @@
   margin: 0;
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: clamp(1.15rem, 2.4vw, 1.45rem);
+  /* Between body section heads and page-kicker h1; same navy as .section__head */
+  font-size: clamp(1.3rem, 2.5vw, 1.65rem);
   color: var(--navy);
   letter-spacing: -0.02em;
 }

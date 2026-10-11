@@ -51,6 +51,10 @@
     var dots = root.querySelector(".carousel__dots");
     var i = 0;
     var timer;
+    var ICON = {
+      prev: '<svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M10.2 2.4 4.6 8l5.6 5.6" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>',
+      next: '<svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M5.8 2.4 11.4 8l-5.6 5.6" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>'
+    };
 
     function show(n) {
       i = (n + slides.length) % slides.length;
@@ -75,6 +79,31 @@
         });
         dots.appendChild(b);
       });
+    }
+
+    if (slides.length > 1 && !root.querySelector(".carousel__nav")) {
+      var prev = document.createElement("button");
+      prev.type = "button";
+      prev.className = "carousel__nav carousel__prev";
+      prev.setAttribute("aria-label", "이전 사진");
+      prev.innerHTML = ICON.prev;
+      var next = document.createElement("button");
+      next.type = "button";
+      next.className = "carousel__nav carousel__next";
+      next.setAttribute("aria-label", "다음 사진");
+      next.innerHTML = ICON.next;
+      prev.addEventListener("click", function (e) {
+        e.stopPropagation();
+        show(i - 1);
+        restart();
+      });
+      next.addEventListener("click", function (e) {
+        e.stopPropagation();
+        show(i + 1);
+        restart();
+      });
+      root.appendChild(prev);
+      root.appendChild(next);
     }
 
     function restart() {
