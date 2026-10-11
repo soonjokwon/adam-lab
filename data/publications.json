@@ -2,7 +2,7 @@
  "lab": "ADAM Lab@PNU",
  "source": "https://docs.google.com/spreadsheets/d/1bmfsOkVl16OJ2KWzWJG6NtV5Ds98fXKnSiRtxKxgzlw",
  "sheet_tab": "publications",
- "extracted": "2026-10-11T14:17:59Z",
+ "extracted": "2026-10-11T14:34:47Z",
  "note": "type: journal-intl | journal-kr | conf-intl | conf-kr | in-prep | other.",
  "columns": [
   "type",
@@ -1609,7 +1609,7 @@
    "year": "2025",
    "authors": "박현석, 권순조",
    "title": "이미지 기반 RAG-LLM을 활용한 3D CAD 모델링 명령어 추천",
-   "topics": "cad; llm",
+   "topics": "cad; llm; edu",
    "venue": "대한기계학회 창립 80주년 기념 학술대회",
    "details": "하이원 그랜드호텔 컨벤션타워, 정선, 2025.12.10~13. (12.12.)",
    "date": "2025-12-12",
