@@ -1,7 +1,9 @@
 {
- "source": "https://sites.google.com/view/adam-pnu",
- "extracted": "2026-10-08",
- "note": "Publications page · Patents (특허). status: registered(등록) | filed(출원).",
+ "lab": "ADAM Lab@PNU",
+ "source": "https://docs.google.com/spreadsheets/d/1bmfsOkVl16OJ2KWzWJG6NtV5Ds98fXKnSiRtxKxgzlw",
+ "sheet_tab": "patents",
+ "extracted": "2026-10-11T03:16:35Z",
+ "note": "status: registered | filed.",
  "columns": [
   "no",
   "title",

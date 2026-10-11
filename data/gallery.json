@@ -1,7 +1,9 @@
 {
- "source": "https://sites.google.com/view/adam-pnu",
- "extracted": "2026-10-08",
- "note": "Board page · Photos (single photos and carousel slides). group: PNU | KIT.",
+ "lab": "ADAM Lab@PNU",
+ "source": "https://docs.google.com/spreadsheets/d/1bmfsOkVl16OJ2KWzWJG6NtV5Ds98fXKnSiRtxKxgzlw",
+ "sheet_tab": "gallery",
+ "extracted": "2026-10-11T03:16:35Z",
+ "note": "group: PNU | KIT. image: assets/gallery/… preferred.",
  "columns": [
   "date",
   "caption",

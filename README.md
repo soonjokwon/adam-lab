@@ -1,34 +1,46 @@
 # ADAM Lab@PNU
 
-부산대학교 ADAM Lab 공개 홈페이지입니다. Google Sites([adam-pnu](https://sites.google.com/view/adam-pnu))와 같은 메뉴·페이지 트리를 유지하고, 목록·글 블록은 **Google Sheet를 직접 읽어** 이 사이트에서 렌더링합니다 (위젯 iframe/embed 없음).
+부산대학교 ADAM Lab 공개 홈페이지입니다. Google Sites([adam-pnu](https://sites.google.com/view/adam-pnu))와 같은 메뉴·페이지 트리를 유지합니다. 목록·글 블록은 **커밋된 `data/*.json` 스냅샷**만 읽어 렌더링합니다 (브라우저에서 Google Sheet / gviz 호출 없음, 위젯 iframe 없음).
 
 - **Repo:** https://github.com/soonjokwon/adam-pnu  
 - **Pages URL:** https://soonjokwon.github.io/adam-pnu/  
-- **데이터 시트:** [ADAM Lab 위젯 시트](https://docs.google.com/spreadsheets/d/1bmfsOkVl16OJ2KWzWJG6NtV5Ds98fXKnSiRtxKxgzlw)  
+- **편집용 시트 (사이트는 직접 읽지 않음):** [ADAM Lab 위젯 시트](https://docs.google.com/spreadsheets/d/1bmfsOkVl16OJ2KWzWJG6NtV5Ds98fXKnSiRtxKxgzlw)  
 - Sites용 위젯 저장소([adam-lab-widgets](https://github.com/soonjokwon/adam-lab-widgets))는 별도로 유지되며, 이 사이트는 수정하지 않습니다. 시트 이미지 경로(`assets/…`)만 위젯 Pages CDN에서 불러옵니다.
+- 데이터 파이프라인 상세: [`docs/DATA.md`](docs/DATA.md)
 
 ## 페이지 트리
 
-| 메뉴 | 경로 | 시트 탭 / 렌더 |
+| 메뉴 | 경로 | 데이터 (`data/*.json`) |
 | --- | --- | --- |
 | Home | `/` | Hero(로컬) · `news` · `sections` (`home-*`) |
 | Research | `/research/` | `sections` (`research`) · `projects` |
-| Team | `/team/` | `members` (`alumni` 펼침) |
+| Team | `/team/` | `members` |
 | Team → Professor | `/team/professor/` | `sections` (`professor`) · `talks` |
 | Team → Recruiting | `/team/recruiting/` | `sections` (`recruit-*`) · `projects` (모집 중) |
 | Awards | `/awards/` | `awards` |
 | Publications | `/publications/` | `publications` · `patents` |
-| Board | `/board/` | `news` 목록형 · `gallery` |
+| Board | `/board/` | `news` · `gallery` |
+
+## 데이터 스냅샷 (배포 전)
+
+시트는 **편집용**입니다. 공개 사이트에 반영하려면 스냅샷을 떠서 JSON을 커밋합니다.
+
+```bash
+python3 scripts/snapshot_sheet.py
+git add data/ js/sheet/sheets.js
+git commit -m "data: refresh sheet snapshot"
+git push origin main
+```
+
+배포 = **스냅샷 → JSON 커밋 → `main` Pages**. GitHub Actions는 사용하지 않습니다 (workflow 권한/시크릿 없이 로컬·수동 스냅샷).
 
 ## 로컬에서 보기
 
 ```bash
 python3 -m http.server 8080
-# 또는
-npx --yes serve -l 8080
 ```
 
-http://localhost:8080/ — 시트·이미지 CDN 접근을 위해 인터넷이 필요합니다.
+http://localhost:8080/ — JSON·이미지 CDN만 사용합니다 (Sheet 네트워크 호출 없음).
 
 ## GitHub Pages
 
@@ -52,10 +64,10 @@ gh api -X PUT repos/soonjokwon/adam-pnu/pages \
 
 ## 데이터·렌더
 
-- 시트 ID: `1bmfsOkVl16OJ2KWzWJG6NtV5Ds98fXKnSiRtxKxgzlw` (링크가 있는 사용자 = 뷰어)  
-- 로더: `js/sheet/sheet-loader.js` (widgets의 gviz/CSV 로더를 사이트에 복제)  
+- 스냅샷 스크립트: `scripts/snapshot_sheet.py` (gviz CSV → `data/<tab>.json`)  
+- 로더: `js/sheet/sheet-loader.js` — `ADAM.load`는 로컬 JSON만  
 - 렌더러: `js/widgets/*.js` + `css/widgets/*` (사이트 내 복제본; 원본 widgets 저장소는 그대로)  
-- 시트 실패 시 `https://soonjokwon.github.io/adam-lab-widgets/data/<tab>.json` 폴백  
+- 이미지 `assets/…` → `https://soonjokwon.github.io/adam-lab-widgets/` CDN  
 - 모바일: iframe 고정 높이 없음 — 페이지 스크롤로 자연스럽게 흐름  
 
 ## 히어로
@@ -66,6 +78,7 @@ Home 상단 **ADAM Lab Intro**는 `assets/hero/index.html`에 호스팅합니다
 
 ```
 index.html research/ team/ awards/ publications/ board/
+data/*.json          scripts/snapshot_sheet.py  docs/DATA.md
 assets/hero/  assets/home/pillars/
 css/site.css  css/sheet/  css/widgets/
 js/site.js    js/sheet/   js/widgets/

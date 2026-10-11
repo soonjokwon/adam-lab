@@ -1,7 +1,9 @@
 {
- "source": "https://sites.google.com/view/adam-pnu",
- "extracted": "2026-10-08",
- "note": "Research page · Research Projects (@PNU / @KIT). recruit=Y: listed on Team/Recruiting. hidden=Y: not shown (Hanwha placeholder title/period on the site).",
+ "lab": "ADAM Lab@PNU",
+ "source": "https://docs.google.com/spreadsheets/d/1bmfsOkVl16OJ2KWzWJG6NtV5Ds98fXKnSiRtxKxgzlw",
+ "sheet_tab": "projects",
+ "extracted": "2026-10-11T03:16:35Z",
+ "note": "group: PNU | KIT. recruit/hidden: Y to flag.",
  "columns": [
   "title",
   "org_role",
@@ -89,7 +91,7 @@
    "group": "PNU",
    "status": "",
    "recruit": "",
-   "hidden": "",
+   "hidden": "Y",
    "logo": "assets/projects/sKzABYRKWhgE.png",
    "link": ""
   },

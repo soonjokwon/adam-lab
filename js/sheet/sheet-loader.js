@@ -1,12 +1,12 @@
-/* ADAM Lab widgets — shared Google Sheet loader (vanilla, no deps).
+/* ADAM Lab site data loader (vanilla, no deps).
 
-   ADAM.load(tab, { required: ["col", ...], onUpdate: fn }) — see below:
-   cache-first (localStorage, refreshed in the background), then the Sheet
-   (gviz CSV, header checked), then the bundled data/<tab>.json.
-   ?debug=1 shows source / detected tab / dropped rows; ADAM.track(tab)
-   lets each widget report rows it dropped or values it did not recognise.
-   Paste builds (dist/*-embed.html) set window.ADAM_ROOT (absolute Pages URL,
-   for assets/…) and window.ADAM_INLINE[tab] (rows baked in instead of JSON).
+   ADAM.load(tab, { required: ["col", ...], onUpdate: fn }) loads only the
+   committed snapshot at data/<tab>.json (optional ?v= cache-bust from
+   ADAM_DATA_VERSION). The browser never calls Google Sheets / gviz.
+   Refresh snapshots: python3 scripts/snapshot_sheet.py
+   ?debug=1 shows source / dropped rows; ADAM.track(tab) lets each widget
+   report rows it dropped or values it did not recognise.
+   Paste builds may set window.ADAM_ROOT and window.ADAM_INLINE[tab].
 
    Also exposes helpers shared by every widget: parseCsv, normalizeDate
    (accepts '2026-08-21', '2026. 8. 21', '26.08.21'), normalizeMonth,
@@ -139,15 +139,8 @@
     return fetch(url, opts).finally(function () { clearTimeout(timer); });
   }
 
-  ADAM.sheetUrl = function (tab) {
-    var map = window.ADAM_SHEETS || {};
-    if (typeof map[tab] === "string") return map[tab].trim();
-    if (window.ADAM_SHEET_ID) {
-      return "https://docs.google.com/spreadsheets/d/" + window.ADAM_SHEET_ID +
-        "/gviz/tq?tqx=out:csv&headers=1&sheet=" + encodeURIComponent(tab);
-    }
-    return "";
-  };
+  /* Always empty on adam-pnu — snapshots only. Kept so debug UI stays quiet. */
+  ADAM.sheetUrl = function () { return ""; };
 
   ADAM.params = new URLSearchParams(location.search);
   /* adam-lab site pages can inject params without polluting the URL
@@ -188,8 +181,7 @@
     return u.href;
   };
 
-  /* Column signature of every tab — used to say which tab gviz actually
-     returned (a missing tab name silently yields the FIRST tab). */
+  /* Column signature of every tab — used in ?debug=1 to label loaded JSON. */
   var SIGNATURES = {
     news: ["date", "title_ko", "tag"],
     publications: ["type", "title", "venue"],
@@ -278,42 +270,24 @@
     document.head.appendChild(css);
   }
 
-  /* ---------- cache (stale-while-revalidate) ---------- */
-  var CACHE_DAYS = 14;
-  function cacheKey(tab) { return "adam:" + tab + ":" + (ADAM.sheetUrl(tab) || "").length + ":v2"; }
-  function readCache(tab) {
-    try {
-      var c = JSON.parse(localStorage.getItem(cacheKey(tab)) || "null");
-      if (c && Array.isArray(c.rows) && Date.now() - c.t < CACHE_DAYS * 864e5) return c;
-    } catch (err) { /* private mode etc. */ }
-    return null;
-  }
-  function writeCache(tab, res) {
-    try { localStorage.setItem(cacheKey(tab), JSON.stringify({ t: Date.now(), header: res.header, rows: res.rows })); } catch (err) { /* quota */ }
-  }
-  function dropCache(tab) { try { localStorage.removeItem(cacheKey(tab)); } catch (err) { /* ignore */ } }
-
   /* ADAM.load(tab, { required, onUpdate })
-       1) cached sheet rows (localStorage) → shown at once, sheet re-fetched in
-          the background; if it changed, onUpdate(res) re-renders
-       2) no cache → sheet (header checked against `required`; gviz returns
-          the FIRST tab for a missing name, so a wrong tab is rejected)
-       3) sheet slow (>2.5 s) → bundled data first, sheet result via onUpdate
-       4) sheet failed / wrong / empty → ADAM_INLINE[tab] → data/<tab>.json
-     Resolves { rows, source: "cache" | "sheet" | "inline" | "json", header }.
-     ?source=json skips the sheet, ?nocache=1 skips the cache. */
+       Loads committed data/<tab>.json only (or ADAM_INLINE[tab] if present).
+       Never fetches Google Sheets. Resolves { rows, source: "inline"|"json", header }.
+       `required` is checked against JSON columns when present (debug aid). */
   ADAM.load = function (tab, opts) {
     opts = opts || {};
     var d = diagFor(tab);
     var required = (opts.required || []).map(function (c) { return c.toLowerCase(); });
-    var url = ADAM.sheetUrl(tab);
-    if (ADAM.params.get("source") === "json") url = "";
-    d.url = url;
-    var update = typeof opts.onUpdate === "function" ? opts.onUpdate : null;
+    d.url = "";
 
     function mark(res, how) {
       d.source = res.source; d.rows = res.rows.length;
       if (res.header) d.header = res.header;
+      if (res.header && required.length) {
+        var missing = required.filter(function (c) { return res.header.indexOf(c) === -1; });
+        if (missing.length) logEvent(d, "json header missing: " + missing.join(", "));
+      }
+      d.detected = detectTab(res.header || []) || tab;
       logEvent(d, how || ("loaded from " + res.source + " (" + res.rows.length + " rows)"));
       return res;
     }
@@ -321,75 +295,22 @@
     function fromJson() {
       var inline = window.ADAM_INLINE && window.ADAM_INLINE[tab];
       if (Array.isArray(inline) && inline.length) return Promise.resolve({ rows: inline, source: "inline" });
-      return fetchTimeout(ADAM.root + "data/" + tab + ".json", 8000, { cache: "no-cache" })
+      var ver = window.ADAM_DATA_VERSION || "";
+      var url = ADAM.root + "data/" + tab + ".json" + (ver ? "?v=" + encodeURIComponent(ver) : "");
+      return fetchTimeout(url, 8000, { cache: "no-cache" })
         .then(function (res) {
           if (!res.ok) throw new Error("json " + res.status);
           return res.json();
         })
         .then(function (data) {
           var list = Array.isArray(data) ? data : (data && data.items) || [];
-          return { rows: list, source: "json", header: data && data.columns };
+          var header = data && data.columns;
+          if (!header && list.length) header = Object.keys(list[0]);
+          return { rows: list, source: "json", header: header || [] };
         });
     }
 
-    function fetchSheet() {
-      return fetchTimeout(url, 15000, { cache: "no-store", mode: "cors" })
-        .then(function (res) {
-          if (!res.ok) throw new Error("HTTP " + res.status);
-          return res.text();
-        })
-        .then(function (text) {
-          var parsed = ADAM.parseCsv(text);
-          d.detected = detectTab(parsed.header) || "(알 수 없음)";
-          var missing = required.filter(function (c) { return parsed.header.indexOf(c) === -1; });
-          if (missing.length) {
-            var e = new Error("header에 " + missing.join(", ") + " 없음 — 받은 탭: " + d.detected + " (탭이 없으면 gviz는 첫 탭을 돌려줌)");
-            e.definitive = true; throw e;
-          }
-          if (!parsed.rows.length) { var e2 = new Error("탭이 비어 있음"); e2.definitive = true; throw e2; }
-          return { rows: parsed.rows, source: "sheet", header: parsed.header };
-        });
-    }
-
-    if (!ADAM.safeUrl(url)) return fromJson().then(function (r) { return mark(r); });
-
-    var sheet = fetchSheet();
-    sheet.then(function (res) { writeCache(tab, res); }, function (err) {
-      d.sheetError = err.message;
-      logEvent(d, "sheet failed: " + err.message);
-      if (err.definitive) dropCache(tab);
-    });
-
-    var cached = ADAM.params.get("nocache") === "1" ? null : readCache(tab);
-    if (cached) {
-      sheet.then(function (res) {
-        if (JSON.stringify(res.rows) !== JSON.stringify(cached.rows) && update) { d.refreshed = true; update(mark(res, "sheet changed → re-rendered")); }
-        else logEvent(d, "sheet checked — cache is current");
-      }, function (err) {
-        if (err.definitive && update) fromJson().then(function (r) { update(mark(r, "sheet rejected → bundled " + r.source)); });
-      });
-      return Promise.resolve(mark({ rows: cached.rows, source: "cache", header: cached.header },
-        "cache (" + Math.round((Date.now() - cached.t) / 60000) + " min old) shown; refreshing"));
-    }
-
-    return new Promise(function (resolve, reject) {
-      var settled = false;
-      function fallback() { return fromJson().then(function (r) { resolve(mark(r)); }, reject); }
-      var timer = setTimeout(function () {
-        if (settled) return;
-        settled = true;
-        logEvent(d, "sheet slow → bundled data first");
-        fallback();
-        sheet.then(function (res) { if (update) { d.refreshed = true; update(mark(res, "sheet arrived → re-rendered")); } }, function () {});
-      }, opts.wait || 2500);
-      sheet.then(function (res) {
-        if (settled) return;
-        settled = true; clearTimeout(timer); resolve(mark(res));
-      }, function () {
-        if (settled) return;
-        settled = true; clearTimeout(timer); fallback();
-      });
-    });
+    return fromJson().then(function (r) { return mark(r); });
   };
 
   /* Tiny DOM helper: el("div", {class: "x", text: "…", onclick: fn}, [children]) */

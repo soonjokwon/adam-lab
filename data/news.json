@@ -1,9 +1,28 @@
 {
  "lab": "ADAM Lab@PNU",
- "source": "https://sites.google.com/view/adam-pnu",
- "extracted": "2026-10-08",
- "note": "Home Latest News + Board · News (all 42 items, 2020-09 → 2026-08). Korean titles are short headlines; for 2020–2024 items title_en is the Board's own English sentence. link2 = second link on the Board item.",
+ "source": "https://docs.google.com/spreadsheets/d/1bmfsOkVl16OJ2KWzWJG6NtV5Ds98fXKnSiRtxKxgzlw",
+ "sheet_tab": "news",
+ "extracted": "2026-10-11T03:16:35Z",
+ "note": "Home Latest News + Board · News. tag: Paper | Award | Project | Event | Member.",
+ "columns": [
+  "date",
+  "title_ko",
+  "title_en",
+  "tag",
+  "link",
+  "image",
+  "link2"
+ ],
  "items": [
+  {
+   "date": "2026-10-11",
+   "title_ko": "테스트",
+   "title_en": "test",
+   "tag": "Award",
+   "link": "",
+   "image": "",
+   "link2": ""
+  },
   {
    "date": "2026-08-21",
    "title_ko": "박현석, 한국CDE학회 2026 하계학술대회 우수포스터상",
@@ -382,14 +401,5 @@
    "image": "",
    "link2": ""
   }
- ],
- "columns": [
-  "date",
-  "title_ko",
-  "title_en",
-  "tag",
-  "link",
-  "image",
-  "link2"
  ]
 }

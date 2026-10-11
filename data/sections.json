@@ -1,7 +1,9 @@
 {
- "source": "https://sites.google.com/view/adam-pnu-2",
- "extracted": "2026-10-09",
- "note": "Text blocks of the Sites pages (Professor, Recruiting, Research, Home). One row = one line/item; block = which embed (?block=…). type: bullet | entry | text | lead | fact | card | callout | figure | thumb | profile | contact | button | photo (= image). Markup in text: **굵게**, {{주황 강조}}, [글자](링크).",
+ "lab": "ADAM Lab@PNU",
+ "source": "https://docs.google.com/spreadsheets/d/1bmfsOkVl16OJ2KWzWJG6NtV5Ds98fXKnSiRtxKxgzlw",
+ "sheet_tab": "sections",
+ "extracted": "2026-10-11T03:16:35Z",
+ "note": "block/section/type text blocks (Professor, Recruiting, Research, Home).",
  "columns": [
   "block",
   "section",
@@ -350,7 +352,7 @@
    "section": "",
    "type": "fact",
    "sub": "신청 기간",
-   "text": "상시",
+   "text": "2026년 4월 까지",
    "link": "",
    "image": ""
   },
