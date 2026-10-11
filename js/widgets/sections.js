@@ -41,7 +41,10 @@
       if (m[1] != null) frag.appendChild(wrap("strong", m[1]));
       else if (m[2] != null) frag.appendChild(wrap("em", m[2], "sx-ac"));
       else if (m[3] != null) {
-        var href = A.safeUrl(m[4]);
+        var rawHref = String(m[4] || "").trim();
+        /* Old Sites Research URL in sheet markdown → Pages /research/ */
+        if (/sites\.google\.com\/view\/adam-pnu\/research\/?$/i.test(rawHref)) rawHref = "research/";
+        var href = A.safeUrl(rawHref);
         if (href) frag.appendChild(linkTo(href, inline(m[3], opts)));
         else text(frag, m[0]);
       } else frag.appendChild(el("span", { class: "sx-date", text: m[5] }));

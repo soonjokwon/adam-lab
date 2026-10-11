@@ -358,7 +358,7 @@
   },
   {
    "block": "recruit-topics",
-   "section": "연구 주제 (See also [here](https://sites.google.com/view/adam-pnu/research))",
+   "section": "연구 주제 (See also [here](research/))",
    "type": "card",
    "sub": "설계 자율화",
    "text": "CAD/CAPP/CAM을 통합한 AI 기반 설계 자동화 및 적층/하이브리드/지속가능 제조를 고려한 설계 방법론 연구",
@@ -367,7 +367,7 @@
   },
   {
    "block": "recruit-topics",
-   "section": "연구 주제 (See also [here](https://sites.google.com/view/adam-pnu/research))",
+   "section": "연구 주제 (See also [here](research/))",
    "type": "card",
    "sub": "설계 지능화",
    "text": "설계 경험과 데이터를 지능형 의사결정 지식으로 전환하는 데이터 및 지식 기반 설계 방법론 연구",
@@ -376,7 +376,7 @@
   },
   {
    "block": "recruit-topics",
-   "section": "연구 주제 (See also [here](https://sites.google.com/view/adam-pnu/research))",
+   "section": "연구 주제 (See also [here](research/))",
    "type": "card",
    "sub": "설계 디지털화",
    "text": "디지털 트윈/디지털 스레드 기반 전주기 데이터 통합, VR 시뮬레이션/엔지니어링 VR/산업용 AR을 활용한 연구",
