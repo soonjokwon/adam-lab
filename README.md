@@ -21,9 +21,22 @@
 | Publications | `/publications/` | `publications` · `patents` |
 | Board | `/board/` | `news` · `gallery` |
 
-## 데이터 스냅샷 (배포 전)
+## 데이터 스냅샷 (시트 → JSON → Pages)
 
-시트는 **편집용**입니다. 공개 사이트에 반영하려면 스냅샷을 떠서 JSON을 커밋합니다.
+시트는 **편집용**입니다. 브라우저는 Sheet를 읽지 않습니다. 공개 반영은 JSON 스냅샷을 `main`에 커밋하는 방식입니다.
+
+### 권장: GitHub Actions
+
+워크플로: [`.github/workflows/snapshot-pages.yml`](.github/workflows/snapshot-pages.yml)
+
+- 수동: Actions → **Snapshot sheet → Pages** → Run workflow  
+- 자동: 평일 약 09:18–18:48 KST, 30분마다 (`cron: 18,48 0-9 * * 1-5`)  
+- 변경이 있을 때만 `data: refresh sheet snapshot` 커밋 후 `main` 푸시 → Pages(브랜치 배포) 갱신  
+- Sheet가 링크 공유(뷰어)인 동안 Google 시크릿 불필요  
+
+워크플로 파일을 저장소에 넣는 push에는 GitHub **workflow** 스코프가 필요합니다. 상세: [`docs/DATA.md`](docs/DATA.md).
+
+### 대안: 수동 스냅샷
 
 ```bash
 python3 scripts/snapshot_sheet.py
@@ -31,8 +44,6 @@ git add data/ js/sheet/sheets.js
 git commit -m "data: refresh sheet snapshot"
 git push origin main
 ```
-
-배포 = **스냅샷 → JSON 커밋 → `main` Pages**. GitHub Actions는 사용하지 않습니다 (workflow 권한/시크릿 없이 로컬·수동 스냅샷).
 
 ## 로컬에서 보기
 
@@ -44,7 +55,7 @@ http://localhost:8080/ — JSON·이미지 CDN만 사용합니다 (Sheet 네트�
 
 ## GitHub Pages
 
-**GitHub Actions 워크플로는 사용하지 않습니다.** `main` 브랜치 루트 + `.nojekyll`.
+Pages는 **`main` 브랜치 루트** 배포입니다 (`.nojekyll`). Actions는 JSON 스냅샷 커밋용이며 `actions/deploy-pages`는 쓰지 않습니다.
 
 1. Settings → Pages → Deploy from a branch  
 2. Branch: `main` / folder: `/ (root)` → Save  

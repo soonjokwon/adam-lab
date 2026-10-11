@@ -1,0 +1,55 @@
+# Sheet → committed JSON → main (GitHub Pages branch deploy).
+# Browser never reads the Sheet; this job refreshes data/*.json when the
+# public gviz CSV changes. No Google secrets required while the sheet stays
+# link-shared as Viewer.
+name: Snapshot sheet → Pages
+
+on:
+  workflow_dispatch:
+  schedule:
+    # ~09:18–18:48 KST weekdays (UTC+9): :18 and :48, hours 00–09 UTC, Mon–Fri
+    - cron: "18,48 0-9 * * 1-5"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: snapshot-pages
+  cancel-in-progress: false
+
+jobs:
+  snapshot:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          # Default GITHUB_TOKEN; contents:write allows push back to main
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install snapshot dependencies
+        run: |
+          # scripts/snapshot_sheet.py uses the Python standard library only
+          python3 -m pip install --upgrade pip
+
+      - name: Snapshot sheet → data/*.json
+        run: python3 scripts/snapshot_sheet.py
+
+      - name: Commit and push if changed
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/ js/sheet/sheets.js
+          if git diff --staged --quiet; then
+            echo "No snapshot changes."
+            exit 0
+          fi
+          git commit -m "data: refresh sheet snapshot"
+          # Pages is Deploy-from-branch on main; push is enough (no actions/deploy-pages)
+          git push origin HEAD:main
