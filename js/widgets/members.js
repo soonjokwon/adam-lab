@@ -34,6 +34,12 @@
   function ymText(v) { var m = A.normalizeMonth(v); return m ? m.replace("-", ".") : ""; }
 
   var T = A.track("members");
+  /* Old Sites URL in the sheet → Pages professor profile (site-root relative). */
+  function memberProfileLink(raw) {
+    var s = String(raw || "").trim();
+    if (/sites\.google\.com\/view\/adam-pnu\/team\/professor\/?$/i.test(s)) s = "team/professor/";
+    return A.safeUrl(s);
+  }
   function normalize(rows) {
     var out = [];
     T.reset();
