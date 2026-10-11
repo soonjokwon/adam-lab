@@ -2,7 +2,7 @@
  "lab": "ADAM Lab@PNU",
  "source": "https://docs.google.com/spreadsheets/d/1bmfsOkVl16OJ2KWzWJG6NtV5Ds98fXKnSiRtxKxgzlw",
  "sheet_tab": "talks",
- "extracted": "2026-10-11T17:25:53Z",
+ "extracted": "2026-10-11T17:30:09Z",
  "note": "Invited talks. topics: same topic_key values as publications (e.g. am; rl).",
  "columns": [
   "date",
@@ -35,7 +35,7 @@
    "venue": "UNIST",
    "location": "울산",
    "link": "",
-   "topics": "am"
+   "topics": "ai; am"
   },
   {
    "date": "2025-12-04",
