@@ -57,9 +57,7 @@ a:hover { color: var(--navy); }
   backdrop-filter: blur(12px);
   background: rgba(255, 255, 255, 0.94);
   border-bottom: 1px solid var(--line);
-  transition: box-shadow 0.25s var(--ease);
 }
-.site-header:hover { box-shadow: 0 6px 24px rgba(16, 43, 134, 0.06); }
 
 .site-header__inner {
   max-width: var(--max);
@@ -86,9 +84,7 @@ a:hover { color: var(--navy); }
   height: 36px;
   object-fit: contain;
   flex: 0 0 auto;
-  transition: transform 0.35s var(--ease);
 }
-.brand:hover .brand__logo { transform: rotate(-6deg) scale(1.04); }
 .brand__text {
   display: flex;
   flex-direction: column;
@@ -133,13 +129,12 @@ a:hover { color: var(--navy); }
   border: 0;
   background: transparent;
   cursor: pointer;
-  transition: background 0.2s var(--ease), color 0.2s var(--ease), transform 0.2s var(--ease);
+  transition: background 0.2s var(--ease), color 0.2s var(--ease);
 }
 .nav a:hover, .search-toggle:hover {
   background: var(--grid);
   color: var(--navy);
 }
-.nav a:hover { transform: translateY(-1px); }
 .nav a[aria-current="page"] {
   color: var(--navy);
   background: rgba(16, 43, 134, 0.08);
@@ -221,12 +216,11 @@ a:hover { color: var(--navy); }
   color: #fff;
   border: 1px solid rgba(255, 255, 255, 0.35);
   text-decoration: none;
-  transition: background 0.2s var(--ease), transform 0.2s var(--ease);
+  transition: background 0.2s var(--ease);
 }
 .band-ig:hover {
   background: rgba(255, 255, 255, 0.12);
   color: #fff;
-  transform: translateY(-1px);
 }
 
 .nav-toggle {
@@ -272,19 +266,12 @@ main { display: block; }
   background: #fff;
   overflow: hidden;
   aspect-ratio: 16 / 9;
-  animation: hero-in 0.8s var(--ease) both;
-  box-shadow: 0 12px 40px rgba(16, 43, 134, 0.06);
 }
 .hero-frame iframe {
   width: 100%;
   height: 100%;
   border: 0;
   display: block;
-}
-
-@keyframes hero-in {
-  from { opacity: 0; transform: translateY(14px) scale(0.992); }
-  to { opacity: 1; transform: none; }
 }
 
 .band {
@@ -386,7 +373,7 @@ main { display: block; }
   .split { grid-template-columns: 1fr; }
 }
 
-/* ---------- Panels ---------- */
+/* ---------- Panels (hover glow only) ---------- */
 .panel {
   position: relative;
   width: 100%;
@@ -397,8 +384,8 @@ main { display: block; }
   transition: border-color 0.25s var(--ease), box-shadow 0.25s var(--ease);
 }
 .panel:hover {
-  border-color: #c8d0e4;
-  box-shadow: 0 10px 28px rgba(16, 43, 134, 0.05);
+  border-color: #c5cee6;
+  box-shadow: 0 0 0 1px rgba(16, 43, 134, 0.06), 0 12px 32px rgba(16, 43, 134, 0.1);
 }
 .panel .ax-root,
 .panel .adam-sheet { max-width: 100%; }
@@ -437,17 +424,16 @@ main { display: block; }
   background: rgba(16, 43, 134, 0.25);
   padding: 0;
   cursor: pointer;
-  transition: transform 0.2s var(--ease), background 0.2s var(--ease);
+  transition: background 0.2s var(--ease);
 }
 .carousel__dots button[aria-current="true"] {
   background: var(--accent);
-  transform: scale(1.2);
 }
 
-/* ---------- Reveal / motion ---------- */
+/* ---------- Allowed motion: (1) scroll fade-up (2) card hover glow (3) slide crossfade ---------- */
 .reveal {
   opacity: 0;
-  transform: translateY(16px);
+  transform: translateY(14px);
   transition: opacity 0.55s var(--ease), transform 0.55s var(--ease);
 }
 .reveal.is-in {
@@ -457,8 +443,8 @@ main { display: block; }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .reveal { opacity: 1; transform: none; transition: none; }
-  .hero-frame { animation: none; }
-  .brand__logo, .nav a, .panel { transition: none; }
+  .carousel__slide { transition: none; }
+  .panel { transition: none; }
 }
 
 /* ---------- Footer ---------- */
@@ -489,12 +475,9 @@ main { display: block; }
   align-items: center;
   text-decoration: none;
   opacity: 0.95;
-  transition: opacity 0.2s var(--ease), transform 0.2s var(--ease);
+  transition: opacity 0.2s var(--ease);
 }
-.footer-logo:hover {
-  opacity: 1;
-  transform: translateY(-2px);
-}
+.footer-logo:hover { opacity: 1; }
 .footer-logo img {
   display: block;
   height: auto;
@@ -536,11 +519,6 @@ main { display: block; }
   border-radius: 12px;
   box-shadow: 0 24px 60px rgba(16, 43, 134, 0.18);
   overflow: hidden;
-  animation: search-in 0.28s var(--ease) both;
-}
-@keyframes search-in {
-  from { opacity: 0; transform: translateY(-10px); }
-  to { opacity: 1; transform: none; }
 }
 .site-search__form {
   display: flex;

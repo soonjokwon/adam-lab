@@ -74,9 +74,9 @@
   display: grid;
   gap: 4px;
   align-content: start;
-  transition: border-color 0.15s var(--ease), box-shadow 0.15s var(--ease), transform 0.15s var(--ease);
+  transition: border-color 0.15s var(--ease), box-shadow 0.15s var(--ease);
 }
-.aw-card:hover { border-color: var(--navy); box-shadow: 0 8px 18px rgba(16, 43, 134, 0.07); transform: translateY(-1px); }
+.aw-card:hover { border-color: var(--navy); box-shadow: 0 0 0 1px rgba(16, 43, 134, 0.08), 0 10px 22px rgba(16, 43, 134, 0.1); }
 .aw-card::before {
   content: "";
   position: absolute;
@@ -155,7 +155,6 @@ html.ax-pe .aw-ylabel { margin: 10px 0 6px; font-size: 16px; }
 html.ax-pe .aw-year:first-child .aw-ylabel { margin-top: 4px; }
 html.ax-pe .aw-grid { gap: 6px; }
 html.ax-pe .aw-card { padding: 8px 10px; gap: 2px; }
-html.ax-pe .aw-card:hover { transform: none; }
 html.ax-pe .aw-date { font-size: 10.5px; }
 html.ax-pe .aw-cat { font-size: 9px; }
 html.ax-pe .aw-name { font-size: 14px; gap: 5px; }

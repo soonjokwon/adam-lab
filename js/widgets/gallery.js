@@ -120,8 +120,24 @@
     var it = slides[alb.slide];
     var stage = card.querySelector(".gl-carousel-stage");
     if (stage) {
-      stage.innerHTML = "";
-      stage.appendChild(picture(it, true));
+      var old = stage.querySelector("img");
+      var nextImg = picture(it, true);
+      nextImg.style.opacity = "0";
+      if (old) {
+        old.classList.add("is-fading");
+        stage.insertBefore(nextImg, old);
+        requestAnimationFrame(function () {
+          nextImg.style.opacity = "1";
+        });
+        setTimeout(function () { if (old.parentNode) old.remove(); }, 480);
+      } else {
+        stage.insertBefore(nextImg, stage.firstChild);
+        requestAnimationFrame(function () { nextImg.style.opacity = "1"; });
+      }
+      /* keep nav/dots after imgs */
+      Array.prototype.forEach.call(stage.querySelectorAll(".gl-carousel-nav, .gl-carousel-dots"), function (n) {
+        stage.appendChild(n);
+      });
     }
     var dateEl = card.querySelector(".gl-date");
     if (dateEl) dateEl.textContent = disp(it.date);

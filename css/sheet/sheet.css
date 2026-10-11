@@ -25,13 +25,7 @@
   overflow: visible;
   color: var(--ink);
   background-color: var(--sheet);
-  /* Same definition as the home hero .stage grid: 5% × 5% of the sheet
-     (20 cells across / down). At a typical Sites content width ~1100–1200px
-     that is ~53–60px wide cells; line color is --grid #F0F2F7; no major/minor. */
-  background-image:
-    linear-gradient(var(--grid) 1px, transparent 1px),
-    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
-  background-size: 5% 5%, 5% 5%;
+  /* Flat sheet — no decorative grid / particles / parallax */
   border: 0;
 }
 
