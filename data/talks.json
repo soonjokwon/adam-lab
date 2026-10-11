@@ -2,7 +2,7 @@
  "lab": "ADAM Lab@PNU",
  "source": "https://docs.google.com/spreadsheets/d/1bmfsOkVl16OJ2KWzWJG6NtV5Ds98fXKnSiRtxKxgzlw",
  "sheet_tab": "talks",
- "extracted": "2026-10-11T17:16:31Z",
+ "extracted": "2026-10-11T17:17:34Z",
  "note": "Invited talks. topics: same topic_key values as publications (e.g. am; rl).",
  "columns": [
   "date",
@@ -19,7 +19,7 @@
    "venue": "한국광기술원",
    "location": "광주",
    "link": "",
-   "topics": ""
+   "topics": "ai; llm; cad"
   },
   {
    "date": "2026-01-15",
@@ -27,7 +27,7 @@
    "venue": "1st International Conference on Digital Composites Manufacturing (ICDCM 2026), 경상대학교",
    "location": "진주",
    "link": "",
-   "topics": ""
+   "topics": "rl; am"
   },
   {
    "date": "2025-12-19",
@@ -35,7 +35,7 @@
    "venue": "UNIST",
    "location": "울산",
    "link": "",
-   "topics": ""
+   "topics": "am"
   },
   {
    "date": "2025-12-04",
@@ -43,7 +43,7 @@
    "venue": "제조에서 Physical AI 표준화 추진 전략 워크숍",
    "location": "서울",
    "link": "",
-   "topics": ""
+   "topics": "rl; safety"
   },
   {
    "date": "2025-06-19",
@@ -51,7 +51,7 @@
    "venue": "GIST",
    "location": "광주",
    "link": "",
-   "topics": ""
+   "topics": "ai; llm; cad; pp"
   },
   {
    "date": "2024-02-07",
@@ -59,7 +59,7 @@
    "venue": "고려대학교",
    "location": "서울",
    "link": "",
-   "topics": ""
+   "topics": "ai; cad; am"
   },
   {
    "date": "2023-10-31",
@@ -67,7 +67,7 @@
    "venue": "한양대학교 ERICA",
    "location": "온라인",
    "link": "",
-   "topics": ""
+   "topics": "am"
   },
   {
    "date": "2023-09-22",
