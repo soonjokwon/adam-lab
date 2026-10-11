@@ -2,7 +2,7 @@
  "lab": "ADAM Lab@PNU",
  "source": "https://docs.google.com/spreadsheets/d/1bmfsOkVl16OJ2KWzWJG6NtV5Ds98fXKnSiRtxKxgzlw",
  "sheet_tab": "topics",
- "extracted": "2026-10-11T15:04:38Z",
+ "extracted": "2026-10-11T15:05:55Z",
  "note": "topic_key (id in publications/patents topics cells); label_en / label_ko / label_short (tag text); aliases (semicolon-separated); sort; active Y/N; color optional.",
  "columns": [
   "topic_key",
@@ -178,7 +178,17 @@
   {
    "topic_key": "capp",
    "label_en": "Computer-Aided Process Planning",
-   "label_ko": "",
+   "label_ko": "컴퓨터 지원 공정 계획",
+   "label_short": "공정 계획",
+   "aliases": "",
+   "sort": "170",
+   "active": "Y",
+   "color": ""
+  },
+  {
+   "topic_key": "ai",
+   "label_en": "Artificial Intelligence",
+   "label_ko": "인공 지능",
    "label_short": "",
    "aliases": "",
    "sort": "",
