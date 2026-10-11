@@ -151,6 +151,84 @@ a:hover { color: var(--navy); }
   color: var(--navy);
 }
 
+/* Motion help (hero / reveal / hover) */
+.nav .motion-help { margin-left: 2px; }
+.motion-help {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+.motion-help__btn {
+  width: 34px;
+  height: 34px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+  color: var(--navy);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background 0.2s var(--ease), border-color 0.2s var(--ease);
+}
+.motion-help__btn:hover,
+.motion-help__btn[aria-expanded="true"] {
+  background: var(--grid);
+  border-color: #c8d0e4;
+}
+.motion-help__tip {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  width: min(280px, 78vw);
+  padding: 12px 14px;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  box-shadow: 0 14px 36px rgba(16, 43, 134, 0.12);
+  color: var(--ink);
+  font-size: 0.82rem;
+  line-height: 1.45;
+  z-index: 60;
+}
+.motion-help__tip[hidden] { display: none !important; }
+.motion-help__tip strong {
+  display: block;
+  font-family: var(--font-display);
+  color: var(--navy);
+  margin-bottom: 6px;
+  font-size: 0.88rem;
+}
+.motion-help__tip ul {
+  margin: 0;
+  padding-left: 1.1em;
+}
+.motion-help__tip li { margin: 0.2em 0; }
+
+.band__inner--with-action {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.band-ig {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  text-decoration: none;
+  transition: background 0.2s var(--ease), transform 0.2s var(--ease);
+}
+.band-ig:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+  transform: translateY(-1px);
+}
+
 .nav-toggle {
   display: none;
   margin-left: auto;
@@ -507,13 +585,23 @@ main { display: block; }
   transition: background 0.15s var(--ease);
 }
 .site-search__hit:hover { background: var(--grid); }
+.site-search__kind {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--accent-deep);
+  margin-bottom: 2px;
+}
 .site-search__hit strong {
   display: block;
   font-family: var(--font-display);
   color: var(--navy);
   margin-bottom: 2px;
 }
-.site-search__hit span {
+.site-search__blurb {
   display: block;
   font-size: 0.86rem;
   color: var(--ink-dim);

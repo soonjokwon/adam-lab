@@ -1,26 +1,27 @@
 /* Photo gallery — sheet tab `gallery`. Columns: date,caption,image,group,link
    image: repo path (assets/gallery/…, recommended) or a public image URL / Google Drive share link (unofficial).
    Repo photos get a 480px 4:3 thumbnail (assets/gallery/thumbs/<name>-480.jpg, scripts/make_thumbs.py).
-   Grid is row-wise by date (newest first). URL params: ?group=PNU|KIT · ?photo=photo-03 (open that photo)
-   Lightbox: the image is fitted (object-fit) into the space left by the top bar and the caption, so the caption is
-   never covered; a long caption scrolls inside its own area. In a short Sites box (< 480px tall) a ↗ button opens
-   the photo in the new-tab full view. */
+   Same topic in the same year (caption+year+lab) renders as one Sites-style carousel card.
+   Grid is newest-first. URL params: ?group=PNU|KIT · ?photo=photo-03 (open that photo)
+   Lightbox: image fitted into the space left by the top bar and caption. */
 (function () {
   var A = window.ADAM, el = A.el;
   var mount = document.getElementById("adam-gallery");
   if (!mount) return;
   var GROUP = { PNU: "ADAM Lab@PNU", KIT: "DADI Lab@KIT" };
-  var state = { items: [], group: (A.params.get("group") || "all").toUpperCase(), open: -1, shown: [] };
+  var IG = window.ADAM_INSTAGRAM_URL ||
+    "https://www.instagram.com/pnu_adam_lab?stkn=eWJlOHk4cHp6MDVt&utm_source=qr";
+  var state = { items: [], group: (A.params.get("group") || "all").toUpperCase(), open: -1, shown: [], albums: [] };
   if (state.group === "ALL") state.group = "all";
   var refs = {};
   var ICON = {
     prev: '<svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M10.2 2.4 4.6 8l5.6 5.6" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>',
     next: '<svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M5.8 2.4 11.4 8l-5.6 5.6" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>',
     full: '<svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M9 2.5h4.5V7M13.5 2.5 7.5 8.5M6.5 3.5h-4v10h10v-4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>',
-    close: '<svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="m3 3 10 10M13 3 3 13" stroke="currentColor" stroke-width="1.6"/></svg>'
+    close: '<svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="m3 3 10 10M13 3 3 13" stroke="currentColor" stroke-width="1.6"/></svg>',
+    ig: '<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="1.7"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.7"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor"/></svg>'
   };
 
-  /* assets/gallery/photo-07.jpg → assets/gallery/thumbs/photo-07-480.jpg */
   function thumbOf(url) {
     var m = String(url).match(/^(.*\/assets\/gallery\/)([\w.-]+?)\.(jpe?g|png|webp)$/i);
     return m ? m[1] + "thumbs/" + m[2] + "-480.jpg" : "";
@@ -44,12 +45,52 @@
     return out;
   }
 
+  function albumKey(it) {
+    var y = it.date ? it.date.slice(0, 4) : "";
+    return (it.caption || "").trim() + "\0" + y + "\0" + (it.group || "");
+  }
+
+  function toAlbums(items) {
+    var map = {}, order = [];
+    items.forEach(function (it) {
+      var k = albumKey(it);
+      if (!map[k]) {
+        map[k] = {
+          key: k,
+          caption: it.caption || "",
+          year: it.date ? it.date.slice(0, 4) : "",
+          group: it.group,
+          date: it.date,
+          slides: [],
+          slide: 0
+        };
+        order.push(k);
+      }
+      var alb = map[k];
+      alb.slides.push(it);
+      if (it.date && (!alb.date || it.date > alb.date)) alb.date = it.date;
+    });
+    return order.map(function (k) { return map[k]; });
+  }
+
   function shell() {
     mount.innerHTML = "";
     refs.chips = el("div", { class: "ax-chips", role: "group", "aria-label": "앨범" });
     refs.count = el("span", { class: "ax-count", "aria-live": "polite" });
+    refs.ig = el("a", {
+      class: "gl-ig",
+      href: IG,
+      target: "_blank",
+      rel: "noopener",
+      title: "ADAM Lab Instagram",
+      "aria-label": "ADAM Lab Instagram"
+    });
+    refs.ig.innerHTML = ICON.ig;
     refs.grid = el("div", { class: "gl-grid" });
-    var root = el("div", { class: "ax-root gl" }, [el("div", { class: "ax-bar" }, [refs.chips, el("span", { class: "ax-grow" }), refs.count]), refs.grid]);
+    var root = el("div", { class: "ax-root gl" }, [
+      el("div", { class: "ax-bar" }, [refs.chips, el("span", { class: "ax-grow" }), refs.ig, refs.count]),
+      refs.grid
+    ]);
     mount.appendChild(root);
     A.phone(root, { title: "사진 Photos" });
     for (var i = 0; i < 4; i++) refs.grid.appendChild(el("div", { class: "ax-skel gl-skel", "aria-hidden": "true" }));
@@ -66,11 +107,84 @@
       attrs.sizes = "(max-width: 520px) 50vw, 300px";
     } else attrs.src = it.image;
     var img = el("img", attrs);
-    img.addEventListener("error", function onErr() {   // no thumbnail yet → original
+    img.addEventListener("error", function onErr() {
       img.removeEventListener("error", onErr);
       img.removeAttribute("srcset"); img.src = it.image;
     });
     return img;
+  }
+
+  function showSlide(card, alb, n) {
+    var slides = alb.slides;
+    alb.slide = (n + slides.length) % slides.length;
+    var it = slides[alb.slide];
+    var stage = card.querySelector(".gl-carousel-stage");
+    if (stage) {
+      stage.innerHTML = "";
+      stage.appendChild(picture(it, true));
+    }
+    var dateEl = card.querySelector(".gl-date");
+    if (dateEl) dateEl.textContent = disp(it.date);
+    var dots = card.querySelectorAll(".gl-carousel-dots button");
+    Array.prototype.forEach.call(dots, function (b, idx) {
+      b.setAttribute("aria-current", idx === alb.slide ? "true" : "false");
+    });
+    var idxEl = card.querySelector(".gl-carousel-idx");
+    if (idxEl) idxEl.textContent = (alb.slide + 1) + " / " + slides.length;
+  }
+
+  function renderAlbumCard(alb, eager) {
+    var multi = alb.slides.length > 1;
+    var first = alb.slides[alb.slide || 0];
+    var imgWrap = el("div", { class: "gl-img" + (multi ? " gl-carousel-stage" : "") }, [picture(first, eager)]);
+    var capKids = [
+      el("div", { class: "gl-top" }, [
+        el("span", { class: "gl-date", text: disp(first.date) }),
+        alb.group ? el("span", { class: "gl-tag", text: "@" + alb.group }) : null
+      ]),
+      alb.caption ? el("div", { class: "gl-text", text: alb.caption }) : null
+    ];
+    if (multi) {
+      capKids.push(el("div", { class: "gl-carousel-meta" }, [
+        el("span", { class: "gl-carousel-idx", text: "1 / " + alb.slides.length })
+      ]));
+    }
+    var card = el("div", {
+      class: "gl-card" + (multi ? " gl-card--carousel" : ""),
+      role: multi ? "group" : "button",
+      tabindex: "0",
+      "aria-label": (alb.caption || "사진") + (multi ? " 캐러셀" : " 크게 보기")
+    }, [imgWrap, el("div", { class: "gl-cap" }, capKids)]);
+
+    if (multi) {
+      var prev = el("button", { type: "button", class: "gl-carousel-nav gl-carousel-prev", "aria-label": "이전 사진", html: ICON.prev });
+      var next = el("button", { type: "button", class: "gl-carousel-nav gl-carousel-next", "aria-label": "다음 사진", html: ICON.next });
+      var dots = el("div", { class: "gl-carousel-dots" });
+      alb.slides.forEach(function (_, idx) {
+        var b = el("button", { type: "button", "aria-label": "슬라이드 " + (idx + 1), "aria-current": idx === 0 ? "true" : "false" });
+        b.addEventListener("click", function (e) { e.stopPropagation(); showSlide(card, alb, idx); });
+        dots.appendChild(b);
+      });
+      imgWrap.appendChild(prev);
+      imgWrap.appendChild(next);
+      imgWrap.appendChild(dots);
+      prev.addEventListener("click", function (e) { e.stopPropagation(); showSlide(card, alb, alb.slide - 1); });
+      next.addEventListener("click", function (e) { e.stopPropagation(); showSlide(card, alb, alb.slide + 1); });
+    }
+
+    function open() {
+      state.shown = alb.slides.slice();
+      openBox(alb.slide || 0);
+    }
+    card.addEventListener("click", function (e) {
+      if (e.target.closest && e.target.closest("button")) return;
+      refs.opener = card;
+      open();
+    });
+    card.addEventListener("keydown", function (e) {
+      if (e.key === "Enter" || e.key === " ") { e.preventDefault(); refs.opener = card; open(); }
+    });
+    return card;
   }
 
   function render() {
@@ -85,22 +199,15 @@
       refs.chips.appendChild(b);
     });
     refs.chips.hidden = groups.length < 2;
-    var shown = state.shown = state.items.filter(function (it) { return state.group === "all" || it.group === state.group; });
-    refs.count.textContent = shown.length + "장";
+    var filtered = state.items.filter(function (it) { return state.group === "all" || it.group === state.group; });
+    state.albums = toAlbums(filtered);
+    refs.count.textContent = state.albums.length + "주제 · " + filtered.length + "장";
     refs.grid.innerHTML = "";
     var lastY = null;
-    shown.forEach(function (it, i) {
-      var y = it.date ? it.date.slice(0, 4) : "";
+    state.albums.forEach(function (alb, i) {
+      var y = alb.year || "";
       if (y !== lastY) { refs.grid.appendChild(el("h3", { class: "gl-year", text: y || "—" })); lastY = y; }
-      var card = el("button", { type: "button", class: "gl-card ax-in", "aria-label": (it.caption || "사진") + " 크게 보기" }, [
-        el("div", { class: "gl-img" }, [picture(it, i < 8)]),
-        el("div", { class: "gl-cap" }, [
-          el("div", { class: "gl-top" }, [el("span", { class: "gl-date", text: disp(it.date) }), it.group ? el("span", { class: "gl-tag", text: "@" + it.group }) : null]),
-          it.caption ? el("div", { class: "gl-text", text: it.caption }) : null
-        ])
-      ]);
-      card.addEventListener("click", function () { refs.opener = card; openBox(i); });
-      refs.grid.appendChild(card);
+      refs.grid.appendChild(renderAlbumCard(alb, i < 6));
     });
   }
 
@@ -113,7 +220,7 @@
     var next = el("button", { type: "button", class: "gl-btn gl-next", "aria-label": "다음 사진", html: ICON.next });
     var close = el("button", { type: "button", class: "gl-btn", "aria-label": "닫기", html: ICON.close });
     var full = null;
-    if (inFrame() && window.innerHeight < 480 && !A.full) {   /* short Sites box → offer the big view in a new tab */
+    if (inFrame() && window.innerHeight < 480 && !A.full) {
       var u = new URL(A.fullUrl("gallery"));
       u.searchParams.set("photo", photoKey(it.image));
       full = el("a", { class: "gl-btn gl-full", href: u.href, target: "_blank", rel: "noopener", "aria-label": "새 탭에서 크게 보기", title: "새 탭에서 크게 보기", html: ICON.full });
@@ -136,7 +243,6 @@
   }
   function inFrame() { try { return window.self !== window.top; } catch (err) { return true; } }
   function photoKey(url) { var m = String(url).match(/([^\/?#]+?)(\.[a-z0-9]+)?(?:[?#].*)?$/i); return m ? m[1] : ""; }
-  /* the <img> fills the stage and letterboxes the photo (object-fit) — a tap on the empty band closes like the backdrop */
   function outsidePicture(img, e) {
     var r = img.getBoundingClientRect(), nw = img.naturalWidth, nh = img.naturalHeight;
     if (!nw || !nh) return false;
@@ -149,14 +255,14 @@
   function closeBox() {
     removeBox();
     document.documentElement.classList.remove("gl-locked");
-    if (refs.opener && document.contains(refs.opener)) refs.opener.focus({ preventScroll: true });   // back to the photo that opened it
+    if (refs.opener && document.contains(refs.opener)) refs.opener.focus({ preventScroll: true });
   }
   document.addEventListener("keydown", function (e) {
     if (!refs.box) return;
     if (e.key === "Escape") closeBox();
     else if (e.key === "ArrowLeft") step(-1);
     else if (e.key === "ArrowRight") step(1);
-    else if (e.key === "Tab") {   // keep focus inside the dialog
+    else if (e.key === "Tab") {
       var f = refs.box.querySelectorAll("button, a[href]");
       if (!f.length) return;
       var first = f[0], last = f[f.length - 1];
@@ -172,9 +278,19 @@
       if (!state.items.length) { A.status(refs.grid, "표시할 사진이 없습니다."); return; }
       render();
       var want = A.params.get("photo");
-      if (want && !state.deepOpened) {   /* ↗ from a short box: open the same photo here */
+      if (want && !state.deepOpened) {
         state.deepOpened = true;
-        for (var k = 0; k < state.shown.length; k++) if (photoKey(state.shown[k].image) === want) { openBox(k); break; }
+        for (var a = 0; a < state.albums.length; a++) {
+          var alb = state.albums[a];
+          for (var k = 0; k < alb.slides.length; k++) {
+            if (photoKey(alb.slides[k].image) === want) {
+              state.shown = alb.slides.slice();
+              alb.slide = k;
+              openBox(k);
+              return;
+            }
+          }
+        }
       }
     }
     A.load("gallery", { required: ["date", "caption", "image"], onUpdate: apply }).then(apply).catch(function () { A.status(refs.grid, "사진을 불러오지 못했습니다."); });

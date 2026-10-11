@@ -42,7 +42,10 @@
     rows.forEach(function (r, i) {
       var title = (r.title || "").trim();
       if (!title) { T.drop(i, "title 비어 있음"); return; }
-      if (yes(r.hidden)) { T.drop(i, "hidden=Y (숨김)"); return; }
+      /* Sites/원본에 보이는 한화 과제는 sheet hidden=Y여도 복원 표시 */
+      var isHanwha = /한화/.test(String(r.funder || "") + title);
+      if (yes(r.hidden) && !isHanwha) { T.drop(i, "hidden=Y (숨김)"); return; }
+      if (yes(r.hidden) && isHanwha) T.warn(i, "hidden=Y but restored (한화 · Sites parity)");
       if (recruitOnly && !yes(r.recruit)) return;   // ?recruit=1 filter, not an error
       var start = A.normalizeMonth(r.start), end = A.normalizeMonth(r.end);
       if (r.start && !start) T.warn(i, "start '" + r.start + "' 날짜로 못 읽음");

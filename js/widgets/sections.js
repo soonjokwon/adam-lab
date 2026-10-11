@@ -78,7 +78,10 @@
       if (TYPES.indexOf(type) === -1) { T.warn(i, "type '" + type + "' 모름 → bullet"); type = "bullet"; }
       if (type === "image") type = "photo";
       if (!txt && !r.image) { T.drop(i, "text·image 둘 다 비어 있음"); return; }
-      out.push({ block: block, section: String(r.section || "").trim(), type: type, sub: String(r.sub || "").trim(),
+      var sub = String(r.sub || "").trim();
+      /* Recruiting: 신청 기간 → 상시 (sheet/JSON override) */
+      if (block === "recruit-intro" && sub === "신청 기간") txt = "상시";
+      out.push({ block: block, section: String(r.section || "").trim(), type: type, sub: sub,
         text: txt, link: A.safeUrl(r.link), image: String(r.image || "").trim(), order: i });
     });
     T.done(out.length);

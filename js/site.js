@@ -103,6 +103,36 @@
     nodes.forEach(function (n) { io.observe(n); });
   }
 
+  function bindMotionHelp() {
+    var btn = document.querySelector(".motion-help__btn");
+    var tip = document.querySelector(".motion-help__tip");
+    if (!btn || !tip) return;
+    function close() {
+      tip.hidden = true;
+      btn.setAttribute("aria-expanded", "false");
+    }
+    function open() {
+      tip.hidden = false;
+      btn.setAttribute("aria-expanded", "true");
+    }
+    btn.addEventListener("click", function (e) {
+      e.stopPropagation();
+      if (tip.hidden) open(); else close();
+    });
+    document.addEventListener("click", function (e) {
+      if (!tip.hidden && !tip.contains(e.target) && e.target !== btn) close();
+    });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && !tip.hidden) close();
+    });
+  }
+
+  var KIND_LB = {
+    page: "Page", news: "News", publication: "Paper", patent: "Patent",
+    award: "Award", project: "Project", member: "Member", talk: "Talk",
+    photo: "Photo", section: "Text"
+  };
+
   function bindSearch() {
     var overlay = document.getElementById("site-search");
     var toggles = document.querySelectorAll(".search-toggle");
@@ -111,7 +141,7 @@
     var results = overlay.querySelector(".site-search__results");
     var closeBtn = overlay.querySelector(".site-search__close");
     var form = overlay.querySelector(".site-search__form");
-    var index = window.ADAM_SEARCH_INDEX || [];
+    var index = Array.isArray(window.ADAM_SEARCH_INDEX) ? window.ADAM_SEARCH_INDEX.slice() : [];
 
     function open() {
       overlay.hidden = false;
@@ -126,39 +156,54 @@
       toggles.forEach(function (t) { t.setAttribute("aria-expanded", "false"); });
     }
     function score(item, q) {
-      if (!q) return 0;
+      if (!q) return item.kind === "page" ? 1 : 0;
       var hay = (item.title + " " + item.blurb + " " + (item.keywords || "")).toLowerCase();
       var tokens = q.toLowerCase().split(/\s+/).filter(Boolean);
+      if (!tokens.length) return 0;
       var s = 0;
-      tokens.forEach(function (t) {
-        if (item.title.toLowerCase().indexOf(t) !== -1) s += 5;
-        if (hay.indexOf(t) !== -1) s += 2;
-      });
+      for (var i = 0; i < tokens.length; i++) {
+        var t = tokens[i];
+        if (item.title.toLowerCase().indexOf(t) !== -1) s += 6;
+        else if (hay.indexOf(t) !== -1) s += 2;
+        else return 0;
+      }
+      if (item.kind === "page") s += 1;
       return s;
     }
     function render(q) {
       if (!results) return;
       results.innerHTML = "";
       var qq = String(q || "").trim();
+      if (!index.length) {
+        var miss = document.createElement("p");
+        miss.className = "site-search__empty";
+        miss.textContent = "Search index is loading…";
+        results.appendChild(miss);
+        return;
+      }
       var hits = index
         .map(function (item) { return { item: item, s: score(item, qq) }; })
-        .filter(function (x) { return qq ? x.s > 0 : true; })
-        .sort(function (a, b) { return b.s - a.s; });
+        .filter(function (x) { return x.s > 0; })
+        .sort(function (a, b) { return b.s - a.s || (a.item.title || "").localeCompare(b.item.title || ""); });
       if (!hits.length) {
         var empty = document.createElement("p");
         empty.className = "site-search__empty";
-        empty.textContent = qq ? "No results for “" + qq + "”." : "Type to search pages.";
+        empty.textContent = qq
+          ? "“" + qq + "”에 대한 결과가 없습니다. 다른 키워드를 입력해 보세요."
+          : "뉴스·논문·수상·과제·구성원 등을 검색하세요.";
         results.appendChild(empty);
         return;
       }
-      hits.slice(0, 8).forEach(function (hit) {
+      hits.slice(0, 24).forEach(function (hit) {
         var a = document.createElement("a");
         a.className = "site-search__hit";
         a.href = joinBase(hit.item.path);
         a.setAttribute("role", "option");
-        a.innerHTML = "<strong></strong><span></span>";
+        var kind = KIND_LB[hit.item.kind] || hit.item.kind || "Result";
+        a.innerHTML = "<span class=\"site-search__kind\"></span><strong></strong><span class=\"site-search__blurb\"></span>";
+        a.querySelector(".site-search__kind").textContent = kind;
         a.querySelector("strong").textContent = hit.item.title;
-        a.querySelector("span").textContent = hit.item.blurb;
+        a.querySelector(".site-search__blurb").textContent = hit.item.blurb || "";
         results.appendChild(a);
       });
     }
@@ -192,6 +237,7 @@
     bindNavToggle();
     bindCarousel();
     bindReveal();
+    bindMotionHelp();
     bindSearch();
   });
 })();

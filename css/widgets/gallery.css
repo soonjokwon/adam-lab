@@ -35,6 +35,44 @@
 }
 .gl-year::after { content: ""; flex: 1; height: 1px; background: var(--line); }
 
+/* Instagram shortcut in gallery toolbar */
+.gl-ig {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 34px; height: 34px; margin-right: 6px;
+  border: 1px solid var(--line); border-radius: 8px;
+  color: var(--navy); text-decoration: none;
+  transition: background 0.18s var(--ease), border-color 0.18s var(--ease), transform 0.18s var(--ease);
+}
+.gl-ig:hover { background: var(--grid); border-color: var(--navy); transform: translateY(-1px); color: var(--navy); }
+
+/* Same-topic album carousel (Sites-style) */
+.gl-card--carousel { cursor: zoom-in; }
+.gl-carousel-stage { position: relative; }
+.gl-carousel-nav {
+  position: absolute; top: 50%; transform: translateY(-50%); z-index: 2;
+  width: 30px; height: 30px; display: grid; place-items: center;
+  border: 1px solid rgba(255,255,255,0.55); border-radius: 999px;
+  background: rgba(16, 26, 43, 0.42); color: #fff; cursor: pointer;
+  opacity: 0; transition: opacity 0.18s var(--ease), background 0.18s var(--ease);
+}
+.gl-card--carousel:hover .gl-carousel-nav,
+.gl-card--carousel:focus-within .gl-carousel-nav { opacity: 1; }
+.gl-carousel-prev { left: 8px; }
+.gl-carousel-next { right: 8px; }
+.gl-carousel-nav:hover { background: rgba(16, 26, 43, 0.7); }
+.gl-carousel-dots {
+  position: absolute; left: 0; right: 0; bottom: 8px; z-index: 2;
+  display: flex; justify-content: center; gap: 5px;
+}
+.gl-carousel-dots button {
+  width: 7px; height: 7px; padding: 0; border: 0; border-radius: 50%;
+  background: rgba(255,255,255,0.55); cursor: pointer;
+}
+.gl-carousel-dots button[aria-current="true"] { background: var(--accent); transform: scale(1.15); }
+.gl-carousel-meta {
+  font-family: var(--font-mono); font-size: 11px; color: var(--ink-dim); letter-spacing: 0.04em;
+}
+
 /* lightbox — column: top bar · stage (takes what is left) · caption (own scroll when long).
    The <img> fills the stage and is fitted with object-fit, so a tall portrait shrinks to
    fit above the caption instead of pushing it off screen. Viewport inside a Sites embed =
