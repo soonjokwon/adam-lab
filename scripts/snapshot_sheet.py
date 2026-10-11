@@ -72,7 +72,7 @@ TABS = {
         "title", "org_role", "researcher_role", "program", "funder", "start", "end",
         "group", "status", "recruit", "hidden", "logo", "link",
     ],
-    "talks": ["date", "title", "venue", "location", "link"],
+    "talks": ["date", "title", "venue", "location", "link", "topics"],
     "gallery": ["date", "caption", "image", "group", "link"],
     "sections": ["block", "section", "type", "sub", "text", "link", "image"],
     # Research-topic vocabulary for publications/patents `topics` cells.
@@ -89,11 +89,11 @@ NOTES = {
     "awards": "category: paper | presentation | competition.",
     "members": "role: professor | postdoc | researcher | phd | ms-phd | ms | undergrad. status: current | alumni.",
     "projects": "group: PNU | KIT. recruit/hidden: Y to flag.",
-    "talks": "Invited talks.",
+    "talks": "Invited talks. topics: same topic_key values as publications (e.g. am; rl).",
     "gallery": "group: PNU | KIT. image: assets/gallery/… preferred.",
     "sections": "block/section/type text blocks (Professor, Recruiting, Research, Home).",
     "topics": (
-        "topic_key (id in publications/patents topics cells); "
+        "topic_key (id in publications/patents/talks topics cells); "
         "label_en / label_ko / label_short (tag text); "
         "aliases (semicolon-separated); sort; active Y/N; color optional."
     ),
@@ -102,6 +102,11 @@ NOTES = {
 # Tabs that may be absent until editors create them. Missing → keep committed
 # data/<tab>.json and do not fail the whole snapshot run.
 OPTIONAL_TABS = frozenset({"topics"})
+
+# Columns that may be absent until editors add them (still written as "").
+OPTIONAL_COLUMNS = {
+    "talks": frozenset({"topics"}),
+}
 
 
 def _cell_str(value: Any) -> str:
@@ -225,7 +230,8 @@ def fetch_tab(service, sheet_id: str, tab: str) -> tuple[list[str], list[dict[st
 
 
 def ensure_columns(got: list[str], expected: list[str], tab: str) -> None:
-    missing = [c for c in expected if c not in got]
+    optional = OPTIONAL_COLUMNS.get(tab, frozenset())
+    missing = [c for c in expected if c not in got and c not in optional]
     if missing:
         raise RuntimeError(
             f"tab '{tab}' missing columns {missing}; got {got}. "
@@ -249,7 +255,8 @@ def _is_missing_tab_error(message: str) -> bool:
 
 
 def write_json(tab: str, columns: list[str], items: list[dict], sheet_id: str, extracted: str) -> Path:
-    ordered = [c for c in TABS[tab] if c in columns] + [c for c in columns if c not in TABS[tab]]
+    # Always emit TABS columns (optional ones become "") so schema stays stable.
+    ordered = list(TABS[tab]) + [c for c in columns if c not in TABS[tab]]
     normalized = [{c: row.get(c, "") for c in ordered} for row in items]
     payload = {
         "lab": "ADAM Lab@PNU",

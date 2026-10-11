@@ -37,15 +37,15 @@ python3 scripts/snapshot_sheet.py
 
 Tab names and columns must match `scripts/snapshot_sheet.py` (`TABS`).
 
-### Tab `topics` (publications / patents vocabulary)
+### Tab `topics` (publications / patents / talks vocabulary)
 
-Research-topic ids used in the `topics` column of `publications` and `patents` (semicolon-separated, e.g. `am; rl`) are mapped to display labels by this tab. The site loads committed `data/topics.json` only.
+Research-topic ids used in the `topics` column of `publications`, `patents`, and **`talks`** (semicolon-separated, e.g. `am; rl`) are mapped to display labels by this tab. The site loads committed `data/topics.json` only. Do **not** create a separate talks-only topic dictionary.
 
 **Exact header row (column names):**
 
 | Column | Required | Meaning |
 | --- | --- | --- |
-| `topic_key` | yes | Stable id written in publications/patents cells (`cad`, `am`, …). Lowercase letters / digits / hyphens. |
+| `topic_key` | yes | Stable id written in publications / patents / talks `topics` cells (`cad`, `am`, …). Lowercase letters / digits / hyphens. |
 | `label_en` | yes | English label (tooltip / search). |
 | `label_ko` | yes | Korean full label (tooltip). |
 | `label_short` | yes | Short Korean shown on tags and filter chips. |
@@ -60,7 +60,7 @@ Research-topic ids used in the `topics` column of `publications` and `patents` (
 2. Create a worksheet named exactly **`topics`** (if it does not exist yet).
 3. Put the header row above in row 1; import or paste [`docs/topics-seed.csv`](topics-seed.csv) (same rows as `data/topics.json`).
 4. Add / rename / reorder topics; set `active` to `N` to retire a key.
-5. In `publications` / `patents`, keep using `topic_key` values in the `topics` cell (`am; rl`).
+5. In `publications` / `patents` / **`talks`**, put `topic_key` values in the `topics` cell (`am; rl`).
 6. Run **Actions → Snapshot sheet → Pages** (or Apps Script dispatch). Pages then serves the new `data/topics.json`.
 
 Until the live `topics` tab exists, snapshot **skips** that tab (soft) and keeps the committed seed `data/topics.json` so the rest of the pipeline still succeeds. After the tab exists, snapshot overwrites `data/topics.json` from the sheet.
@@ -68,7 +68,28 @@ Until the live `topics` tab exists, snapshot **skips** that tab (soft) and keeps
 **Seed keys (shipped in `data/topics.json`):**  
 `cad`, `assembly`, `am`, `kg`, `llm`, `mesh`, `rl`, `edu`, `design`, `dt`, `lca`, `routing`, `safety`, `ship`, `std`.
 
-Unknown keys in a paper’s `topics` cell still render as a custom tag (raw text) — they do not break the page.
+Unknown keys in a `topics` cell still render as a custom tag (raw text) — they do not break the page.
+
+### Tab `talks` — `topics` column
+
+Invited Talks on the Professor page (`/team/professor/`) read sheet tab **`talks`**.
+
+| Column | Required | Meaning |
+| --- | --- | --- |
+| `date` | yes | Talk date |
+| `title` | yes | Title |
+| `venue` | yes | Host / event |
+| `location` | yes | City or Online |
+| `link` | no | Optional URL |
+| **`topics`** | no | Semicolon-separated **`topic_key`** values from the shared `topics` tab (e.g. `am; rl`). Blank → no tags. |
+
+**How the professor edits talk topics**
+
+1. On the management sheet, open tab **`talks`**.
+2. Add a header column named exactly **`topics`** (if missing). Snapshot soft-allows a missing `topics` column and writes empty strings until it exists.
+3. Fill cells with the same keys as publications (`cad`, `am`, `rl`, …), semicolon-separated.
+4. Labels come from the shared **`topics`** tab — edit labels there, not per talk.
+5. Run snapshot → Pages.
 
 ## Preferred: GitHub Actions
 

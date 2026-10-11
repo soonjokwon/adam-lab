@@ -39,6 +39,28 @@
 }
 .tk-loc.online { border-style: dashed; color: var(--blue); border-color: var(--blue); }
 
+/* Topic tags — same visual language as Publications (.ax-tag / .pub-tags) */
+.tk-tags { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 6px; }
+.tk-tags .ax-tag {
+  appearance: none;
+  border: 1px solid transparent;
+  border-radius: 2px;
+  background: rgba(16, 43, 134, 0.055);
+  color: var(--navy);
+  font: 500 11px/1 var(--font-body);
+  padding: 4px 7px 4px 6px;
+  cursor: default;
+  white-space: nowrap;
+}
+.tk-tags .ax-tag::before {
+  content: "#";
+  font-family: var(--font-mono);
+  color: var(--blue);
+  opacity: 0.5;
+  margin-right: 2px;
+}
+.tk-tags .ax-tag:focus-visible { outline: 2px solid var(--navy); outline-offset: 1px; }
+
 @container ax (min-width: 860px) {
   .tk-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }

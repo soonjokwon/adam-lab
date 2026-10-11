@@ -15,7 +15,7 @@
 | Home | `/` | Hero(로컬) · `news` · `sections` (`home-*`) |
 | Research | `/research/` | `sections` (`research`) · `projects` |
 | Team | `/team/` | `members` |
-| Team → Professor | `/team/professor/` | `sections` (`professor`) · `talks` |
+| Team → Professor | `/team/professor/` | `sections` (`professor`) · `talks` (shared `topics`) |
 | Team → Recruiting | `/team/recruiting/` | `sections` (`recruit-*`) · `projects` (모집 중) |
 | Awards | `/awards/` | `awards` |
 | Publications | `/publications/` | `publications` · `patents` · `topics` |

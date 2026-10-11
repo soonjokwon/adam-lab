@@ -1,4 +1,7 @@
-/* Invited talks — sheet tab `talks`. Columns: date,title,venue,location,link */
+/* Invited talks — sheet tab `talks`.
+   Columns: date,title,venue,location,link,topics
+   topics: semicolon-separated topic_key values from the shared `topics` tab
+   (same map as publications/patents, e.g. "am; rl"). Empty is fine. */
 (function () {
   var A = window.ADAM, el = A.el;
   var mount = document.getElementById("adam-talks");
@@ -14,8 +17,15 @@
       var title = (r.title || "").trim(), date = A.normalizeDate(r.date);
       if (!title) { T.drop(i, "title 비어 있음"); return; }
       if (!date) { T.drop(i, title.slice(0, 30) + ": date '" + (r.date || "") + "' 날짜로 못 읽음"); return; }
-      out.push({ date: date, title: title, venue: r.venue || "", location: r.location || "", link: A.safeUrl(r.link), order: i,
-        lang: /[가-힣]/.test(title) ? "ko" : "en", hay: A.fold([title, r.venue, r.location, date].join(" ")) });
+      var topics = A.topics(r.topics);
+      out.push({
+        date: date, title: title, venue: r.venue || "", location: r.location || "",
+        link: A.safeUrl(r.link), topics: topics, order: i,
+        lang: /[가-힣]/.test(title) ? "ko" : "en",
+        hay: A.fold([title, r.venue, r.location, date].concat(topics.map(function (t) {
+          return t.en + " " + t.ko + " " + t.kos;
+        })).join(" "))
+      });
     });
     out.sort(function (a, b) { return a.date === b.date ? a.order - b.order : (a.date < b.date ? 1 : -1); });
     T.done(out.length);
@@ -26,7 +36,7 @@
     mount.innerHTML = "";
     refs.head = el("div", { class: "tk-head" });
     refs.chips = el("div", { class: "ax-chips", role: "group", "aria-label": "언어" });
-    refs.q = el("input", { type: "search", placeholder: "제목·기관·지역 검색", "aria-label": "초청 강연 검색" });
+    refs.q = el("input", { type: "search", placeholder: "제목·기관·지역·주제 검색", "aria-label": "초청 강연 검색" });
     var search = el("label", { class: "ax-search" }, [
       el("span", { html: '<svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><circle cx="7" cy="7" r="4.6" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="m10.4 10.4 3.6 3.6" stroke="currentColor" stroke-width="1.5"/></svg>' }),
       refs.q
@@ -63,6 +73,30 @@
     return true;
   }
 
+  function talkCard(it) {
+    var title = el("h4", { class: "tk-title" });
+    if (it.link) title.appendChild(el("a", { href: it.link, target: "_blank", rel: "noopener", text: it.title }));
+    else title.textContent = it.title;
+    var sub = el("div", { class: "tk-sub" }, [
+      it.venue ? el("span", { text: it.venue }) : null,
+      it.location ? el("span", { class: "tk-loc" + (/온라인|online/i.test(it.location) ? " online" : ""), text: it.location }) : null
+    ]);
+    var bodyKids = [title, sub];
+    if (it.topics && it.topics.length) {
+      var tags = el("div", { class: "tk-tags" });
+      it.topics.forEach(function (tp) {
+        tags.appendChild(A.topicTag(tp, false, function () {}));
+      });
+      bodyKids.push(tags);
+    }
+    var li = el("li", { class: "tk-item" }, [
+      el("div", { class: "tk-date" }, [it.date.slice(5).replace("-", "."), el("small", { text: it.date.slice(0, 4) })]),
+      el("div", {}, bodyKids)
+    ]);
+    A.markKey(li, "talk", it.title);
+    return li;
+  }
+
   function render() {
     var c = { all: 0, ko: 0, en: 0 };
     state.items.forEach(function (it) { if (matches(it, true)) { c.all++; c[it.lang]++; } });
@@ -85,19 +119,7 @@
     });
     groups.forEach(function (g) {
       var ul = el("ul", { class: "tk-list" });
-      g.items.forEach(function (it) {
-        var title = el("h4", { class: "tk-title" });
-        if (it.link) title.appendChild(el("a", { href: it.link, target: "_blank", rel: "noopener", text: it.title })); else title.textContent = it.title;
-        var li = el("li", { class: "tk-item" }, [
-          el("div", { class: "tk-date" }, [it.date.slice(5).replace("-", "."), el("small", { text: it.date.slice(0, 4) })]),
-          el("div", {}, [title, el("div", { class: "tk-sub" }, [
-            it.venue ? el("span", { text: it.venue }) : null,
-            it.location ? el("span", { class: "tk-loc" + (/온라인|online/i.test(it.location) ? " online" : ""), text: it.location }) : null
-          ])])
-        ]);
-        A.markKey(li, "talk", it.title);
-        ul.appendChild(li);
-      });
+      g.items.forEach(function (it) { ul.appendChild(talkCard(it)); });
       refs.list.appendChild(el("section", { class: "tk-year ax-in" }, [
         el("h3", { class: "tk-yh" }, [g.y, el("span", { class: "ax-count", text: g.items.length + (g.items.length > 1 ? " talks" : " talk") })]), ul
       ]));
@@ -112,7 +134,13 @@
       if (!state.items.length) { A.status(refs.list, "표시할 강연이 없습니다."); return; }
       renderHead(); render();
     }
-    A.load("talks", { required: ["date", "title", "venue", "location"], onUpdate: apply }).then(apply).catch(function () { A.status(refs.list, "초청 강연 목록을 불러오지 못했습니다."); });
+    var loadTalks = function () {
+      A.load("talks", { required: ["date", "title", "venue", "location"], onUpdate: apply }).then(apply).catch(function () {
+        A.status(refs.list, "초청 강연 목록을 불러오지 못했습니다.");
+      });
+    };
+    if (A.topicsReady && typeof A.topicsReady.then === "function") A.topicsReady.then(loadTalks, loadTalks);
+    else loadTalks();
   }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot); else boot();
 })();
