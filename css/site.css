@@ -320,44 +320,46 @@ main { display: block; }
   .split { grid-template-columns: 1fr; }
 }
 
-/* Home Research Pillars — Sites-like split: smaller left carousel | right A·I·D */
+/* Home Research Pillars — Sites-like 50:50 split: carousel | A·I·D cards */
 .pillars-split {
-  grid-template-columns: minmax(0, 0.72fr) minmax(0, 1.28fr);
-  gap: 12px;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
   align-items: stretch;
 }
 .pillars-visual {
   overflow: hidden;
-  align-self: start;
+  display: flex;
+  min-height: 0;
 }
 .pillars-visual .carousel {
+  flex: 1 1 auto;
+  width: 100%;
+  min-height: 280px;
   aspect-ratio: 1 / 1;
   border: 0;
-  max-height: 260px;
+  max-height: none;
 }
 .pillars-aid {
-  padding: 8px 10px 10px;
+  padding: 10px 12px 12px;
   min-width: 0;
 }
 .pillars-aid .sx-cards.sx-aid {
   grid-template-columns: minmax(0, 1fr) !important;
-  gap: 8px;
+  gap: 10px;
 }
 .pillars-aid .sx-card--aid {
-  padding: 10px 12px;
+  padding: 12px 14px;
 }
 .pillars-aid .sx-aid-letter {
-  width: 28px;
-  height: 28px;
-  font-size: 0.95rem;
+  width: 30px;
+  height: 30px;
+  font-size: 1rem;
 }
-.pillars-aid .sx-card--aid .sx-ct { font-size: 14.5px; margin-bottom: 4px; }
-.pillars-aid .sx-card--aid .sx-list li { font-size: 13px; line-height: 1.5; padding: 2px 0 2px 14px; }
 @media (max-width: 820px) {
   .pillars-split { grid-template-columns: 1fr; }
   .pillars-visual .carousel {
     aspect-ratio: 16 / 9;
-    max-height: 220px;
+    min-height: 0;
   }
 }
 
@@ -397,14 +399,27 @@ main { display: block; }
 .carousel__slide {
   position: absolute;
   inset: 0;
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background-color: #fff;
   opacity: 0;
   transition: opacity 0.9s var(--ease);
+  /* fallback if a slide still uses background-image */
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 .carousel__slide.is-active { opacity: 1; }
+.carousel__slide img {
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  object-position: center;
+}
 .carousel__dots {
   position: absolute;
   left: 0; right: 0; bottom: 10px;

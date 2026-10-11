@@ -40,6 +40,13 @@
     return id;
   };
 
+  /* Notify site search deep-link after a list/card widget finishes rendering. */
+  ADAM.mounted = function (kind) {
+    try {
+      window.dispatchEvent(new CustomEvent("adam:mounted", { detail: { kind: kind || "" } }));
+    } catch (err) {}
+  };
+
   ADAM.normalizeDate = function (value) {
     var s = String(value == null ? "" : value).trim().replace(/\.$/, "");
     if (!s) return "";

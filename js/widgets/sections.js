@@ -396,6 +396,7 @@
     layout(mount);
     stackHomePillars(mount);
     compactFor(mount, refs);
+    A.mounted("section");
   }
 
   /* Home Pillars right column: keep A·I·D as a vertical stack (layout() would otherwise multi-col). */

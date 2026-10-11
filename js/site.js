@@ -174,7 +174,12 @@
         var a = document.createElement("a");
         a.className = "site-search__hit";
         var href = joinBase(hit.item.path);
-        if (hit.item.anchor) href += "#" + hit.item.anchor;
+        if (hit.item.anchor) {
+          /* Keep fragment readable; encode only characters that break URLs. */
+          href += "#" + String(hit.item.anchor).replace(/[^\w\uac00-\ud7a3\-]/g, function (ch) {
+            return encodeURIComponent(ch);
+          });
+        }
         a.href = href;
         a.setAttribute("role", "option");
         var kind = KIND_LB[hit.item.kind] || hit.item.kind || "Result";
@@ -211,45 +216,114 @@
   }
 
   function bindSearchTarget() {
-    var id = (location.hash || "").replace(/^#/, "");
-    if (!id || id.indexOf("adam-") !== 0) return;
+    /* Avoid the browser jumping to a missing/empty hash before widgets mount. */
+    try { if ("scrollRestoration" in history) history.scrollRestoration = "manual"; } catch (err) {}
 
+    var MOUNT_ONLY = {
+      "adam-news": 1, "adam-newslist": 1, "adam-publications": 1, "adam-members": 1,
+      "adam-gallery": 1, "adam-projects": 1, "adam-awards": 1, "adam-patents": 1,
+      "adam-talks": 1, "adam-sections": 1
+    };
+
+    var id = "";
     var tries = 0;
-    var maxTries = 40;
-    var timer;
+    var maxTries = 80;
+    var timer = null;
+    var done = false;
+
+    function decodeHash() {
+      var raw = (location.hash || "").replace(/^#/, "");
+      if (!raw) return "";
+      try { return decodeURIComponent(raw); } catch (err) { return raw; }
+    }
+
+    function forceReveal(el) {
+      var node = el;
+      while (node && node !== document.documentElement) {
+        if (node.classList && node.classList.contains("reveal")) node.classList.add("is-in");
+        node = node.parentElement;
+      }
+    }
+
+    function findTarget(targetId) {
+      if (!targetId || targetId.indexOf("adam-") !== 0) return null;
+      /* Never treat empty widget mounts as the hit — wait for the real row/card. */
+      if (MOUNT_ONLY[targetId]) return null;
+      var el = document.getElementById(targetId);
+      if (!el) {
+        try {
+          el = document.querySelector('[data-adam-key="' + targetId.replace(/\\/g, "\\\\").replace(/"/g, '\\"') + '"]');
+        } catch (err) {
+          el = null;
+        }
+      }
+      if (!el || !el.isConnected) return null;
+      if (el.hasAttribute("hidden") || el.getAttribute("aria-hidden") === "true") return null;
+      if (el.closest("[hidden]")) return null;
+      /* Skeletons / empty shells are not ready targets */
+      if (el.classList.contains("ax-skel") || el.classList.contains("adam-state")) return null;
+      if (el.classList.contains("news-skel") || el.classList.contains("news-empty")) return null;
+      forceReveal(el);
+      var r = el.getBoundingClientRect();
+      if (r.width < 2 || r.height < 2) return null;
+      return el;
+    }
 
     function highlight(el) {
-      if (!el) return;
+      if (!el || done) return;
+      done = true;
+      forceReveal(el);
       el.classList.add("is-search-hit");
       try {
         el.scrollIntoView({ behavior: "smooth", block: "center" });
       } catch (err) {
         el.scrollIntoView(true);
       }
-      setTimeout(function () { el.classList.remove("is-search-hit"); }, 2600);
+      /* Second pass after layout/images settle — avoid stopping on blank gap */
+      setTimeout(function () {
+        forceReveal(el);
+        try { el.scrollIntoView({ behavior: "smooth", block: "center" }); } catch (e2) { el.scrollIntoView(true); }
+      }, 160);
+      setTimeout(function () { el.classList.remove("is-search-hit"); }, 2800);
+    }
+
+    function stop() {
+      if (timer) { clearInterval(timer); timer = null; }
     }
 
     function tick() {
       tries += 1;
-      var el = document.getElementById(id) || document.querySelector('[data-adam-key="' + id + '"]');
+      var el = findTarget(id);
       if (el) {
-        clearInterval(timer);
-        /* wait one frame so late layout (filters/grids) settles */
-        requestAnimationFrame(function () { highlight(el); });
+        stop();
+        requestAnimationFrame(function () {
+          requestAnimationFrame(function () { highlight(el); });
+        });
         return;
       }
-      if (tries >= maxTries) clearInterval(timer);
+      if (tries >= maxTries) stop();
     }
 
-    tick();
-    timer = setInterval(tick, 120);
-    window.addEventListener("hashchange", function () {
-      id = (location.hash || "").replace(/^#/, "");
-      if (!id || id.indexOf("adam-") !== 0) return;
+    function startForHash() {
+      id = decodeHash();
+      done = false;
       tries = 0;
-      clearInterval(timer);
-      timer = setInterval(tick, 120);
+      stop();
+      if (!id || id.indexOf("adam-") !== 0) return;
+      /* Stay put until a real mounted item exists — do not scroll to blank page chrome. */
       tick();
+      timer = setInterval(tick, 120);
+    }
+
+    startForHash();
+    window.addEventListener("hashchange", startForHash);
+    window.addEventListener("adam:mounted", function () {
+      if (done || !id) return;
+      var el = findTarget(id);
+      if (el) {
+        stop();
+        requestAnimationFrame(function () { highlight(el); });
+      }
     });
   }
 

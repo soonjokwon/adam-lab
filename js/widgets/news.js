@@ -375,6 +375,7 @@
     });
     renderChips();
     measureCardWidth();
+    if (window.ADAM && ADAM.mounted) ADAM.mounted("news");
     applyFilter();
   }
 

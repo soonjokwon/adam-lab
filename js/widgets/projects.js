@@ -175,7 +175,7 @@
 
     refs.list.innerHTML = "";
     var shown = state.items.filter(function (it) { return matches(it); });
-    if (!shown.length) { refs.list.appendChild(el("p", { class: "adam-state", text: "조건에 맞는 과제가 없습니다." })); return; }
+    if (!shown.length) { refs.list.appendChild(el("p", { class: "adam-state", text: "조건에 맞는 과제가 없습니다." })); A.mounted("project"); return; }
     groups.forEach(function (g) {
       var list = shown.filter(function (it) { return it.group === g; });
       if (!list.length) return;
@@ -189,6 +189,7 @@
       refs.list.appendChild(sec);
     });
     if (compact && refs.root) refs.root.scrollLeft = 0;   /* phone carousel (html.ax-pe): back to the first card */
+    A.mounted("project");
   }
 
   function boot() {

@@ -279,6 +279,7 @@
   /* Search deep-link: clear filters once and raise limit so #adam-publication-… is in the DOM. */
   function revealForHash() {
     var id = (location.hash || "").replace(/^#/, "");
+    try { id = decodeURIComponent(id); } catch (err) {}
     if (!id || id.indexOf("adam-publication-") !== 0) return false;
     var target = null;
     for (var i = 0; i < state.items.length; i++) {
@@ -311,6 +312,7 @@
     refs.list.innerHTML = "";
     if (!shown.length) {
       refs.list.appendChild(el("p", { class: "pub-empty", text: "조건에 맞는 논문이 없습니다." }));
+      A.mounted("publication");
       return;
     }
     var groups = [], cur = null;
@@ -334,6 +336,7 @@
       more.addEventListener("click", function () { state.limit += PAGE * 2; render(); });
       refs.list.appendChild(more);
     }
+    A.mounted("publication");
   }
 
   function boot() {

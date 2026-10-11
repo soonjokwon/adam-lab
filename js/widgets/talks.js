@@ -76,7 +76,7 @@
     var shown = state.items.filter(function (it) { return matches(it); });
     refs.count.textContent = shown.length + " / " + state.items.length;
     refs.list.innerHTML = "";
-    if (!shown.length) { refs.list.appendChild(el("p", { class: "adam-state", text: "조건에 맞는 강연이 없습니다." })); return; }
+    if (!shown.length) { refs.list.appendChild(el("p", { class: "adam-state", text: "조건에 맞는 강연이 없습니다." })); A.mounted("talk"); return; }
     var groups = [], cur = null;
     shown.forEach(function (it) {
       var y = it.date.slice(0, 4);
@@ -102,6 +102,7 @@
         el("h3", { class: "tk-yh" }, [g.y, el("span", { class: "ax-count", text: g.items.length + (g.items.length > 1 ? " talks" : " talk") })]), ul
       ]));
     });
+    A.mounted("talk");
   }
 
   function boot() {

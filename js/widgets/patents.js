@@ -110,7 +110,7 @@
     var shown = state.items.filter(function (it) { return matches(it); });
     refs.count.textContent = shown.length + " / " + state.items.length;
     refs.list.innerHTML = "";
-    if (!shown.length) { refs.list.appendChild(el("p", { class: "pub-empty", text: "조건에 맞는 특허가 없습니다." })); return; }
+    if (!shown.length) { refs.list.appendChild(el("p", { class: "pub-empty", text: "조건에 맞는 특허가 없습니다." })); A.mounted("patent"); return; }
 
     var groups = [], cur = null;
     shown.forEach(function (it) {
@@ -147,6 +147,7 @@
         el("h3", { class: "pub-yl" }, [g.key, el("span", { class: "ax-count", text: g.items.length + " items" })]), ol
       ]));
     });
+    A.mounted("patent");
   }
 
   function boot() {

@@ -226,6 +226,7 @@
       if (y !== lastY) { refs.grid.appendChild(el("h3", { class: "gl-year", text: y || "—" })); lastY = y; }
       refs.grid.appendChild(renderAlbumCard(alb, i < 6));
     });
+    A.mounted("photo");
   }
 
   function openBox(i) {

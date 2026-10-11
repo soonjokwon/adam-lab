@@ -189,8 +189,14 @@
     return box;
   }
 
-  function revealForHash() {
+  function hashId() {
     var id = (location.hash || "").replace(/^#/, "");
+    try { id = decodeURIComponent(id); } catch (err) {}
+    return id;
+  }
+
+  function revealForHash() {
+    var id = hashId();
     if (!id || id.indexOf("adam-news-") !== 0) return false;
     state.tag = "All";
     var list = filtered();
@@ -209,9 +215,15 @@
     var list = filtered();
     refs.count.textContent = list.length + "건";
     refs.body.innerHTML = "";
-    if (!list.length) { refs.body.appendChild(el("p", { class: "adam-state", text: "이 분류의 소식이 없습니다." })); renderPager(0); return; }
+    if (!list.length) {
+      refs.body.appendChild(el("p", { class: "adam-state", text: "이 분류의 소식이 없습니다." }));
+      renderPager(0);
+      A.mounted("news");
+      return;
+    }
     refs.body.appendChild(view === "timeline" ? viewTimeline(list) : view === "table" ? viewTable(list) : viewList(list));
     renderPager(list.length);
+    A.mounted("news");
   }
 
   function boot() {

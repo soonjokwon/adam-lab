@@ -130,7 +130,7 @@
     var shown = state.items.filter(function (it) { return matches(it); });
     refs.count.textContent = shown.length + " / " + state.items.length;
     refs.list.innerHTML = "";
-    if (!shown.length) { refs.list.appendChild(el("p", { class: "pub-empty adam-state", text: "조건에 맞는 수상 내역이 없습니다." })); return; }
+    if (!shown.length) { refs.list.appendChild(el("p", { class: "pub-empty adam-state", text: "조건에 맞는 수상 내역이 없습니다." })); A.mounted("award"); return; }
     var groups = [], cur = null;
     shown.forEach(function (it) {
       var y = it.date.slice(0, 4);
@@ -145,6 +145,7 @@
         grid
       ]));
     });
+    A.mounted("award");
   }
 
   function boot() {

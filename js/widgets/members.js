@@ -212,6 +212,7 @@
       refs.alumniSec = alumBand;
       refs.body.appendChild(alumBand);
     }
+    A.mounted("member");
   }
 
   function boot() {
