@@ -47,7 +47,7 @@
       if (!role) { T.warn(i, name + ": role '" + (r.role || "") + "' 모름 → '기타'"); role = "other"; }
       out.push({ ko: (r.name_ko || "").trim(), en: (r.name_en || "").trim(), name: name, role: role,
         position: r.position || "", start: ymText(r.start), end: ymText(r.end), status: status,
-        photo: A.asset(r.photo), email: (r.email || "").trim(), link: A.safeUrl(r.link),
+        photo: A.asset(r.photo), email: (r.email || "").trim(), link: memberProfileLink(r.link),
         affiliation: r.affiliation || "", history: r.history || "", lab: r.lab || "", order: i });
     });
     T.done(out.length);
