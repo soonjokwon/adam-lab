@@ -2,7 +2,7 @@
  "lab": "ADAM Lab@PNU",
  "source": "https://docs.google.com/spreadsheets/d/1bmfsOkVl16OJ2KWzWJG6NtV5Ds98fXKnSiRtxKxgzlw",
  "sheet_tab": "news",
- "extracted": "2026-10-11T06:52:38Z",
+ "extracted": "2026-10-11T07:02:21Z",
  "note": "Home Latest News + Board · News. tag: Paper | Award | Project | Event | Member.",
  "columns": [
   "date",
@@ -14,15 +14,6 @@
   "link2"
  ],
  "items": [
-  {
-   "date": "2026-10-11",
-   "title_ko": "테스트4",
-   "title_en": "test2",
-   "tag": "Award",
-   "link": "",
-   "image": "",
-   "link2": ""
-  },
   {
    "date": "2026-08-21",
    "title_ko": "박현석, 한국CDE학회 2026 하계학술대회 우수포스터상",
