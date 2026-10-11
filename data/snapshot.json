@@ -1,7 +1,7 @@
 {
   "sheet_id": "1bmfsOkVl16OJ2KWzWJG6NtV5Ds98fXKnSiRtxKxgzlw",
-  "extracted": "2026-10-11T14:34:47Z",
-  "version": "20261011-143447",
+  "extracted": "2026-10-11T14:58:27Z",
+  "version": "20261011-145827",
   "tabs": [
     "news",
     "publications",
@@ -11,7 +11,8 @@
     "projects",
     "talks",
     "gallery",
-    "sections"
+    "sections",
+    "topics"
   ],
   "auth": "sheets_api_service_account"
 }
