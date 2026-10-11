@@ -213,7 +213,6 @@
     bindNavToggle();
     bindCarousel();
     bindReveal();
-    bindMotionHelp();
     bindSearch();
   });
 })();
