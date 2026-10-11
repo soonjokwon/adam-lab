@@ -1,17 +1,35 @@
 # Data pipeline (sheet → JSON → Pages)
 
-The public site **never** fetches Google Sheets in the browser. Editors update a management spreadsheet; a snapshot writes committed `data/*.json` that GitHub Pages serves from `main`.
+The public site **never** fetches Google Sheets in the browser. Editors update a **private** management spreadsheet; Actions (or a local snapshot) writes committed `data/*.json` that GitHub Pages serves from `main`.
 
 ## Roles
 
 | Who | Where | What |
 | --- | --- | --- |
 | Editors | [Management sheet](https://docs.google.com/spreadsheets/d/1bmfsOkVl16OJ2KWzWJG6NtV5Ds98fXKnSiRtxKxgzlw) | Edit tabs (`news`, `publications`, …) |
-| Automation | `.github/workflows/snapshot-pages.yml` | Preferred: schedule / manual snapshot → commit JSON → push `main` |
-| Maintainer | This repo | Fallback: run snapshot locally → commit → push |
+| Automation | `.github/workflows/snapshot-pages.yml` | Preferred: schedule / manual snapshot via Sheets API → commit JSON → push `main` |
+| Maintainer | This repo | Fallback: run snapshot locally with SA credentials → commit → push |
 | Visitors | https://soonjokwon.github.io/adam-pnu/ | Load `data/<tab>.json` only |
 
-`adam-lab-widgets` is untouched; image paths still resolve to its Pages CDN when needed. The management sheet stays **link-shared Viewer** (public gviz) so Actions need no Google secrets.
+`adam-lab-widgets` is untouched. Link-share Viewer is **not** required; the sheet stays private.
+
+## Service account + GitHub Secret
+
+1. Create a Google Cloud service account and download its JSON key.  
+2. Share the management spreadsheet with the **service account email** as **Viewer** (File → Share).  
+3. In the GitHub repo: Settings → Secrets and variables → Actions → New repository secret  
+   - Name: **`GOOGLE_SERVICE_ACCOUNT_JSON`**  
+   - Value: the full contents of the SA key JSON file (one string).  
+4. Do not commit the key. Do not print the secret in logs.
+
+Local / fallback auth (same SA):
+
+```bash
+python3 -m pip install google-auth google-api-python-client
+export GOOGLE_APPLICATION_CREDENTIALS=/path/to/sa.json
+# or: export GOOGLE_SERVICE_ACCOUNT_JSON="$(cat /path/to/sa.json)"
+python3 scripts/snapshot_sheet.py
+```
 
 ## Tabs
 
@@ -23,16 +41,15 @@ Tab names and columns must match `scripts/snapshot_sheet.py` (`TABS`).
 
 Workflow: [`.github/workflows/snapshot-pages.yml`](../.github/workflows/snapshot-pages.yml)
 
-- **Triggers:** `workflow_dispatch` (Actions → Run workflow) and a weekday schedule (`cron: 18,48 0-9 * * 1-5` ≈ 09:18–18:48 KST, every 30 minutes).
-- **Job:** checkout → Python 3.12 → `python3 scripts/snapshot_sheet.py` → if `data/` / `js/sheet/sheets.js` changed, commit `data: refresh sheet snapshot` and push to `main` (`permissions: contents: write`, `GITHUB_TOKEN`).
+- **Triggers:** `workflow_dispatch` and `cron: "*/30 * * * *"` (every 30 minutes, every day).  
+- **Job:** checkout → Python 3.12 → write `secrets.GOOGLE_SERVICE_ACCOUNT_JSON` to a temp file → `pip install google-auth google-api-python-client` → `python3 scripts/snapshot_sheet.py` → if `data/` / `js/sheet/sheets.js` changed, commit `data: refresh sheet snapshot` and push `main`.  
 - **Pages:** Deploy from branch on `main` — no `actions/deploy-pages` step.
-
-Once the workflow file is on `main` (requires a token with **workflow** scope to add/update `.github/workflows/*`), this is the preferred path.
 
 ## Fallback: manual snapshot
 
 ```bash
-# from repo root (needs network; sheet must be link-shared Viewer)
+python3 -m pip install google-auth google-api-python-client
+export GOOGLE_APPLICATION_CREDENTIALS=/path/to/sa.json
 python3 scripts/snapshot_sheet.py
 
 git add data/ js/sheet/sheets.js
@@ -46,9 +63,9 @@ The script also updates `js/sheet/sheets.js` (`ADAM_DATA_VERSION` cache-bust) an
 
 ## Deploy checklist
 
-1. Edit the Sheet (or confirm it is current).  
+1. Edit the Sheet (shared Viewer with the SA email).  
 2. Prefer: Actions → **Snapshot sheet → Pages** → Run workflow (or wait for cron).  
-3. Fallback: run `python3 scripts/snapshot_sheet.py`, review `git diff data/`, commit, push `main`.  
+3. Fallback: run `python3 scripts/snapshot_sheet.py` with SA credentials, review `git diff data/`, commit, push `main`.  
 4. GitHub Pages (branch deploy from `main`) publishes the site.
 
 ## Runtime

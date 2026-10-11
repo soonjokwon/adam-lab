@@ -30,15 +30,17 @@
 워크플로: [`.github/workflows/snapshot-pages.yml`](.github/workflows/snapshot-pages.yml)
 
 - 수동: Actions → **Snapshot sheet → Pages** → Run workflow  
-- 자동: 평일 약 09:18–18:48 KST, 30분마다 (`cron: 18,48 0-9 * * 1-5`)  
+- 자동: 매일 30분마다 (`cron: "*/30 * * * *"`)  
+- Sheets API + 서비스 계정 (repo secret **`GOOGLE_SERVICE_ACCOUNT_JSON`**); 시트는 SA 이메일에 Viewer로 공유  
 - 변경이 있을 때만 `data: refresh sheet snapshot` 커밋 후 `main` 푸시 → Pages(브랜치 배포) 갱신  
-- Sheet가 링크 공유(뷰어)인 동안 Google 시크릿 불필요  
 
-워크플로 파일을 저장소에 넣는 push에는 GitHub **workflow** 스코프가 필요합니다. 상세: [`docs/DATA.md`](docs/DATA.md).
+상세: [`docs/DATA.md`](docs/DATA.md).
 
 ### 대안: 수동 스냅샷
 
 ```bash
+python3 -m pip install google-auth google-api-python-client
+export GOOGLE_APPLICATION_CREDENTIALS=/path/to/sa.json
 python3 scripts/snapshot_sheet.py
 git add data/ js/sheet/sheets.js
 git commit -m "data: refresh sheet snapshot"

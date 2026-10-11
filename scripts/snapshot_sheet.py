@@ -1,38 +1,43 @@
 #!/usr/bin/env python3
 """Snapshot the ADAM Lab management Google Sheet into committed data/*.json.
 
-Editors keep updating the Sheet; the public site reads only these JSON files.
-Run before deploy:
+Editors update a private Sheet shared with a Google Cloud service account
+(Viewer). The public site reads only these JSON files — never Sheets/gviz.
 
+Install deps:
+  python3 -m pip install google-auth google-api-python-client
+
+Auth (one of):
+  GOOGLE_SERVICE_ACCOUNT_JSON   full service-account key JSON string (Actions)
+  GOOGLE_APPLICATION_CREDENTIALS  path to key JSON file
+  --credentials PATH            path to key JSON file
+
+Share the spreadsheet with the service account email as Viewer
+(File → Share). Link-share Viewer is not required.
+
+Run (local or Actions):
   python3 scripts/snapshot_sheet.py
   git add data/ js/sheet/sheets.js
   git commit -m "data: refresh sheet snapshot"
   git push origin main
-
-Requires network access to docs.google.com (sheet must be link-shared as Viewer).
-No Google API credentials — uses the same public gviz CSV endpoint the site
-used previously.
 """
 
 from __future__ import annotations
 
 import argparse
-import csv
-import io
 import json
+import os
 import sys
-import urllib.error
-import urllib.parse
-import urllib.request
 from datetime import datetime, timezone
 from pathlib import Path
+from typing import Any
 
 ROOT = Path(__file__).resolve().parents[1]
 DATA = ROOT / "data"
 SHEETS_JS = ROOT / "js" / "sheet" / "sheets.js"
 
-# Same workbook the site historically used (editors-only after this change).
 DEFAULT_SHEET_ID = "1bmfsOkVl16OJ2KWzWJG6NtV5Ds98fXKnSiRtxKxgzlw"
+SCOPES = ("https://www.googleapis.com/auth/spreadsheets.readonly",)
 
 # Tab name → expected header columns (order preserved in written JSON).
 TABS = {
@@ -75,56 +80,124 @@ NOTES = {
 }
 
 
-def gviz_url(sheet_id: str, tab: str) -> str:
-    return (
-        f"https://docs.google.com/spreadsheets/d/{sheet_id}"
-        f"/gviz/tq?tqx=out:csv&headers=1&sheet={urllib.parse.quote(tab)}"
-    )
+def _cell_str(value: Any) -> str:
+    if value is None:
+        return ""
+    if isinstance(value, bool):
+        return "TRUE" if value else "FALSE"
+    if isinstance(value, float) and value.is_integer():
+        return str(int(value))
+    return str(value).strip()
 
 
-def fetch_csv(url: str, timeout: float = 45.0) -> str:
-    req = urllib.request.Request(
-        url,
-        headers={
-            "User-Agent": "adam-pnu-snapshot/1.0 (+https://soonjokwon.github.io/adam-pnu/)",
-            "Accept": "text/csv,*/*",
-        },
-    )
-    with urllib.request.urlopen(req, timeout=timeout) as resp:
-        raw = resp.read()
-    # gviz usually returns UTF-8; fall back if needed
-    for enc in ("utf-8-sig", "utf-8", "cp949"):
-        try:
-            return raw.decode(enc)
-        except UnicodeDecodeError:
-            continue
-    return raw.decode("utf-8", errors="replace")
-
-
-def parse_csv(text: str) -> tuple[list[str], list[dict[str, str]]]:
-    # Strip gviz JSONP error payloads if someone hits a private sheet
-    if text.lstrip().startswith("google.visualization"):
-        raise RuntimeError("gviz returned a visualization payload (sheet private or blocked)")
-    reader = csv.reader(io.StringIO(text))
+def load_credentials(credentials_path: str | None = None):
+    """Build service-account credentials from env JSON or a key file path."""
     try:
-        header = next(reader)
-    except StopIteration:
+        from google.oauth2 import service_account
+    except ImportError as exc:
+        raise SystemExit(
+            "Missing dependency: google-auth. Install with:\n"
+            "  python3 -m pip install google-auth google-api-python-client"
+        ) from exc
+
+    raw = (os.environ.get("GOOGLE_SERVICE_ACCOUNT_JSON") or "").strip()
+    if raw:
+        try:
+            info = json.loads(raw)
+        except json.JSONDecodeError as exc:
+            raise SystemExit(
+                "GOOGLE_SERVICE_ACCOUNT_JSON is set but is not valid JSON "
+                f"(parse error: {exc}). Do not log the secret value."
+            ) from exc
+        if not isinstance(info, dict) or info.get("type") != "service_account":
+            raise SystemExit(
+                "GOOGLE_SERVICE_ACCOUNT_JSON must be a service_account key object "
+                '(field "type": "service_account").'
+            )
+        return service_account.Credentials.from_service_account_info(info, scopes=SCOPES)
+
+    path = (
+        credentials_path
+        or os.environ.get("GOOGLE_APPLICATION_CREDENTIALS")
+        or ""
+    ).strip()
+    if path:
+        p = Path(path).expanduser()
+        if not p.is_file():
+            raise SystemExit(f"Credentials file not found: {p}")
+        return service_account.Credentials.from_service_account_file(str(p), scopes=SCOPES)
+
+    raise SystemExit(
+        "Missing Google service account credentials.\n"
+        "Set GOOGLE_SERVICE_ACCOUNT_JSON (full key JSON string), or\n"
+        "GOOGLE_APPLICATION_CREDENTIALS / --credentials to a key file path.\n"
+        "Share the spreadsheet with the SA email as Viewer."
+    )
+
+
+def sheets_service(credentials):
+    try:
+        from googleapiclient.discovery import build
+    except ImportError as exc:
+        raise SystemExit(
+            "Missing dependency: google-api-python-client. Install with:\n"
+            "  python3 -m pip install google-auth google-api-python-client"
+        ) from exc
+    return build("sheets", "v4", credentials=credentials, cache_discovery=False)
+
+
+def fetch_tab(service, sheet_id: str, tab: str) -> tuple[list[str], list[dict[str, str]]]:
+    """Read one worksheet via Sheets API values.get. Raises with tab context on API errors."""
+    from googleapiclient.errors import HttpError
+
+    # Quote sheet title for A1 notation (handles spaces / punctuation).
+    safe = tab.replace("'", "''")
+    a1 = f"'{safe}'!A:ZZ"
+    try:
+        resp = (
+            service.spreadsheets()
+            .values()
+            .get(
+                spreadsheetId=sheet_id,
+                range=a1,
+                majorDimension="ROWS",
+                valueRenderOption="FORMATTED_VALUE",
+                dateTimeRenderOption="FORMATTED_STRING",
+            )
+            .execute()
+        )
+    except HttpError as exc:
+        status = getattr(exc.resp, "status", None) or "?"
+        reason = ""
+        try:
+            body = json.loads(exc.content.decode("utf-8"))
+            reason = body.get("error", {}).get("message", "") or str(exc)
+        except Exception:  # noqa: BLE001
+            reason = str(exc)
+        raise RuntimeError(
+            f"Sheets API {status} for tab '{tab}': {reason}. "
+            "Check that the sheet is shared Viewer with the service account email, "
+            "and that the tab name matches exactly."
+        ) from exc
+
+    values = resp.get("values") or []
+    if not values:
         return [], []
-    columns = [h.strip() for h in header]
-    # normalize empty trailing headers
-    while columns and columns[-1] == "":
-        columns.pop()
+    header = [_cell_str(c) for c in values[0]]
+    while header and header[-1] == "":
+        header.pop()
     rows: list[dict[str, str]] = []
-    for cells in reader:
-        if not any((c or "").strip() for c in cells):
+    for cells in values[1:]:
+        cells = list(cells)
+        if not any(_cell_str(c) for c in cells):
             continue
         item: dict[str, str] = {}
-        for i, col in enumerate(columns):
+        for i, col in enumerate(header):
             if not col:
                 continue
-            item[col] = cells[i].strip() if i < len(cells) else ""
+            item[col] = _cell_str(cells[i]) if i < len(cells) else ""
         rows.append(item)
-    return columns, rows
+    return header, rows
 
 
 def ensure_columns(got: list[str], expected: list[str], tab: str) -> None:
@@ -132,16 +205,13 @@ def ensure_columns(got: list[str], expected: list[str], tab: str) -> None:
     if missing:
         raise RuntimeError(
             f"tab '{tab}' missing columns {missing}; got {got}. "
-            "gviz returns the first sheet when the tab name is wrong."
+            "Confirm the worksheet tab name and header row."
         )
 
 
 def write_json(tab: str, columns: list[str], items: list[dict], sheet_id: str, extracted: str) -> Path:
-    # Prefer the canonical column order; keep any extra sheet columns at the end.
     ordered = [c for c in TABS[tab] if c in columns] + [c for c in columns if c not in TABS[tab]]
-    normalized = []
-    for row in items:
-        normalized.append({c: row.get(c, "") for c in ordered})
+    normalized = [{c: row.get(c, "") for c in ordered} for row in items]
     payload = {
         "lab": "ADAM Lab@PNU",
         "source": f"https://docs.google.com/spreadsheets/d/{sheet_id}",
@@ -157,12 +227,11 @@ def write_json(tab: str, columns: list[str], items: list[dict], sheet_id: str, e
 
 
 def update_sheets_js(version: str, sheet_id: str) -> None:
-    """Rewrite js/sheet/sheets.js: keep sheet id for editors, set data version, no gviz URLs."""
     content = f'''/* ADAM Lab management sheet metadata (editors only).
    The browser never fetches Google Sheets — it loads committed data/*.json.
    Refresh JSON:  python3 scripts/snapshot_sheet.py
    Sheet: https://docs.google.com/spreadsheets/d/{sheet_id}
-   (공유: 링크가 있는 모든 사용자 = 뷰어). Tab names must match scripts/snapshot_sheet.py. */
+   (Share Viewer with the snapshot service account; tab names → scripts/snapshot_sheet.py). */
 window.ADAM_SHEET_ID = "{sheet_id}";
 window.ADAM_DATA_VERSION = "{version}";
 /* Intentionally empty: no docs.google.com / gviz URLs in the browser. */
@@ -171,26 +240,36 @@ window.ADAM_SHEETS = {{}};
     SHEETS_JS.write_text(content, encoding="utf-8")
 
 
-def snapshot(sheet_id: str, tabs: list[str] | None = None) -> int:
+def snapshot(
+    sheet_id: str,
+    tabs: list[str] | None = None,
+    credentials_path: str | None = None,
+) -> int:
+    credentials = load_credentials(credentials_path)
+    service = sheets_service(credentials)
+    sa_email = getattr(credentials, "service_account_email", "") or "(service account)"
+    print(f"Auth OK  service_account={sa_email}")
+
     DATA.mkdir(parents=True, exist_ok=True)
     extracted = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
     version = datetime.now(timezone.utc).strftime("%Y%m%d-%H%M%S")
     wanted = tabs or list(TABS.keys())
-    errors = []
+    errors: list[str] = []
+
     for tab in wanted:
         if tab not in TABS:
             errors.append(f"unknown tab '{tab}'")
+            print(f"ERR {tab:14} unknown tab", file=sys.stderr)
             continue
-        url = gviz_url(sheet_id, tab)
         try:
-            text = fetch_csv(url)
-            columns, rows = parse_csv(text)
+            columns, rows = fetch_tab(service, sheet_id, tab)
             ensure_columns(columns, TABS[tab], tab)
             path = write_json(tab, columns, rows, sheet_id, extracted)
             print(f"OK  {tab:14} {len(rows):4d} rows → {path.relative_to(ROOT)}")
         except Exception as exc:  # noqa: BLE001 — report per-tab and continue
             errors.append(f"{tab}: {exc}")
             print(f"ERR {tab:14} {exc}", file=sys.stderr)
+
     update_sheets_js(version, sheet_id)
     print(f"OK  sheets.js       ADAM_DATA_VERSION={version}")
     meta = {
@@ -198,6 +277,7 @@ def snapshot(sheet_id: str, tabs: list[str] | None = None) -> int:
         "extracted": extracted,
         "version": version,
         "tabs": wanted,
+        "auth": "sheets_api_service_account",
     }
     (DATA / "snapshot.json").write_text(
         json.dumps(meta, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
@@ -224,8 +304,13 @@ def main() -> int:
         default=None,
         help="Subset of tabs to refresh (default: all)",
     )
+    ap.add_argument(
+        "--credentials",
+        default=None,
+        help="Path to service-account JSON key (or use GOOGLE_APPLICATION_CREDENTIALS / GOOGLE_SERVICE_ACCOUNT_JSON)",
+    )
     args = ap.parse_args()
-    return snapshot(args.sheet_id, args.tabs)
+    return snapshot(args.sheet_id, args.tabs, args.credentials)
 
 
 if __name__ == "__main__":

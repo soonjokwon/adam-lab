@@ -1,7 +1,7 @@
 # Sheet → committed JSON → main (GitHub Pages branch deploy).
-# Browser never reads the Sheet; this job refreshes data/*.json when the
-# public gviz CSV changes. No Google secrets required while the sheet stays
-# link-shared as Viewer.
+# Browser never reads the Sheet. Actions uses Sheets API + a service account
+# (repo secret GOOGLE_SERVICE_ACCOUNT_JSON). Share the private sheet Viewer
+# with the SA email. Do not log or commit the key.
 name: Snapshot sheet → Pages
 
 on:
@@ -32,10 +32,19 @@ jobs:
         with:
           python-version: "3.12"
 
+      - name: Write Google SA credentials
+        env:
+          GOOGLE_SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_JSON }}
+        run: |
+          if [ -z "$GOOGLE_SERVICE_ACCOUNT_JSON" ]; then echo "Missing secrets.GOOGLE_SERVICE_ACCOUNT_JSON"; exit 1; fi
+          umask 077
+          printf '%s' "$GOOGLE_SERVICE_ACCOUNT_JSON" > "$RUNNER_TEMP/sa.json"
+          echo "GOOGLE_APPLICATION_CREDENTIALS=$RUNNER_TEMP/sa.json" >> "$GITHUB_ENV"
+
       - name: Install snapshot dependencies
         run: |
-          # scripts/snapshot_sheet.py uses the Python standard library only
           python3 -m pip install --upgrade pip
+          python3 -m pip install google-auth google-api-python-client
 
       - name: Snapshot sheet → data/*.json
         run: python3 scripts/snapshot_sheet.py
