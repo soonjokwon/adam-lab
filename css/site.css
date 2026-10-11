@@ -147,18 +147,21 @@ a:hover { color: var(--navy); }
 }
 
 
+/* Photos band: Instagram sits immediately beside the h2 title */
 .band__inner--with-action {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 12px;
+  justify-content: flex-start;
+  gap: 10px;
 }
+.band__inner--with-action h2 { margin: 0; }
 .band-ig {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 36px;
-  height: 36px;
+  flex: 0 0 auto;
+  width: 32px;
+  height: 32px;
   border-radius: 8px;
   color: #fff;
   border: 1px solid rgba(255, 255, 255, 0.35);

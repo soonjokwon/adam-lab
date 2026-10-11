@@ -9,8 +9,6 @@
   var mount = document.getElementById("adam-gallery");
   if (!mount) return;
   var GROUP = { PNU: "ADAM Lab@PNU", KIT: "DADI Lab@KIT" };
-  var IG = window.ADAM_INSTAGRAM_URL ||
-    "https://www.instagram.com/pnu_adam_lab?stkn=eWJlOHk4cHp6MDVt&utm_source=qr";
   var state = { items: [], group: (A.params.get("group") || "all").toUpperCase(), open: -1, shown: [], albums: [] };
   if (state.group === "ALL") state.group = "all";
   var refs = {};
@@ -18,8 +16,7 @@
     prev: '<svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M10.2 2.4 4.6 8l5.6 5.6" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>',
     next: '<svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M5.8 2.4 11.4 8l-5.6 5.6" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>',
     full: '<svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M9 2.5h4.5V7M13.5 2.5 7.5 8.5M6.5 3.5h-4v10h10v-4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>',
-    close: '<svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="m3 3 10 10M13 3 3 13" stroke="currentColor" stroke-width="1.6"/></svg>',
-    ig: '<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="1.7"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.7"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor"/></svg>'
+    close: '<svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="m3 3 10 10M13 3 3 13" stroke="currentColor" stroke-width="1.6"/></svg>'
   };
 
   function thumbOf(url) {
@@ -77,18 +74,10 @@
     mount.innerHTML = "";
     refs.chips = el("div", { class: "ax-chips", role: "group", "aria-label": "앨범" });
     refs.count = el("span", { class: "ax-count", "aria-live": "polite" });
-    refs.ig = el("a", {
-      class: "gl-ig",
-      href: IG,
-      target: "_blank",
-      rel: "noopener",
-      title: "ADAM Lab Instagram",
-      "aria-label": "ADAM Lab Instagram"
-    });
-    refs.ig.innerHTML = ICON.ig;
     refs.grid = el("div", { class: "gl-grid" });
+    /* Instagram shortcut lives beside the Photos band title (board/index.html). */
     var root = el("div", { class: "ax-root gl" }, [
-      el("div", { class: "ax-bar" }, [refs.chips, el("span", { class: "ax-grow" }), refs.ig, refs.count]),
+      el("div", { class: "ax-bar" }, [refs.chips, el("span", { class: "ax-grow" }), refs.count]),
       refs.grid
     ]);
     mount.appendChild(root);

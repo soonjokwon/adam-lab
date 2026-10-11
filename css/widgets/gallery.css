@@ -34,16 +34,6 @@
 }
 .gl-year::after { content: ""; flex: 1; height: 1px; background: var(--line); }
 
-/* Instagram shortcut in gallery toolbar */
-.gl-ig {
-  display: inline-flex; align-items: center; justify-content: center;
-  width: 34px; height: 34px; margin-right: 6px;
-  border: 1px solid var(--line); border-radius: 8px;
-  color: var(--navy); text-decoration: none;
-  transition: background 0.18s var(--ease), border-color 0.18s var(--ease);
-}
-.gl-ig:hover { background: var(--grid); border-color: var(--navy); color: var(--navy); }
-
 /* Same-topic album carousel (Sites-style) — slide crossfade */
 .gl-card--carousel { cursor: zoom-in; }
 .gl-carousel-stage { position: relative; }
