@@ -2,7 +2,7 @@
  "lab": "ADAM Lab@PNU",
  "source": "https://docs.google.com/spreadsheets/d/1bmfsOkVl16OJ2KWzWJG6NtV5Ds98fXKnSiRtxKxgzlw",
  "sheet_tab": "publications",
- "extracted": "2026-10-11T15:22:18Z",
+ "extracted": "2026-10-11T17:16:31Z",
  "note": "type: journal-intl | journal-kr | conf-intl | conf-kr | in-prep | other.",
  "columns": [
   "type",
@@ -1932,7 +1932,7 @@
    "year": "2025",
    "authors": "한서희, 박현석, 이미르, 이주호, 권순조",
    "title": "LLM을 활용한 3D CAD 모델링 교육용 맞춤형 피드백 생성",
-   "topics": "llm; edu",
+   "topics": "llm; cad; edu",
    "venue": "한국CDE학회 2025 동계학술대회",
    "details": "모나 용평, 평창, 2025.02.19~22. (02.21.)",
    "date": "2025-02-21",

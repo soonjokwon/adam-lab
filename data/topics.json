@@ -2,8 +2,8 @@
  "lab": "ADAM Lab@PNU",
  "source": "https://docs.google.com/spreadsheets/d/1bmfsOkVl16OJ2KWzWJG6NtV5Ds98fXKnSiRtxKxgzlw",
  "sheet_tab": "topics",
- "extracted": "2026-10-11T15:22:18Z",
- "note": "topic_key (id in publications/patents topics cells); label_en / label_ko / label_short (tag text); aliases (semicolon-separated); sort; active Y/N; color optional.",
+ "extracted": "2026-10-11T17:16:31Z",
+ "note": "topic_key (id in publications/patents/talks topics cells); label_en / label_ko / label_short (tag text); aliases (semicolon-separated); sort; active Y/N; color optional.",
  "columns": [
   "topic_key",
   "label_en",
