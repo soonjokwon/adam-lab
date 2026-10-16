@@ -2,7 +2,7 @@
  "lab": "ADAM Lab@PNU",
  "source": "https://docs.google.com/spreadsheets/d/1bmfsOkVl16OJ2KWzWJG6NtV5Ds98fXKnSiRtxKxgzlw",
  "sheet_tab": "talks",
- "extracted": "2026-10-11T17:30:09Z",
+ "extracted": "2026-10-16T13:14:28Z",
  "note": "Invited talks. topics: same topic_key values as publications (e.g. am; rl).",
  "columns": [
   "date",
