@@ -2,7 +2,7 @@
  "lab": "ADAM Lab@PNU",
  "source": "https://docs.google.com/spreadsheets/d/1bmfsOkVl16OJ2KWzWJG6NtV5Ds98fXKnSiRtxKxgzlw",
  "sheet_tab": "publications",
- "extracted": "2026-10-16T13:15:28Z",
+ "extracted": "2026-10-16T13:15:59Z",
  "note": "type: journal-intl | journal-kr | conf-intl | conf-kr | in-prep | other.",
  "columns": [
   "type",
@@ -23,7 +23,7 @@
  ],
  "items": [
   {
-   "type": "",
+   "type": "in-prep",
    "no": "",
    "year": "",
    "authors": "",
