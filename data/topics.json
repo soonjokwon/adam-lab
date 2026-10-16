@@ -2,7 +2,7 @@
  "lab": "ADAM Lab@PNU",
  "source": "https://docs.google.com/spreadsheets/d/1bmfsOkVl16OJ2KWzWJG6NtV5Ds98fXKnSiRtxKxgzlw",
  "sheet_tab": "topics",
- "extracted": "2026-10-16T13:14:28Z",
+ "extracted": "2026-10-16T13:15:28Z",
  "note": "topic_key (id in publications/patents/talks topics cells); label_en / label_ko / label_short (tag text); aliases (semicolon-separated); sort; active Y/N; color optional.",
  "columns": [
   "topic_key",
@@ -192,6 +192,16 @@
    "label_short": "공정 계획",
    "aliases": "",
    "sort": "180",
+   "active": "Y",
+   "color": ""
+  },
+  {
+   "topic_key": "rb",
+   "label_en": "Robot",
+   "label_ko": "로봇",
+   "label_short": "로봇",
+   "aliases": "",
+   "sort": "190",
    "active": "Y",
    "color": ""
   }
